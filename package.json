@@ -1,0 +1,9 @@
+{
+  "name": "dirac-support-realtime",
+  "version": "2.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  }
+}

@@ -1,0 +1,2410 @@
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Konsol internal status dan live chat Dirac Group.">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#f4f5f7">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'sha256-bHAykYtRtzZuf8wfiTjI3zwkylvaA85soTzeL6A7Lto='; script-src 'self' 'sha256-s2JUazhDBSQOcl+uyN9maW/JGWtPBQTyf+BU1ULp3Ts=' https://challenges.cloudflare.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <title>Support Console — Dirac Group</title>
+  <style>:root {
+  color-scheme: light;
+  --canvas: #f4f5f7;
+  --surface: #ffffff;
+  --surface-soft: #f8f9fb;
+  --surface-strong: #eef1f5;
+  --ink: #101217;
+  --ink-soft: #303642;
+  --muted: #697180;
+  --faint: #9299a5;
+  --line: #e1e5ea;
+  --line-strong: #cfd5dd;
+  --brand: #2447d5;
+  --brand-hover: #1d3dbc;
+  --brand-soft: #e9edff;
+  --ok: #12834b;
+  --ok-soft: #e7f6ed;
+  --warn: #a96708;
+  --warn-soft: #fff3d8;
+  --danger: #c52e3b;
+  --danger-soft: #ffebed;
+  --unknown: #687183;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04), 0 5px 15px rgba(16, 24, 40, 0.035);
+  --shadow-lg: 0 24px 64px rgba(15, 23, 42, 0.10);
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 22px;
+  --header-h: 72px;
+  --content: 1120px;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #090b0f;
+  --surface: #101318;
+  --surface-soft: #151920;
+  --surface-strong: #1b2029;
+  --ink: #f5f7fa;
+  --ink-soft: #d7dce4;
+  --muted: #9ba3af;
+  --faint: #737b87;
+  --line: #262c35;
+  --line-strong: #343b46;
+  --brand: #86a2ff;
+  --brand-hover: #9bb2ff;
+  --brand-soft: #1b264f;
+  --ok: #50cf84;
+  --ok-soft: #112e20;
+  --warn: #e1a23b;
+  --warn-soft: #30230e;
+  --danger: #ff7681;
+  --danger-soft: #3a171d;
+  --unknown: #a9b0ba;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .20), 0 8px 24px rgba(0, 0, 0, .14);
+  --shadow-lg: 0 28px 72px rgba(0, 0, 0, .34);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { min-height: 100%; scroll-behavior: smooth; background: var(--canvas); }
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -.006em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+button, input, textarea, select { color: inherit; font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+button { border: 0; }
+img, svg { display: block; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid color-mix(in srgb, var(--brand) 42%, transparent); outline-offset: 2px; }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.container { width: min(var(--content), calc(100% - 44px)); margin-inline: auto; }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  padding-top: env(safe-area-inset-top);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--canvas) 88%, transparent);
+  backdrop-filter: blur(18px) saturate(170%);
+}
+.header-inner { min-height: var(--header-h); display: flex; align-items: center; gap: 18px; }
+.brand { display: inline-flex; align-items: center; gap: 11px; min-width: 0; margin-right: auto; }
+.brand-mark {
+  width: 42px; height: 42px; flex: 0 0 42px; display: grid; place-items: center;
+  border: 1px solid color-mix(in srgb, var(--brand) 22%, var(--line)); border-radius: 13px;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--brand) 9%, var(--surface)), var(--surface));
+  box-shadow: var(--shadow-sm); color: var(--brand); font-size: 17px; font-weight: 850; letter-spacing: -.06em;
+}
+.brand-copy { min-width: 0; line-height: 1.15; }
+.brand-copy strong { display: block; font-size: 13px; font-weight: 790; letter-spacing: -.015em; white-space: nowrap; }
+.brand-copy span { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; font-weight: 580; white-space: nowrap; }
+.main-nav { display: flex; align-items: center; gap: 3px; }
+.main-nav a { min-height: 38px; display: flex; align-items: center; padding: 0 11px; border-radius: 10px; color: var(--muted); font-size: 11px; font-weight: 680; transition: background .18s ease, color .18s ease; }
+.main-nav a:hover, .main-nav a.active { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+.header-actions { display: flex; align-items: center; gap: 7px; }
+.icon-button, .soft-button, .primary-button, .danger-button, .ghost-button {
+  min-height: 38px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  border-radius: 10px; padding: 0 13px; cursor: pointer; font-size: 11px; font-weight: 720;
+  transition: transform .16s ease, background .16s ease, border-color .16s ease, opacity .16s ease;
+}
+.icon-button { width: 38px; padding: 0; border: 1px solid var(--line); background: var(--surface); }
+.soft-button, .ghost-button { border: 1px solid var(--line); background: var(--surface); }
+.primary-button { background: var(--brand); color: #fff; box-shadow: 0 8px 20px color-mix(in srgb, var(--brand) 24%, transparent); }
+html[data-theme="dark"] .primary-button { color: #07102f; }
+.danger-button { background: var(--danger); color: #fff; }
+.ghost-button { background: transparent; }
+.icon-button:hover, .soft-button:hover, .ghost-button:hover { background: var(--surface-soft); border-color: var(--line-strong); }
+.primary-button:hover { background: var(--brand-hover); }
+.icon-button:active, .soft-button:active, .primary-button:active, .danger-button:active, .ghost-button:active { transform: scale(.98); }
+button:disabled { cursor: not-allowed; opacity: .52; box-shadow: none; }
+
+.connection-pill { min-height: 30px; display: inline-flex; align-items: center; gap: 7px; padding: 0 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--muted); font-size: 10px; font-weight: 700; }
+.connection-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--unknown); box-shadow: 0 0 0 3px color-mix(in srgb, var(--unknown) 14%, transparent); }
+.connection-pill[data-state="live"] { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 25%, var(--line)); }
+.connection-pill[data-state="live"] .connection-dot { background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 14%, transparent); }
+.connection-pill[data-state="connecting"] .connection-dot { background: var(--warn); animation: pulse 1.7s ease-in-out infinite; }
+.connection-pill[data-state="offline"], .connection-pill[data-state="error"] { color: var(--danger); }
+.connection-pill[data-state="offline"] .connection-dot, .connection-pill[data-state="error"] .connection-dot { background: var(--danger); }
+@keyframes pulse { 0%, 100% { opacity: .48; transform: scale(.82); } 50% { opacity: 1; transform: scale(1); } }
+
+/* Status page */
+.status-hero { position: relative; isolation: isolate; overflow: hidden; padding: 62px 0 44px; border-bottom: 1px solid var(--line); }
+.status-hero::before { content: ""; position: absolute; z-index: -1; width: 720px; height: 420px; left: 12%; top: -285px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--brand) 14%, transparent), transparent 70%); }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 10px; font-weight: 780; text-transform: uppercase; letter-spacing: .11em; }
+.eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px var(--ok-soft); }
+.eyebrow-dot[data-state="degraded"], .eyebrow-dot[data-state="maintenance"] { background: var(--warn); box-shadow: 0 0 0 4px var(--warn-soft); }
+.eyebrow-dot[data-state="partial_outage"], .eyebrow-dot[data-state="major_outage"] { background: var(--danger); box-shadow: 0 0 0 4px var(--danger-soft); }
+.eyebrow-dot[data-state="unknown"] { background: var(--unknown); box-shadow: 0 0 0 4px color-mix(in srgb, var(--unknown) 12%, transparent); }
+.status-hero h1 { max-width: 770px; margin: 19px 0 0; font-size: clamp(39px, 5.6vw, 61px); line-height: 1.03; font-weight: 765; letter-spacing: -.052em; text-wrap: balance; }
+.status-hero-copy { max-width: 710px; margin: 15px 0 0; color: var(--muted); font-size: 15px; line-height: 1.7; text-wrap: pretty; }
+.hero-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 18px; margin-top: 25px; color: var(--muted); font-size: 10px; font-weight: 620; }
+.summary-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 720px; margin-top: 21px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.summary-item { padding: 14px 20px; border-right: 1px solid var(--line); }
+.summary-item:first-child { padding-left: 0; }
+.summary-item:last-child { border-right: 0; }
+.summary-item strong { display: block; font-size: 18px; line-height: 1.1; font-weight: 780; letter-spacing: -.03em; }
+.summary-item span { display: block; margin-top: 5px; color: var(--muted); font-size: 9.5px; font-weight: 610; }
+.page-section { padding: 48px 0; scroll-margin-top: calc(var(--header-h) + 18px); }
+.page-section + .page-section { border-top: 1px solid var(--line); }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 22px; margin-bottom: 18px; }
+.section-head h2 { margin: 0; font-size: 27px; line-height: 1.15; font-weight: 750; letter-spacing: -.035em; }
+.section-head p { max-width: 620px; margin: 7px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.section-tools { display: flex; align-items: center; gap: 8px; }
+.filter-row { display: inline-flex; padding: 3px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); }
+.filter-button { min-height: 30px; padding: 0 10px; border-radius: 8px; background: transparent; color: var(--muted); cursor: pointer; font-size: 9.5px; font-weight: 700; }
+.filter-button.active { background: var(--surface-strong); color: var(--ink); }
+.service-board { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-sm); }
+.service-group-label { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 20px; border-bottom: 1px solid var(--line); background: var(--surface-soft); color: var(--muted); font-size: 9px; font-weight: 690; }
+.service-group-label strong { color: var(--ink-soft); font-size: 10.5px; }
+.service-row { display: grid; grid-template-columns: minmax(210px, .8fr) minmax(340px, 1.35fr) 128px; align-items: center; gap: 24px; padding: 19px 21px; border-bottom: 1px solid var(--line); transition: background .16s ease; }
+.service-row:last-child { border-bottom: 0; }
+.service-row:hover { background: var(--surface-soft); }
+.service-copy h3 { margin: 0; font-size: 13px; font-weight: 760; letter-spacing: -.012em; }
+.service-copy p { margin: 4px 0 0; color: var(--muted); font-size: 10.5px; }
+.service-state { display: flex; justify-content: flex-end; align-items: center; gap: 7px; color: var(--ok); font-size: 10px; font-weight: 740; white-space: nowrap; }
+.service-state::before { content: ""; width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 12%, transparent); }
+.service-state[data-state="degraded"], .service-state[data-state="maintenance"] { color: var(--warn); }
+.service-state[data-state="partial_outage"], .service-state[data-state="major_outage"] { color: var(--danger); }
+.service-state[data-state="unknown"] { color: var(--unknown); }
+.uptime-bars { display: grid; grid-template-columns: repeat(30, minmax(2px, 1fr)); gap: 3px; height: 24px; }
+.uptime-day { position: relative; min-width: 0; border-radius: 4px; background: var(--ok); opacity: .88; transition: transform .16s var(--ease), opacity .16s ease; }
+.uptime-day:hover, .uptime-day:focus-visible { z-index: 2; transform: translateY(-2px) scaleY(1.09); opacity: 1; }
+.uptime-day[data-state="degraded"], .uptime-day[data-state="maintenance"] { background: var(--warn); }
+.uptime-day[data-state="partial_outage"], .uptime-day[data-state="major_outage"] { background: var(--danger); }
+.uptime-day[data-state="unknown"] { border: 1px dashed var(--faint); background: transparent; }
+.uptime-caption { display: flex; align-items: center; justify-content: space-between; margin-top: 7px; color: var(--faint); font-size: 8.5px; }
+.uptime-caption strong { color: var(--muted); font-size: 9px; }
+.empty-state { display: flex; align-items: flex-start; gap: 13px; padding: 21px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow-sm); }
+.empty-icon { width: 38px; height: 38px; flex: 0 0 38px; display: grid; place-items: center; border: 1px solid color-mix(in srgb, var(--ok) 28%, var(--line)); border-radius: 50%; background: var(--ok-soft); color: var(--ok); font-weight: 850; }
+.empty-state strong { display: block; font-size: 12px; font-weight: 760; }
+.empty-state p { margin: 4px 0 0; color: var(--muted); font-size: 11px; }
+.incident-list, .maintenance-list, .history-list { overflow: hidden; display: grid; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-sm); }
+.incident-card, .maintenance-card, .history-card { padding: 21px; border-bottom: 1px solid var(--line); }
+.incident-card:last-child, .maintenance-card:last-child, .history-card:last-child { border-bottom: 0; }
+.incident-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.incident-head h3, .maintenance-card h3, .history-card h3 { margin: 0; font-size: 13px; font-weight: 770; }
+.incident-head p, .maintenance-card p, .history-card p { margin: 6px 0 0; color: var(--muted); font-size: 11px; line-height: 1.58; }
+.badge { min-height: 25px; display: inline-flex; align-items: center; gap: 6px; padding: 0 9px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-soft); color: var(--muted); font-size: 8.5px; font-weight: 760; white-space: nowrap; }
+.badge.warn { border-color: color-mix(in srgb, var(--warn) 25%, var(--line)); background: var(--warn-soft); color: var(--warn); }
+.badge.danger { border-color: color-mix(in srgb, var(--danger) 24%, var(--line)); background: var(--danger-soft); color: var(--danger); }
+.badge.ok { border-color: color-mix(in srgb, var(--ok) 25%, var(--line)); background: var(--ok-soft); color: var(--ok); }
+.incident-progress { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; margin-top: 21px; }
+.incident-progress::before { content: ""; position: absolute; top: 12px; left: 8.33%; right: 8.33%; height: 2px; background: var(--line); }
+.progress-fill { position: absolute; z-index: 1; top: 12px; left: 8.33%; width: 83.34%; height: 2px; overflow: hidden; border: 0; appearance: none; background: transparent; color: var(--brand); }
+.progress-fill::-webkit-progress-bar { background: transparent; }
+.progress-fill::-webkit-progress-value { background: var(--brand); transition: width .5s var(--ease); }
+.progress-fill::-moz-progress-bar { background: var(--brand); transition: width .5s var(--ease); }
+.progress-step { position: relative; z-index: 2; min-width: 0; text-align: center; color: var(--faint); }
+.progress-node { width: 25px; height: 25px; display: grid; place-items: center; margin: 0 auto; border: 2px solid var(--line); border-radius: 50%; background: var(--surface); font-size: 8px; font-weight: 820; }
+.progress-step span { display: block; margin-top: 7px; padding-inline: 3px; font-size: 8px; font-weight: 660; line-height: 1.25; }
+.progress-step.complete, .progress-step.current { color: var(--brand); }
+.progress-step.complete .progress-node { border-color: var(--brand); background: var(--brand); color: #fff; }
+.progress-step.current .progress-node { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-soft); }
+.incident-timeline { position: relative; display: grid; gap: 13px; margin: 20px 0 0 11px; padding-left: 18px; border-left: 1px solid var(--line); }
+.timeline-entry { position: relative; }
+.timeline-entry::before { content: ""; position: absolute; left: -22px; top: 4px; width: 7px; height: 7px; border: 2px solid var(--brand); border-radius: 50%; background: var(--surface); }
+.timeline-entry strong { display: block; color: var(--ink-soft); font-size: 9.5px; font-weight: 750; }
+.timeline-entry time { margin-left: 5px; color: var(--faint); font-weight: 580; }
+.timeline-entry p { margin: 3px 0 0; color: var(--muted); font-size: 10.5px; }
+.component-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.component-chip { min-height: 21px; display: inline-flex; align-items: center; padding: 0 7px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 8px; font-weight: 650; }
+.maintenance-card { display: grid; grid-template-columns: 150px 1fr; gap: 20px; }
+.maintenance-time { color: var(--muted); font-size: 9px; font-weight: 690; }
+.history-card { display: grid; grid-template-columns: 140px 1fr; gap: 20px; }
+.history-date { color: var(--faint); font-size: 9px; font-weight: 650; }
+.skeleton { position: relative; overflow: hidden; color: transparent !important; background: var(--surface-strong) !important; border-color: transparent !important; }
+.skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--surface) 62%, transparent), transparent); animation: shimmer 1.45s infinite; }
+@keyframes shimmer { to { transform: translateX(100%); } }
+
+.site-footer { padding: 34px 0 max(28px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--surface); }
+.footer-grid { display: grid; grid-template-columns: 1.25fr .7fr .85fr; gap: 42px; }
+.footer-grid h2 { margin: 0 0 10px; color: var(--faint); font-size: 8px; font-weight: 780; text-transform: uppercase; letter-spacing: .12em; }
+.footer-grid p, .footer-grid a { color: var(--muted); font-size: 10.5px; line-height: 1.65; }
+.footer-links { display: grid; gap: 7px; }
+.footer-links a:hover { color: var(--ink); }
+.footer-bottom { display: flex; justify-content: space-between; gap: 16px; margin-top: 28px; padding-top: 15px; border-top: 1px solid var(--line); color: var(--faint); font-size: 9.5px; }
+
+/* Chat customer */
+.chat-page { min-height: 100vh; display: grid; grid-template-rows: auto 1fr; background: var(--canvas); }
+.chat-wrap { width: min(1100px, calc(100% - 36px)); min-height: 0; margin: 24px auto; display: grid; grid-template-columns: 340px minmax(0, 1fr); overflow: hidden; border: 1px solid var(--line); border-radius: 24px; background: var(--surface); box-shadow: var(--shadow-lg); }
+.chat-info { position: relative; overflow: hidden; padding: 34px; border-right: 1px solid var(--line); background: #172244; color: #fff; }
+.chat-info::before { content: ""; position: absolute; width: 360px; height: 360px; right: -230px; top: -215px; border: 1px solid rgba(255,255,255,.14); border-radius: 50%; box-shadow: 0 0 0 58px rgba(255,255,255,.025), 0 0 0 116px rgba(255,255,255,.018); }
+.chat-info > * { position: relative; z-index: 1; }
+.chat-info .brand-mark { border-color: rgba(255,255,255,.17); background: rgba(255,255,255,.09); color: #fff; box-shadow: none; }
+.chat-info-brand .brand-copy strong { color: #fff; }
+.chat-info-brand .brand-copy span { color: rgba(255,255,255,.58); }
+.chat-info h1 { margin: 52px 0 0; font-size: 31px; line-height: 1.08; font-weight: 730; letter-spacing: -.042em; }
+.chat-info > p { margin: 13px 0 0; color: rgba(255,255,255,.68); font-size: 12px; line-height: 1.65; }
+.trust-list { display: grid; gap: 16px; margin: 42px 0 0; padding: 0; list-style: none; }
+.trust-list li { display: grid; grid-template-columns: 29px 1fr; gap: 10px; align-items: start; }
+.trust-icon { width: 29px; height: 29px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.16); border-radius: 9px; background: rgba(255,255,255,.07); font-size: 12px; }
+.trust-list strong { display: block; font-size: 10.5px; }
+.trust-list span { display: block; margin-top: 2px; color: rgba(255,255,255,.58); font-size: 9.5px; line-height: 1.45; }
+.chat-shell { min-width: 0; min-height: 660px; display: grid; grid-template-rows: auto 1fr auto; background: var(--surface); }
+.chat-topbar { min-height: 70px; display: flex; align-items: center; gap: 13px; padding: 0 20px; border-bottom: 1px solid var(--line); }
+.agent-avatar { width: 38px; height: 38px; display: grid; place-items: center; flex: 0 0 38px; border-radius: 12px; background: var(--brand-soft); color: var(--brand); font-size: 12px; font-weight: 820; }
+.chat-topbar-copy { min-width: 0; margin-right: auto; }
+.chat-topbar-copy strong { display: block; font-size: 12px; font-weight: 760; }
+.chat-topbar-copy span { display: block; margin-top: 3px; color: var(--muted); font-size: 9.5px; }
+.chat-stage { min-height: 0; position: relative; overflow: hidden; }
+.chat-welcome { height: 100%; overflow-y: auto; display: grid; align-content: center; padding: 34px clamp(24px, 7vw, 72px); }
+.chat-welcome h2 { margin: 0; font-size: 26px; line-height: 1.15; font-weight: 740; letter-spacing: -.035em; }
+.chat-welcome > p { margin: 8px 0 24px; color: var(--muted); font-size: 11.5px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+.field { display: grid; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+.field label { color: var(--ink-soft); font-size: 9px; font-weight: 730; }
+.field small { color: var(--muted); font-size: 8.5px; }
+.input, .textarea, .select {
+  width: 100%; border: 1px solid var(--line); border-radius: 11px; background: var(--surface-soft); color: var(--ink);
+  transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+}
+.input, .select { min-height: 41px; padding: 0 12px; }
+.textarea { min-height: 96px; resize: vertical; padding: 11px 12px; line-height: 1.5; }
+.input:focus, .textarea:focus, .select:focus { outline: 0; border-color: var(--brand); background: var(--surface); box-shadow: 0 0 0 4px var(--brand-soft); }
+.consent-row { display: grid; grid-template-columns: 17px 1fr; gap: 8px; align-items: start; margin-top: 2px; color: var(--muted); font-size: 8.5px; line-height: 1.45; }
+.consent-row input { width: 15px; height: 15px; margin: 1px 0 0; accent-color: var(--brand); }
+.form-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 17px; }
+.privacy-note { max-width: 310px; color: var(--faint); font-size: 8px; line-height: 1.4; }
+.messages { height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 23px 22px; overscroll-behavior: contain; }
+.message { max-width: min(78%, 540px); display: grid; gap: 4px; animation: messageIn .28s var(--ease) both; }
+.message[data-sender="customer"] { align-self: flex-end; }
+.message[data-sender="admin"], .message[data-sender="system"] { align-self: flex-start; }
+.message-bubble { padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px 14px 14px 4px; background: var(--surface-soft); color: var(--ink-soft); font-size: 11.5px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.message[data-sender="customer"] .message-bubble { border-color: transparent; border-radius: 14px 14px 4px 14px; background: var(--brand); color: #fff; }
+html[data-theme="dark"] .message[data-sender="customer"] .message-bubble { color: #07102f; }
+.message[data-sender="system"] { align-self: center; max-width: 90%; text-align: center; }
+.message[data-sender="system"] .message-bubble { padding: 7px 10px; border: 0; background: transparent; color: var(--muted); font-size: 9.5px; }
+.message-meta { display: flex; align-items: center; gap: 5px; padding: 0 3px; color: var(--faint); font-size: 8px; }
+.message[data-sender="customer"] .message-meta { justify-content: flex-end; }
+@keyframes messageIn { from { opacity: 0; transform: translateY(7px) scale(.985); } to { opacity: 1; transform: none; } }
+.composer { padding: 13px 16px max(13px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--surface); }
+.composer-box { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 9px; padding: 7px 7px 7px 12px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface-soft); }
+.composer-box:focus-within { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-soft); }
+.composer textarea { field-sizing: content; max-height: 132px; min-height: 35px; resize: none; padding: 8px 0; border: 0; outline: 0; background: transparent; line-height: 1.45; font-size: 11.5px; }
+.send-button { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 11px; background: var(--brand); color: #fff; cursor: pointer; }
+html[data-theme="dark"] .send-button { color: #07102f; }
+.composer-meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 6px; color: var(--faint); font-size: 8px; }
+
+/* Admin console */
+.admin-body { overflow: hidden; }
+.admin-login { min-height: 100vh; display: grid; place-items: center; padding: 28px; background: var(--canvas); }
+.login-card { width: min(440px, 100%); padding: 30px; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow-lg); }
+.login-card h1 { margin: 28px 0 0; font-size: 26px; font-weight: 750; letter-spacing: -.04em; }
+.login-card > p { margin: 8px 0 22px; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.login-card .field + .field { margin-top: 12px; }
+.login-card .primary-button { width: 100%; min-height: 42px; margin-top: 17px; }
+.security-note { display: flex; gap: 9px; margin-top: 17px; padding: 11px; border-radius: 11px; background: var(--surface-soft); color: var(--muted); font-size: 8.5px; line-height: 1.5; }
+.mfa-enrollment { display: grid; grid-template-columns: 112px 1fr; gap: 14px; align-items: center; margin: 0 0 16px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-soft); }
+.mfa-enrollment img { width: 112px; height: 112px; border: 6px solid #fff; border-radius: 9px; background: #fff; }
+.mfa-enrollment strong { display: block; font-size: 10px; }
+.mfa-enrollment p { margin: 4px 0 8px; font-size: 8.5px; }
+.mfa-enrollment code { display: block; overflow-wrap: anywhere; color: var(--ink-soft); font: 650 8.5px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: .06em; }
+.admin-app { height: 100vh; display: grid; grid-template-rows: 60px minmax(0, 1fr); background: var(--canvas); }
+.admin-header { display: flex; align-items: center; gap: 14px; padding: 0 17px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.admin-header .brand-mark { width: 35px; height: 35px; flex-basis: 35px; border-radius: 11px; font-size: 14px; }
+.admin-tabs { display: inline-flex; align-items: center; gap: 3px; margin-left: 22px; }
+.admin-tab { min-height: 34px; padding: 0 11px; border-radius: 9px; background: transparent; color: var(--muted); cursor: pointer; font-size: 9.5px; font-weight: 700; }
+.admin-tab.active { background: var(--surface-strong); color: var(--ink); }
+.admin-user { display: flex; align-items: center; gap: 9px; margin-left: auto; }
+.admin-user-copy { text-align: right; }
+.admin-user-copy strong { display: block; font-size: 9.5px; }
+.admin-user-copy span { display: block; color: var(--muted); font-size: 8px; }
+.admin-avatar { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 10px; background: var(--brand-soft); color: var(--brand); font-size: 9px; font-weight: 820; }
+.admin-main { min-height: 0; }
+.inbox-layout { height: 100%; min-height: 0; display: grid; grid-template-columns: 315px minmax(360px, 1fr) 285px; }
+.inbox-panel, .thread-panel, .detail-panel { min-width: 0; min-height: 0; background: var(--surface); }
+.inbox-panel { border-right: 1px solid var(--line); }
+.detail-panel { border-left: 1px solid var(--line); }
+.panel-head { min-height: 66px; display: grid; align-content: center; gap: 3px; padding: 0 16px; border-bottom: 1px solid var(--line); }
+.panel-head-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.panel-head h2 { margin: 0; font-size: 12px; font-weight: 770; }
+.panel-head span { color: var(--muted); font-size: 8.5px; }
+.inbox-tools { padding: 11px 12px; border-bottom: 1px solid var(--line); }
+.search-box { position: relative; }
+.search-box .input { min-height: 36px; padding-left: 32px; font-size: 9.5px; }
+.search-box::before { content: "⌕"; position: absolute; z-index: 1; left: 11px; top: 7px; color: var(--faint); font-size: 14px; }
+.queue-filters { display: flex; gap: 5px; margin-top: 8px; overflow-x: auto; scrollbar-width: none; }
+.queue-filter { min-height: 27px; padding: 0 8px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--muted); cursor: pointer; font-size: 8px; font-weight: 700; white-space: nowrap; }
+.queue-filter.active { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); }
+.conversation-list { height: calc(100% - 126px); overflow-y: auto; }
+.conversation-row { width: 100%; display: grid; grid-template-columns: 36px 1fr auto; gap: 9px; align-items: start; padding: 12px; border-bottom: 1px solid var(--line); background: transparent; text-align: left; cursor: pointer; }
+.conversation-row:hover { background: var(--surface-soft); }
+.conversation-row.active { background: var(--brand-soft); }
+.conversation-avatar { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 11px; background: var(--surface-strong); color: var(--muted); font-size: 9px; font-weight: 820; }
+.conversation-main { min-width: 0; }
+.conversation-title { display: flex; gap: 7px; align-items: center; }
+.conversation-title strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 9.5px; }
+.conversation-main p { margin: 4px 0 0; overflow: hidden; color: var(--muted); font-size: 8.5px; text-overflow: ellipsis; white-space: nowrap; }
+.conversation-time { color: var(--faint); font-size: 7.5px; white-space: nowrap; }
+.unread-badge { min-width: 18px; height: 18px; display: grid; place-items: center; margin: 7px 0 0 auto; padding: 0 5px; border-radius: 999px; background: var(--brand); color: #fff; font-size: 7.5px; font-weight: 800; }
+.thread-panel { display: grid; grid-template-rows: 66px minmax(0, 1fr) auto; }
+.thread-placeholder { display: grid; place-items: center; padding: 28px; color: var(--muted); text-align: center; }
+.thread-placeholder strong { display: block; color: var(--ink-soft); font-size: 12px; }
+.thread-placeholder p { max-width: 310px; margin: 5px 0 0; font-size: 9.5px; }
+.detail-scroll { height: calc(100% - 66px); overflow-y: auto; padding: 15px; }
+.detail-section + .detail-section { margin-top: 19px; padding-top: 18px; border-top: 1px solid var(--line); }
+.detail-section h3 { margin: 0 0 10px; color: var(--faint); font-size: 8px; font-weight: 780; text-transform: uppercase; letter-spacing: .09em; }
+.detail-kv { display: grid; gap: 9px; }
+.detail-kv div { display: grid; gap: 2px; }
+.detail-kv span { color: var(--muted); font-size: 8px; }
+.detail-kv strong { overflow-wrap: anywhere; font-size: 9.5px; font-weight: 680; }
+.admin-actions { display: grid; gap: 7px; }
+.admin-actions .soft-button, .admin-actions .danger-button { width: 100%; justify-content: flex-start; }
+.status-console { height: 100%; overflow-y: auto; padding: 22px; }
+.console-container { width: min(1180px, 100%); margin: 0 auto; }
+.console-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+.console-title h1 { margin: 0; font-size: 24px; font-weight: 750; letter-spacing: -.035em; }
+.console-title p { margin: 5px 0 0; color: var(--muted); font-size: 10px; }
+.component-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.component-card { display: grid; gap: 11px; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow-sm); }
+.component-card-head { display: flex; justify-content: space-between; gap: 10px; }
+.component-card h3 { margin: 0; font-size: 10.5px; }
+.component-card p { margin: 3px 0 0; color: var(--muted); font-size: 8.5px; }
+.component-card .select { min-height: 34px; font-size: 9px; }
+.monitor-console { margin-top: 14px; }
+.monitor-list { display: grid; gap: 10px; }
+.monitor-row { display: grid; gap: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface-soft); }
+.monitor-row-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.monitor-row-head h3 { margin: 0; font-size: 10.5px; }
+.monitor-row-head p { margin: 3px 0 0; color: var(--muted); font-size: 8.5px; overflow-wrap: anywhere; }
+.monitor-form { display: grid; grid-template-columns: minmax(260px, 1fr) 112px 88px 88px; gap: 9px; align-items: end; }
+.monitor-form .field { min-width: 0; }
+.monitor-form .input { width: 100%; min-height: 36px; font-size: 9px; }
+.monitor-toggle { display: inline-flex; align-items: center; gap: 7px; min-height: 32px; color: var(--ink-soft); font-size: 9px; font-weight: 690; }
+.monitor-toggle input { width: 15px; height: 15px; accent-color: var(--brand); }
+.monitor-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+.monitor-form-footer { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.monitor-diagnostic { color: var(--muted); font-size: 8px; line-height: 1.5; }
+.console-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 13px; margin-top: 14px; }
+.console-card { padding: 17px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); box-shadow: var(--shadow-sm); }
+.console-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.console-card h2 { margin: 0; font-size: 12px; font-weight: 760; }
+.compact-form { display: grid; gap: 10px; }
+.compact-form .form-grid { gap: 9px; }
+.compact-form .input, .compact-form .select { min-height: 36px; font-size: 9.5px; }
+.compact-form .textarea { min-height: 74px; font-size: 9.5px; }
+
+.toast { position: fixed; z-index: 200; left: 50%; bottom: max(18px, calc(env(safe-area-inset-bottom) + 14px)); max-width: min(410px, calc(100vw - 30px)); padding: 10px 13px; border: 1px solid var(--line-strong); border-radius: 11px; background: color-mix(in srgb, var(--surface) 96%, transparent); color: var(--ink); box-shadow: var(--shadow-lg); font-size: 9.5px; font-weight: 680; opacity: 0; visibility: hidden; pointer-events: none; transform: translate(-50%, 9px); transition: opacity .18s ease, transform .2s var(--ease), visibility .18s; backdrop-filter: blur(14px); }
+.toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.error-box { padding: 10px 11px; border: 1px solid color-mix(in srgb, var(--danger) 25%, var(--line)); border-radius: 10px; background: var(--danger-soft); color: var(--danger); font-size: 9px; line-height: 1.5; }
+.offline-banner { padding: 9px 16px; border-bottom: 1px solid color-mix(in srgb, var(--warn) 25%, var(--line)); background: var(--warn-soft); color: var(--warn); font-size: 9px; font-weight: 670; text-align: center; }
+
+@media (max-width: 980px) {
+  .main-nav { display: none; }
+  .service-row { grid-template-columns: minmax(180px, .8fr) minmax(270px, 1.2fr) 112px; gap: 16px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid > :first-child { grid-column: 1 / -1; }
+  .chat-wrap { grid-template-columns: 280px minmax(0, 1fr); }
+  .chat-info { padding: 27px; }
+  .chat-info h1 { font-size: 27px; }
+  .inbox-layout { grid-template-columns: 285px minmax(350px, 1fr); }
+  .detail-panel { display: none; }
+  .component-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 720px) {
+  :root { --header-h: 64px; }
+  .container { width: min(var(--content), calc(100% - 30px)); }
+  .header-inner { gap: 10px; }
+  .brand-copy span { display: none; }
+  .header-actions .soft-button { display: none; }
+  .status-hero { padding: 43px 0 34px; }
+  .status-hero h1 { font-size: clamp(34px, 10vw, 43px); }
+  .status-hero-copy { font-size: 13px; }
+  .summary-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .summary-item { padding: 12px 10px; }
+  .summary-item:first-child { padding-left: 0; }
+  .summary-item strong { font-size: 15px; }
+  .summary-item span { font-size: 8px; }
+  .page-section { padding: 36px 0; }
+  .section-head { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .section-head h2 { font-size: 24px; }
+  .section-tools { width: 100%; overflow-x: auto; }
+  .service-board { border-radius: 17px; }
+  .service-row { grid-template-columns: minmax(0, 1fr) auto; gap: 10px 12px; padding: 16px 14px; }
+  .uptime-wrap { grid-column: 1 / -1; }
+  .service-state { align-self: start; }
+  .uptime-bars { height: 21px; gap: 2px; }
+  .incident-card, .maintenance-card, .history-card { padding: 16px; }
+  .incident-progress { overflow-x: auto; grid-template-columns: repeat(6, minmax(74px, 1fr)); padding-bottom: 7px; }
+  .incident-progress::before { left: 38px; right: 38px; }
+  .progress-fill { left: 38px; }
+  .maintenance-card, .history-card { grid-template-columns: 1fr; gap: 7px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 25px; }
+  .footer-grid > :first-child { grid-column: auto; }
+  .chat-page { display: block; }
+  .chat-page .site-header { position: relative; }
+  .chat-wrap { width: 100%; min-height: calc(100vh - var(--header-h)); margin: 0; grid-template-columns: 1fr; border: 0; border-radius: 0; box-shadow: none; }
+  .chat-info { display: none; }
+  .chat-shell { min-height: calc(100vh - var(--header-h)); }
+  .chat-welcome { align-content: start; padding: 30px 20px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+  .message { max-width: 88%; }
+  .admin-user-copy, .admin-tabs { display: none; }
+  .inbox-layout { grid-template-columns: 1fr; }
+  .inbox-panel { border-right: 0; }
+  .thread-panel, .detail-panel { display: none; }
+  .inbox-layout.thread-open .inbox-panel { display: none; }
+  .inbox-layout.thread-open .thread-panel { display: grid; }
+  .component-grid, .console-grid, .monitor-form { grid-template-columns: 1fr; }
+  .status-console { padding: 15px; }
+}
+
+@media (max-width: 410px) {
+  .brand-mark { width: 38px; height: 38px; flex-basis: 38px; }
+  .connection-pill { max-width: 115px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .summary-item strong { font-size: 14px; }
+  .summary-item span { line-height: 1.25; }
+  .form-actions { align-items: stretch; flex-direction: column-reverse; }
+  .form-actions .primary-button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
+@media print {
+  .site-header, .header-actions, .filter-row, .site-footer { display: none !important; }
+  :root { --canvas: #fff; --surface: #fff; --ink: #000; --muted: #333; --line: #bbb; }
+  .status-hero { padding-top: 20px; }
+  .service-board, .incident-list, .maintenance-list, .history-list { box-shadow: none; }
+}
+</style>
+</head>
+<body class="admin-body" data-dirac-page="admin">
+  <main class="admin-login" id="loginView">
+    <section class="login-card" id="passwordPanel">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">D</span><span class="brand-copy"><strong>Dirac Group</strong><span>Internal support console</span></span></div>
+      <h1>Masuk sebagai petugas</h1>
+      <p>Hanya akun Supabase Auth yang ada di allowlist staff aktif dan memenuhi kebijakan MFA yang dapat mengakses konsol ini.</p>
+      <div class="error-box" id="loginError" role="alert" hidden></div>
+      <form id="loginForm">
+        <div class="field"><label for="adminEmail">Email</label><input class="input" id="adminEmail" type="email" autocomplete="username" maxlength="254" required></div>
+        <div class="field"><label for="adminPassword">Password</label><input class="input" id="adminPassword" type="password" autocomplete="current-password" maxlength="256" required></div>
+        <div class="field"><label for="adminEnrollmentSecret">Secret bootstrap TOTP <span>(hanya saat enrollment)</span></label><input class="input" id="adminEnrollmentSecret" type="password" autocomplete="off" maxlength="256" aria-describedby="enrollmentSecretHint"><small id="enrollmentSecretHint">Biarkan kosong setelah autentikator berhasil didaftarkan; operator harus merotasinya setelah onboarding.</small></div>
+        <div class="field" id="adminTurnstileField" hidden><label>Verifikasi keamanan</label><div id="adminTurnstileWidget"></div></div>
+        <button class="primary-button" id="loginButton" type="submit">Lanjutkan secara aman</button>
+      </form>
+      <div class="security-note"><span>◇</span><span>Sesi admin disimpan sebagai cookie terenkripsi, HttpOnly, Secure, host-only, dan SameSite=Strict. Token Realtime hanya hidup di memori halaman.</span></div>
+    </section>
+
+    <section class="login-card" id="mfaPanel" hidden>
+      <div class="brand"><span class="brand-mark" aria-hidden="true">2F</span><span class="brand-copy"><strong>Verifikasi dua langkah</strong><span>Supabase Auth TOTP</span></span></div>
+      <h1>Masukkan kode autentikator</h1>
+      <p>Kode enam digit diperlukan sebelum sesi staff diterbitkan. Challenge hanya berlaku beberapa menit.</p>
+      <div class="mfa-enrollment" id="mfaEnrollment" hidden>
+        <img id="mfaQr" alt="QR code untuk mendaftarkan TOTP Dirac Support">
+        <div><strong>Daftarkan autentikator</strong><p>Scan QR ini sekali. Jika kamera tidak tersedia, masukkan secret berikut secara manual.</p><code id="mfaSecret"></code></div>
+      </div>
+      <div class="error-box" id="mfaError" role="alert" hidden></div>
+      <form id="mfaForm">
+        <div class="field"><label for="mfaCode">Kode TOTP</label><input class="input" id="mfaCode" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required></div>
+        <button class="primary-button" id="mfaButton" type="submit">Verifikasi &amp; masuk</button>
+      </form>
+      <button class="ghost-button" id="backToLogin" type="button">Kembali ke login</button>
+    </section>
+  </main>
+
+  <main class="admin-app" id="adminView" hidden>
+    <header class="admin-header">
+      <span class="brand-mark" aria-hidden="true">D</span>
+      <span class="brand-copy"><strong>Support Console</strong><span>Dirac Group</span></span>
+      <nav class="admin-tabs" aria-label="Modul admin">
+        <button class="admin-tab active" type="button" data-view="inbox">Live chat</button>
+        <button class="admin-tab" type="button" data-view="status">Status layanan</button>
+      </nav>
+      <span class="connection-pill" id="adminConnection" data-state="connecting"><span class="connection-dot"></span><span id="adminConnectionText">Menghubungkan…</span></span>
+      <div class="admin-user"><div class="admin-user-copy"><strong id="adminName">Petugas</strong><span id="adminRole">—</span></div><span class="admin-avatar" id="adminAvatar">AD</span></div>
+      <button class="icon-button" id="adminTheme" type="button" aria-label="Ganti tema">◐</button>
+      <button class="ghost-button" id="logoutButton" type="button">Keluar</button>
+    </header>
+
+    <div class="admin-main">
+      <section class="inbox-layout" id="inboxView">
+        <aside class="inbox-panel">
+          <div class="panel-head"><div class="panel-head-row"><h2>Antrean percakapan</h2><span id="queueCount">0 sesi</span></div><span>Urut berdasarkan aktivitas terbaru</span></div>
+          <div class="inbox-tools">
+            <div class="search-box"><input class="input" id="queueSearch" placeholder="Cari nama, subjek, atau kode…" aria-label="Cari percakapan"></div>
+            <div class="queue-filters" aria-label="Filter antrean">
+              <button class="queue-filter active" type="button" data-queue="active">Aktif</button>
+              <button class="queue-filter" type="button" data-queue="new">Baru</button>
+              <button class="queue-filter" type="button" data-queue="mine">Milik saya</button>
+              <button class="queue-filter" type="button" data-queue="closed">Selesai</button>
+            </div>
+          </div>
+          <div class="conversation-list" id="conversationList" aria-live="polite"></div>
+        </aside>
+
+        <section class="thread-panel">
+          <div class="panel-head" id="threadHead"><div class="panel-head-row"><h2 id="threadTitle">Pilih percakapan</h2><span class="badge" id="threadStatus" hidden>—</span></div><span id="threadSubtitle">Buka satu percakapan dari antrean.</span></div>
+          <div class="thread-placeholder" id="threadPlaceholder"><div><strong>Belum ada percakapan dipilih</strong><p>Riwayat pesan akan dimuat dengan cursor; kanal admin yang sama akan mengirim perubahan tanpa polling.</p></div></div>
+          <div class="messages" id="adminMessages" hidden></div>
+          <form class="composer" id="adminComposer" hidden>
+            <div class="composer-box"><textarea id="adminMessageInput" rows="1" maxlength="2000" placeholder="Balas sebagai Tim Dukungan…"></textarea><button class="send-button" id="adminSendButton" type="submit" aria-label="Kirim balasan">➜</button></div>
+            <div class="composer-meta"><span>Identitas admin ditetapkan oleh backend</span><span id="adminCharCount">0/2000</span></div>
+          </form>
+        </section>
+
+        <aside class="detail-panel">
+          <div class="panel-head"><h2>Detail pelanggan</h2><span>Data minimal untuk penanganan</span></div>
+          <div class="detail-scroll" id="detailScroll">
+            <section class="detail-section"><h3>Kontak</h3><div class="detail-kv"><div><span>Nama</span><strong id="detailName">—</strong></div><div><span>Email</span><strong id="detailEmail">—</strong></div><div><span>Kode sesi</span><strong id="detailCode">—</strong></div></div></section>
+            <section class="detail-section"><h3>Konteks</h3><div class="detail-kv"><div><span>Kategori</span><strong id="detailCategory">—</strong></div><div><span>Subjek</span><strong id="detailSubject">—</strong></div><div><span>Ditugaskan</span><strong id="detailAssignee">—</strong></div></div></section>
+            <section class="detail-section"><h3>Tindakan</h3><div class="admin-actions"><button class="soft-button" id="claimButton" type="button">Ambil percakapan</button><button class="soft-button" id="waitingButton" type="button">Tandai menunggu pelanggan</button><button class="soft-button" id="resolveButton" type="button">Selesaikan percakapan</button><button class="danger-button" id="blockButton" type="button">Blokir sesi</button></div></section>
+          </div>
+        </aside>
+      </section>
+
+      <section class="status-console" id="statusView" hidden>
+        <div class="console-container">
+          <div class="console-title"><div><h1>Status &amp; insiden</h1><p>Setiap perubahan ditulis server-side, diaudit, dan dikirim sebagai invalidasi kecil ke halaman publik.</p></div><button class="soft-button" id="reloadStatusButton" type="button">Muat ulang snapshot</button></div>
+          <div class="component-grid" id="componentGrid"></div>
+          <section class="console-card monitor-console">
+            <div class="console-card-head"><div><h2>Target pemantauan dinamis</h2><p class="monitor-diagnostic">URL disimpan per komponen dan dapat diganti tanpa mengubah source code atau redeploy. Hanya endpoint HTTPS publik yang diterima.</p></div><span class="badge" id="monitorTargetCount">0 aktif</span></div>
+            <div class="monitor-list" id="monitorGrid"></div>
+          </section>
+          <div class="console-grid">
+            <section class="console-card"><div class="console-card-head"><h2>Insiden aktif</h2><span class="badge" id="activeIncidentCount">0 aktif</span></div><div id="adminIncidentList"></div></section>
+            <section class="console-card"><div class="console-card-head"><h2>Buat insiden</h2><span class="badge danger">Audit wajib</span></div>
+              <form class="compact-form" id="incidentCreateForm">
+                <div class="field"><label for="incidentTitle">Judul publik</label><input class="input" id="incidentTitle" maxlength="140" required></div>
+                <div class="field"><label for="incidentSummary">Keterangan awal</label><textarea class="textarea" id="incidentSummary" maxlength="2000" required></textarea></div>
+                <div class="form-grid"><div class="field"><label for="incidentImpact">Dampak</label><select class="select" id="incidentImpact"><option value="minor">Minor</option><option value="major">Major</option><option value="critical">Kritis</option></select></div><div class="field"><label for="incidentComponents">Komponen</label><select class="select" id="incidentComponents" multiple size="3"></select></div></div>
+                <button class="primary-button" type="submit">Publikasikan insiden</button>
+              </form>
+            </section>
+          </div>
+          <div class="console-grid">
+            <section class="console-card"><div class="console-card-head"><h2>Pemeliharaan terjadwal</h2><span class="badge" id="adminMaintenanceCount">0 jadwal</span></div><div id="adminMaintenanceList"></div></section>
+            <section class="console-card"><div class="console-card-head"><h2>Jadwalkan pemeliharaan</h2><span class="badge warn">Publik</span></div>
+              <form class="compact-form" id="maintenanceForm">
+                <div class="field"><label for="maintenanceTitle">Judul</label><input class="input" id="maintenanceTitle" maxlength="140" required></div>
+                <div class="field"><label for="maintenanceMessage">Keterangan &amp; dampak</label><textarea class="textarea" id="maintenanceMessage" maxlength="2000" required></textarea></div>
+                <div class="form-grid"><div class="field"><label for="maintenanceStart">Mulai</label><input class="input" id="maintenanceStart" type="datetime-local" required></div><div class="field"><label for="maintenanceEnd">Selesai</label><input class="input" id="maintenanceEnd" type="datetime-local" required></div></div>
+                <div class="field"><label for="maintenanceComponents">Komponen</label><select class="select" id="maintenanceComponents" multiple size="3"></select></div>
+                <button class="primary-button" type="submit">Simpan jadwal</button>
+              </form>
+            </section>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>"use strict";
+(() => {
+  // public/assets/dirac-realtime.js
+  (function(global) {
+    "use strict";
+    const OPEN = 1;
+    const HEARTBEAT_MS = 25e3;
+    const MAX_BACKOFF_MS = 15e3;
+    function safeJson(value) {
+      try {
+        return JSON.parse(value);
+      } catch (_) {
+        return null;
+      }
+    }
+    function websocketUrl(httpUrl, apiKey) {
+      const url = new URL(httpUrl);
+      url.protocol = url.protocol === "https:" ? "wss:" : "ws:";
+      url.pathname = url.pathname.replace(/\/+$/, "") + "/realtime/v1/websocket";
+      url.search = "";
+      url.searchParams.set("apikey", apiKey);
+      url.searchParams.set("vsn", "1.0.0");
+      return url.toString();
+    }
+    class DiracRealtime {
+      constructor(options) {
+        this.url = String(options.url || "");
+        this.key = String(options.key || "");
+        this.token = String(options.token || "");
+        this.onState = typeof options.onState === "function" ? options.onState : function() {
+        };
+        this.socket = null;
+        this.topics = /* @__PURE__ */ new Map();
+        this.refs = /* @__PURE__ */ new Map();
+        this.ref = 0;
+        this.attempt = 0;
+        this.closed = false;
+        this.heartbeatTimer = 0;
+        this.heartbeatPending = false;
+        this.reconnectTimer = 0;
+        this.visibilityHandler = this._onVisibility.bind(this);
+        this.onlineHandler = this._onOnline.bind(this);
+        this.offlineHandler = this._onOffline.bind(this);
+        global.document.addEventListener("visibilitychange", this.visibilityHandler);
+        global.addEventListener("online", this.onlineHandler);
+        global.addEventListener("offline", this.offlineHandler);
+      }
+      subscribe(topic, event, handler, subscribed) {
+        const cleanTopic = String(topic || "").trim();
+        const cleanEvent = String(event || "*").trim();
+        if (!cleanTopic || typeof handler !== "function") throw new Error("REALTIME_SUBSCRIPTION_INVALID");
+        let entry = this.topics.get(cleanTopic);
+        if (!entry) {
+          entry = { handlers: /* @__PURE__ */ new Map(), subscribed: [], joined: false, joinRef: "" };
+          this.topics.set(cleanTopic, entry);
+        }
+        if (!entry.handlers.has(cleanEvent)) entry.handlers.set(cleanEvent, /* @__PURE__ */ new Set());
+        entry.handlers.get(cleanEvent).add(handler);
+        if (typeof subscribed === "function") entry.subscribed.push(subscribed);
+        if (this.socket && this.socket.readyState === OPEN && !entry.joined) this._join(cleanTopic, entry);
+        return () => {
+          const handlers = entry.handlers.get(cleanEvent);
+          if (handlers) handlers.delete(handler);
+        };
+      }
+      connect() {
+        if (this.closed || !global.navigator.onLine) return;
+        if (!this.url || !this.key) {
+          this.onState("error", "Konfigurasi Realtime belum lengkap.");
+          return;
+        }
+        if (this.socket && (this.socket.readyState === 0 || this.socket.readyState === OPEN)) return;
+        global.clearTimeout(this.reconnectTimer);
+        this.onState("connecting");
+        const socket = new WebSocket(websocketUrl(this.url, this.key));
+        this.socket = socket;
+        socket.addEventListener("open", () => {
+          if (socket !== this.socket || this.closed) return;
+          this.onState("connected");
+          this.heartbeatPending = false;
+          this.topics.forEach((entry, topic) => {
+            entry.joined = false;
+            this._join(topic, entry);
+          });
+          this._scheduleHeartbeat();
+        });
+        socket.addEventListener("message", (event) => {
+          if (socket !== this.socket || this.closed) return;
+          this._receive(safeJson(event.data));
+        });
+        socket.addEventListener("error", () => {
+          if (socket === this.socket) {
+            this.onState("error", "Koneksi realtime mengalami gangguan.");
+            try {
+              socket.close(4001, "transport_error");
+            } catch (_) {
+            }
+          }
+        });
+        socket.addEventListener("close", () => {
+          if (socket !== this.socket) return;
+          this.socket = null;
+          global.clearTimeout(this.heartbeatTimer);
+          this.heartbeatPending = false;
+          this.refs.clear();
+          this.topics.forEach((entry) => {
+            entry.joined = false;
+            entry.joinRef = "";
+          });
+          if (!this.closed) this._scheduleReconnect();
+        });
+      }
+      setAuth(token) {
+        this.token = String(token || "");
+        if (this.socket && this.socket.readyState === OPEN) {
+          this.topics.forEach((entry, topic) => {
+            if (entry.joined) this._push("realtime:" + topic, "access_token", { access_token: this.token }, entry.joinRef || null);
+            else this._join(topic, entry);
+          });
+        }
+      }
+      disconnect(permanent) {
+        if (permanent) this.closed = true;
+        global.clearTimeout(this.reconnectTimer);
+        global.clearTimeout(this.heartbeatTimer);
+        this.heartbeatPending = false;
+        this.refs.clear();
+        this.topics.forEach((entry) => {
+          entry.joined = false;
+          entry.joinRef = "";
+        });
+        if (this.socket) {
+          try {
+            this.socket.close(1e3, "client_close");
+          } catch (_) {
+          }
+        }
+        this.socket = null;
+        if (permanent) {
+          global.document.removeEventListener("visibilitychange", this.visibilityHandler);
+          global.removeEventListener("online", this.onlineHandler);
+          global.removeEventListener("offline", this.offlineHandler);
+        }
+        this.onState(permanent ? "closed" : "offline");
+      }
+      _join(topic, entry) {
+        const ref = this._nextRef();
+        entry.joinRef = ref;
+        this.refs.set(ref, { type: "join", topic });
+        this._push("realtime:" + topic, "phx_join", {
+          config: {
+            broadcast: { ack: false, self: false },
+            presence: { enabled: false },
+            private: true
+          },
+          access_token: this.token || void 0
+        }, ref);
+      }
+      _push(topic, event, payload, joinRef) {
+        if (!this.socket || this.socket.readyState !== OPEN) return false;
+        const ref = event === "phx_join" && joinRef ? joinRef : this._nextRef();
+        this.socket.send(JSON.stringify({ topic, event, payload: payload || {}, ref, join_ref: joinRef || null }));
+        return true;
+      }
+      _receive(message) {
+        if (!message || typeof message !== "object") return;
+        if (message.event === "phx_reply" && String(message.topic || "") === "phoenix") {
+          this.heartbeatPending = false;
+          return;
+        }
+        if (message.event === "phx_reply" && message.ref && this.refs.has(String(message.ref))) {
+          const pending = this.refs.get(String(message.ref));
+          this.refs.delete(String(message.ref));
+          if (pending.type === "join") {
+            const entry2 = this.topics.get(pending.topic);
+            const ok = message.payload && message.payload.status === "ok";
+            if (entry2) entry2.joined = ok;
+            if (ok && entry2) {
+              const reconnected = this.attempt > 0;
+              this.attempt = 0;
+              this.onState("live");
+              entry2.subscribed.forEach((callback) => {
+                try {
+                  callback({ topic: pending.topic, reconnected });
+                } catch (_) {
+                }
+              });
+            } else {
+              this.onState("error", "Izin kanal realtime ditolak.");
+              if (this.socket) {
+                try {
+                  this.socket.close(4e3, "join_rejected");
+                } catch (_) {
+                }
+              }
+            }
+          }
+          return;
+        }
+        if (message.event === "phx_error" || message.event === "phx_close") {
+          const rawTopic2 = String(message.topic || "");
+          const topic2 = rawTopic2.indexOf("realtime:") === 0 ? rawTopic2.slice(9) : rawTopic2;
+          const entry2 = this.topics.get(topic2);
+          if (entry2) {
+            entry2.joined = false;
+            entry2.joinRef = "";
+          }
+          this.refs.forEach((pending, ref) => {
+            if (pending.topic === topic2) this.refs.delete(ref);
+          });
+          this.onState("error", "Kanal realtime terputus.");
+          if (this.socket) {
+            try {
+              this.socket.close(4002, "channel_closed");
+            } catch (_) {
+            }
+          }
+          return;
+        }
+        if (message.event !== "broadcast" || !message.payload) return;
+        const rawTopic = String(message.topic || "");
+        const topic = rawTopic.indexOf("realtime:") === 0 ? rawTopic.slice(9) : rawTopic;
+        const entry = this.topics.get(topic);
+        if (!entry) return;
+        const eventName = String(message.payload.event || "");
+        const data = message.payload.payload === void 0 ? message.payload : message.payload.payload;
+        const selected = [];
+        if (entry.handlers.has(eventName)) selected.push(...entry.handlers.get(eventName));
+        if (entry.handlers.has("*")) selected.push(...entry.handlers.get("*"));
+        selected.forEach((handler) => {
+          try {
+            handler(data, eventName);
+          } catch (_) {
+          }
+        });
+      }
+      _scheduleHeartbeat() {
+        global.clearTimeout(this.heartbeatTimer);
+        if (this.closed || !this.socket || this.socket.readyState !== OPEN) return;
+        this.heartbeatTimer = global.setTimeout(() => {
+          if (this.closed || !this.socket || this.socket.readyState !== OPEN) return;
+          if (this.heartbeatPending) {
+            this.onState("error", "Heartbeat realtime tidak dijawab.");
+            try {
+              this.socket.close(4003, "heartbeat_timeout");
+            } catch (_) {
+            }
+            return;
+          }
+          this.heartbeatPending = this._push("phoenix", "heartbeat", {});
+          this._scheduleHeartbeat();
+        }, HEARTBEAT_MS);
+      }
+      _scheduleReconnect() {
+        if (this.closed || !global.navigator.onLine || global.document.visibilityState === "hidden") {
+          this.onState("offline");
+          return;
+        }
+        this.attempt += 1;
+        const base = Math.min(MAX_BACKOFF_MS, 500 * Math.pow(2, Math.min(this.attempt - 1, 5)));
+        const delay = Math.round(base * (0.82 + Math.random() * 0.36));
+        this.onState("connecting", "Menyambungkan kembali…");
+        global.clearTimeout(this.reconnectTimer);
+        this.reconnectTimer = global.setTimeout(() => this.connect(), delay);
+      }
+      _onVisibility() {
+        if (global.document.visibilityState === "hidden") {
+          if (this.socket) {
+            try {
+              this.socket.close(1e3, "page_hidden");
+            } catch (_) {
+            }
+          }
+          return;
+        }
+        if (!this.closed && (!this.socket || this.socket.readyState > OPEN)) this.connect();
+      }
+      _onOnline() {
+        if (!this.closed) this.connect();
+      }
+      _onOffline() {
+        this.onState("offline");
+        if (this.socket) {
+          try {
+            this.socket.close();
+          } catch (_) {
+          }
+        }
+      }
+      _nextRef() {
+        this.ref = (this.ref + 1) % 1e9;
+        return String(this.ref);
+      }
+    }
+    function createApi(basePath) {
+      const endpoint = String(basePath || "/api/support");
+      let csrf = "";
+      let csrfRefresh = null;
+      let csrfRefreshPromise = null;
+      async function request(action, options) {
+        const config = options || {};
+        const method = String(config.method || "GET").toUpperCase();
+        const url = new URL(endpoint, global.location.origin);
+        url.searchParams.set("action", action);
+        if (config.query && typeof config.query === "object") {
+          Object.keys(config.query).forEach(function(key) {
+            const value = config.query[key];
+            if (value !== void 0 && value !== null && value !== "") url.searchParams.set(key, String(value));
+          });
+        }
+        const headers = { Accept: "application/json" };
+        if (method !== "GET" && method !== "HEAD") headers["Content-Type"] = "application/json";
+        if (csrf && method !== "GET" && method !== "HEAD") headers["X-Dirac-CSRF"] = csrf;
+        if (config.idempotencyKey) headers["Idempotency-Key"] = config.idempotencyKey;
+        if (config.headers) Object.assign(headers, config.headers);
+        const response = await fetch(url.toString(), {
+          method,
+          credentials: "include",
+          cache: "no-store",
+          redirect: "error",
+          headers,
+          body: config.body === void 0 ? void 0 : JSON.stringify(config.body),
+          signal: config.signal
+        });
+        if (response.status === 304) return { notModified: true, response };
+        const data = await response.json().catch(function() {
+          return null;
+        });
+        if (data && typeof data.csrfToken === "string") csrf = data.csrfToken;
+        if (!response.ok || !data) {
+          if (response.status === 403 && data && data.code === "CSRF_INVALID" && !config.csrfRetried && typeof csrfRefresh === "function") {
+            if (!csrfRefreshPromise) csrfRefreshPromise = Promise.resolve().then(csrfRefresh).finally(function() {
+              csrfRefreshPromise = null;
+            });
+            await csrfRefreshPromise;
+            return request(action, Object.assign({}, config, { csrfRetried: true }));
+          }
+          const error = new Error(data && data.message ? data.message : "Permintaan belum dapat diproses.");
+          error.code = data && data.code ? data.code : "REQUEST_FAILED";
+          error.status = response.status;
+          error.data = data;
+          throw error;
+        }
+        return { data, response };
+      }
+      request.setCsrf = function(value) {
+        csrf = String(value || "");
+      };
+      request.getCsrf = function() {
+        return csrf;
+      };
+      request.setCsrfRefresh = function(callback) {
+        csrfRefresh = typeof callback === "function" ? callback : null;
+      };
+      return request;
+    }
+    global.DiracRealtime = DiracRealtime;
+    global.createDiracApi = createApi;
+  })(window);
+
+  // public/assets/status.js
+  (function() {
+    "use strict";
+    if (document.body.dataset.diracPage !== "status") return;
+    const API = "/api/support";
+    const CACHE_KEY = "dirac-public-status-cache-v3";
+    const THEME_KEY = "dirac-status-theme";
+    const STAGES = ["detected", "investigating", "identified", "fixing", "monitoring", "resolved"];
+    const STAGE_LABELS = {
+      detected: "Terdeteksi",
+      investigating: "Investigasi",
+      identified: "Teridentifikasi",
+      fixing: "Perbaikan",
+      monitoring: "Pemantauan",
+      resolved: "Selesai"
+    };
+    const STAGE_DEFAULTS = {
+      detected: "Gangguan terdeteksi. Sistem telah memberi peringatan dan tim teknis mulai melakukan pemeriksaan.",
+      investigating: "Sedang diinvestigasi. Tim teknis menelusuri penyebab dan dampak gangguan.",
+      identified: "Penyebab telah diidentifikasi. Tim menyiapkan langkah pemulihan yang aman.",
+      fixing: "Perbaikan sedang diterapkan. Sebagian fungsi mungkin belum stabil selama proses pemulihan.",
+      monitoring: "Layanan telah kembali merespons. Kami memantau kestabilannya sebelum menyatakan insiden selesai.",
+      resolved: "Perbaikan selesai. Layanan telah kembali normal dan pemantauan pascainsiden telah dituntaskan."
+    };
+    const STATUS_LABELS = {
+      operational: "Normal",
+      degraded: "Performa menurun",
+      partial_outage: "Gangguan sebagian",
+      major_outage: "Gangguan besar",
+      maintenance: "Pemeliharaan",
+      unknown: "Belum terkonfirmasi"
+    };
+    const SERVICE_ORDER = [
+      ["website", "Website", "Situs publik dan halaman informasi", "Platform"],
+      ["authentication", "Authentication", "Login, registrasi, dan sesi pelanggan", "Platform"],
+      ["customer-dashboard", "Customer Dashboard", "Panel akun dan layanan pelanggan", "Platform"],
+      ["domain-services", "Domain Services", "Pencarian, pemesanan, dan pengelolaan domain", "Commerce"],
+      ["payments", "Payments", "Gateway dan status pembayaran", "Commerce"],
+      ["orders", "Orders", "Siklus pesanan dan riwayat transaksi", "Commerce"],
+      ["email-notifications", "Email & Notifications", "Pengiriman transaksional dan notifikasi", "Supporting systems"],
+      ["account-recovery", "Account Recovery", "Pemulihan akun dan passkey", "Supporting systems"],
+      ["ai-services", "AI Services", "Layanan aplikasi berbantuan AI", "Supporting systems"]
+    ];
+    const state = { snapshot: null, etag: "", realtime: null, filter: "all", invalidationTimer: 0, loading: false, dataUnavailable: false };
+    const $ = (selector, root) => (root || document).querySelector(selector);
+    const $$ = (selector, root) => Array.from((root || document).querySelectorAll(selector));
+    function el(tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== void 0) node.textContent = String(text);
+      return node;
+    }
+    function normalizeStatus(value) {
+      const clean = String(value || "unknown").toLowerCase().replace(/[ -]+/g, "_");
+      if (clean === "partial" || clean === "partialoutage") return "partial_outage";
+      if (clean === "outage" || clean === "major") return "major_outage";
+      return Object.prototype.hasOwnProperty.call(STATUS_LABELS, clean) ? clean : "unknown";
+    }
+    function safeDate(value) {
+      const date = value ? new Date(value) : null;
+      return date && !Number.isNaN(date.getTime()) ? date : null;
+    }
+    function formatDate(value, withTime) {
+      const date = safeDate(value);
+      if (!date) return "Waktu belum tersedia";
+      return new Intl.DateTimeFormat("id-ID", withTime ? { dateStyle: "medium", timeStyle: "short" } : { dateStyle: "medium" }).format(date);
+    }
+    function relativeDate(value) {
+      const date = safeDate(value);
+      if (!date) return "Belum ada snapshot terverifikasi";
+      const seconds = Math.max(0, Math.round((Date.now() - date.getTime()) / 1e3));
+      if (seconds < 60) return "Diperbarui beberapa detik lalu";
+      if (seconds < 3600) return "Diperbarui " + Math.floor(seconds / 60) + " menit lalu";
+      return "Diperbarui " + formatDate(date, true);
+    }
+    function toast(message) {
+      const host = $("#toast");
+      host.textContent = String(message || "");
+      host.classList.add("show");
+      window.clearTimeout(toast.timer);
+      toast.timer = window.setTimeout(() => host.classList.remove("show"), 2800);
+    }
+    function announce(message) {
+      $("#announcer").textContent = String(message || "");
+    }
+    function setConnection(status, message) {
+      const pill = $("#connectionPill");
+      const map = { connected: "Mengamankan kanal…", connecting: "Menghubungkan…", live: "Realtime aktif", offline: "Perangkat offline", error: "Realtime terganggu", closed: "Kanal ditutup" };
+      pill.dataset.state = status;
+      $("#connectionText").textContent = message || map[status] || "Menunggu";
+    }
+    function renderUnknownServices() {
+      return SERVICE_ORDER.map((item, index) => ({
+        id: item[0],
+        name: item[1],
+        description: item[2],
+        group: item[3],
+        displayOrder: index + 1,
+        status: "unknown",
+        uptime30d: null,
+        latencyMs: null,
+        days: []
+      }));
+    }
+    function mergeServices(input) {
+      const byId = new Map((Array.isArray(input) ? input : []).map((service) => [String(service.slug || service.id || "").toLowerCase(), service]));
+      const merged = SERVICE_ORDER.map((fallback, index) => {
+        const data = byId.get(fallback[0]) || {};
+        return Object.assign({ id: fallback[0], name: fallback[1], description: fallback[2], group: fallback[3], displayOrder: index + 1 }, data);
+      });
+      (Array.isArray(input) ? input : []).forEach((service) => {
+        const id = String(service.id || service.slug || "").toLowerCase();
+        if (id && !merged.some((row) => String(row.id || row.slug).toLowerCase() === id)) merged.push(service);
+      });
+      return merged;
+    }
+    function renderServices(services) {
+      const board = $("#serviceBoard");
+      board.replaceChildren();
+      const groups = /* @__PURE__ */ new Map();
+      mergeServices(services).forEach((service) => {
+        const group = String(service.group || service.groupName || "Services");
+        if (!groups.has(group)) groups.set(group, []);
+        groups.get(group).push(service);
+      });
+      groups.forEach((items, group) => {
+        const label = el("div", "service-group-label");
+        label.append(el("strong", "", group), el("span", "", items.length + " layanan"));
+        board.append(label);
+        items.forEach((service) => {
+          const status = normalizeStatus(service.status);
+          const row = el("article", "service-row");
+          row.dataset.status = status;
+          row.dataset.serviceId = String(service.id || service.slug || "");
+          const copy = el("div", "service-copy");
+          copy.append(el("h3", "", service.name || service.id || "Layanan"), el("p", "", service.description || "Layanan Dirac Group"));
+          const uptime = el("div", "uptime-wrap");
+          const bars = el("div", "uptime-bars");
+          bars.setAttribute("aria-label", "Ketersediaan 30 hari untuk " + (service.name || "layanan"));
+          const days = Array.isArray(service.days) ? service.days.slice(-30) : [];
+          for (let index = 0; index < 30; index += 1) {
+            const source = days[index] || { status: "unknown" };
+            const day = el("span", "uptime-day");
+            const dayStatus = normalizeStatus(source.status || source);
+            day.dataset.state = dayStatus;
+            day.tabIndex = 0;
+            const dateLabel = source.date || source.day ? formatDate(source.date || source.day, false) : "Hari " + (index + 1);
+            day.title = dateLabel + " — " + STATUS_LABELS[dayStatus] + (source.note ? ": " + source.note : "");
+            day.setAttribute("aria-label", day.title);
+            bars.append(day);
+          }
+          const caption = el("div", "uptime-caption");
+          const rawUptime = service.uptime30d !== void 0 ? service.uptime30d : service.uptime_30d;
+          const uptimeNumber = rawUptime === null || rawUptime === void 0 ? Number.NaN : Number(rawUptime);
+          caption.append(el("span", "", "30 hari lalu"), el("strong", "", Number.isFinite(uptimeNumber) ? uptimeNumber.toFixed(2) + "% uptime" : "Data belum tersedia"), el("span", "", "Hari ini"));
+          uptime.append(bars, caption);
+          const statusNode = el("div", "service-state", STATUS_LABELS[status]);
+          statusNode.dataset.state = status;
+          row.append(copy, uptime, statusNode);
+          board.append(row);
+        });
+      });
+      applyFilter();
+    }
+    function renderProgress(incident) {
+      const stage = STAGES.includes(incident.stage || incident.status) ? incident.stage || incident.status : "detected";
+      const currentIndex = STAGES.indexOf(stage);
+      const suppliedProgress = incident.progress === null || incident.progress === void 0 ? Number.NaN : Number(incident.progress);
+      const progress = Math.max(0, Math.min(100, Number.isFinite(suppliedProgress) ? suppliedProgress : Math.round(currentIndex / (STAGES.length - 1) * 100)));
+      const wrap = el("div", "incident-progress");
+      wrap.setAttribute("aria-label", "Tahap penanganan insiden: " + STAGE_LABELS[stage]);
+      const fill = el("progress", "progress-fill");
+      fill.max = 100;
+      fill.value = progress;
+      fill.textContent = progress + "%";
+      wrap.append(fill);
+      STAGES.forEach((name, index) => {
+        const step = el("div", "progress-step");
+        if (index < currentIndex) step.classList.add("complete");
+        if (index === currentIndex) {
+          step.classList.add("current");
+          step.setAttribute("aria-current", "step");
+        }
+        step.append(el("span", "progress-node", index < currentIndex ? "✓" : String(index + 1)), el("span", "", STAGE_LABELS[name]));
+        wrap.append(step);
+      });
+      return wrap;
+    }
+    function renderComponents(values) {
+      const wrap = el("div", "component-chips");
+      (Array.isArray(values) ? values : []).forEach((name) => wrap.append(el("span", "component-chip", typeof name === "string" ? name : name.name || name.slug || "Layanan")));
+      return wrap;
+    }
+    function renderIncidents(items) {
+      const host = $("#incidentList");
+      const list = Array.isArray(items) ? items : [];
+      if (state.dataUnavailable) {
+        host.replaceChildren(emptyState("?", "Status insiden belum terkonfirmasi", "Backend status belum dapat dijangkau. Halaman tidak menyimpulkan bahwa sistem normal sampai snapshot terverifikasi tersedia."));
+        return;
+      }
+      if (!list.length) {
+        host.replaceChildren(emptyState("✓", "Tidak ada insiden aktif", "Seluruh insiden publik pada snapshot terbaru telah selesai atau tidak ada gangguan yang sedang berlangsung."));
+        return;
+      }
+      const wrapper = el("div", "incident-list");
+      list.forEach((incident) => {
+        const stage = STAGES.includes(incident.stage || incident.status) ? incident.stage || incident.status : "detected";
+        const card = el("article", "incident-card");
+        const head = el("div", "incident-head");
+        const copy = el("div");
+        copy.append(el("h3", "", incident.title || "Insiden layanan"), el("p", "", incident.message || incident.summary || STAGE_DEFAULTS[stage]));
+        copy.append(renderComponents(incident.components));
+        const badge = el("span", "badge " + (stage === "monitoring" ? "warn" : "danger"), STAGE_LABELS[stage]);
+        head.append(copy, badge);
+        card.append(head, renderProgress(incident));
+        const updates = Array.isArray(incident.updates) ? incident.updates : [];
+        if (updates.length) {
+          const timeline = el("div", "incident-timeline");
+          updates.slice(-10).reverse().forEach((update) => {
+            const entry = el("div", "timeline-entry");
+            const title = el("strong", "", STAGE_LABELS[update.stage || update.status] || "Pembaruan");
+            const time = el("time", "", formatDate(update.createdAt || update.created_at || update.at, true));
+            title.append(time);
+            entry.append(title, el("p", "", update.message || update.summary || "Pembaruan penanganan telah dicatat."));
+            timeline.append(entry);
+          });
+          card.append(timeline);
+        }
+        wrapper.append(card);
+      });
+      host.replaceChildren(wrapper);
+    }
+    function renderMaintenance(items) {
+      const host = $("#maintenanceList");
+      const list = Array.isArray(items) ? items : [];
+      $("#maintenanceCount").textContent = list.length + " jadwal";
+      if (!list.length) {
+        host.replaceChildren(emptyState("✓", "Tidak ada pemeliharaan terjadwal", "Belum ada pekerjaan terencana yang dipublikasikan pada snapshot terbaru."));
+        return;
+      }
+      const wrapper = el("div", "maintenance-list");
+      list.forEach((item) => {
+        const card = el("article", "maintenance-card");
+        const time = el("div", "maintenance-time", formatDate(item.startsAt || item.starts_at, true));
+        const copy = el("div");
+        const head = el("div", "incident-head");
+        head.append(el("h3", "", item.title || "Pemeliharaan terjadwal"), el("span", "badge warn", item.status === "in_progress" ? "Sedang berlangsung" : "Terjadwal"));
+        copy.append(head, el("p", "", item.message || item.summary || item.impact || "Pekerjaan pemeliharaan terencana."), renderComponents(item.components));
+        card.append(time, copy);
+        wrapper.append(card);
+      });
+      host.replaceChildren(wrapper);
+    }
+    function renderHistory(items) {
+      const host = $("#historyList");
+      const list = Array.isArray(items) ? items : [];
+      if (!list.length) {
+        host.replaceChildren(emptyState("✓", "Belum ada riwayat insiden", "Tidak ada catatan insiden selesai pada rentang data yang dipublikasikan."));
+        return;
+      }
+      const wrapper = el("div", "history-list");
+      list.slice(0, 20).forEach((item) => {
+        const card = el("article", "history-card");
+        const date = el("div", "history-date", formatDate(item.resolvedAt || item.resolved_at || item.updatedAt, true));
+        const copy = el("div");
+        copy.append(el("h3", "", item.title || "Insiden terselesaikan"), el("p", "", item.message || item.summary || STAGE_DEFAULTS.resolved), renderComponents(item.components));
+        card.append(date, copy);
+        wrapper.append(card);
+      });
+      host.replaceChildren(wrapper);
+    }
+    function emptyState(icon, title, copy) {
+      const wrap = el("div", "empty-state");
+      const iconNode = el("div", "empty-icon", icon);
+      const text = el("div");
+      text.append(el("strong", "", title), el("p", "", copy));
+      wrap.append(iconNode, text);
+      return wrap;
+    }
+    function renderOverall(snapshot) {
+      const services = mergeServices(snapshot.services);
+      const statuses = services.map((service) => normalizeStatus(service.status));
+      let status = "operational";
+      if (statuses.includes("major_outage")) status = "major_outage";
+      else if (statuses.includes("partial_outage")) status = "partial_outage";
+      else if (statuses.includes("degraded")) status = "degraded";
+      else if (statuses.includes("maintenance")) status = "maintenance";
+      else if (statuses.includes("unknown")) status = "unknown";
+      const copy = {
+        operational: ["Seluruh sistem beroperasi normal", "Semua layanan yang dipantau beroperasi normal pada snapshot terbaru."],
+        degraded: ["Sebagian layanan mengalami penurunan", "Tim teknis sedang menangani penurunan performa pada satu atau lebih layanan."],
+        partial_outage: ["Gangguan sebagian sedang ditangani", "Sebagian fungsi belum tersedia. Ikuti progres insiden untuk melihat tahapan pemulihan."],
+        major_outage: ["Gangguan layanan sedang berlangsung", "Satu atau lebih layanan utama mengalami gangguan. Tim teknis sedang menjalankan proses pemulihan."],
+        maintenance: ["Pemeliharaan sedang berlangsung", "Sebagian layanan mungkin terbatas selama pekerjaan pemeliharaan terencana."],
+        unknown: ["Sebagian status belum terkonfirmasi", "Kami menampilkan data terakhir yang tersedia. Ketersediaan saat ini belum dapat dipastikan sepenuhnya."]
+      }[status];
+      $("#overallLabel").textContent = STATUS_LABELS[status];
+      $("#overallTitle").textContent = copy[0];
+      $("#overallCopy").textContent = copy[1];
+      $("#overallDot").dataset.state = status;
+      const operational = statuses.filter((value) => value === "operational").length;
+      const uptime = services.map((service) => {
+        const value = service.uptime30d !== void 0 ? service.uptime30d : service.uptime_30d;
+        return value === null || value === void 0 ? Number.NaN : Number(value);
+      }).filter(Number.isFinite);
+      $("#summaryServices").textContent = operational + "/" + services.length;
+      $("#summaryUptime").textContent = uptime.length ? (uptime.reduce((a, b) => a + b, 0) / uptime.length).toFixed(2) + "%" : "—";
+      $("#summaryIncidents").textContent = String((snapshot.incidents || []).length);
+      $("#generatedAt").textContent = relativeDate(snapshot.generatedAt || snapshot.generated_at);
+      $("#countAll").textContent = String(services.length);
+      $("#countOperational").textContent = String(operational);
+      $("#countIssues").textContent = String(services.length - operational);
+    }
+    function render(snapshot) {
+      state.snapshot = snapshot;
+      renderServices(snapshot.services || renderUnknownServices());
+      renderIncidents(snapshot.incidents);
+      renderMaintenance(snapshot.maintenance);
+      renderHistory(snapshot.incidentHistory || snapshot.incident_history);
+      renderOverall(snapshot);
+    }
+    function applyFilter() {
+      $$(".service-row").forEach((row) => {
+        row.hidden = !(state.filter === "all" || state.filter === "operational" && row.dataset.status === "operational" || state.filter === "issues" && row.dataset.status !== "operational");
+      });
+      $$(".service-group-label").forEach((label) => {
+        let next = label.nextElementSibling;
+        let visible = false;
+        while (next && !next.classList.contains("service-group-label")) {
+          if (next.classList.contains("service-row") && !next.hidden) visible = true;
+          next = next.nextElementSibling;
+        }
+        label.hidden = !visible;
+      });
+    }
+    async function loadSnapshot(manual, resubscribe) {
+      if (state.loading) return;
+      state.loading = true;
+      const button = $("#refreshButton");
+      button.disabled = true;
+      try {
+        const url = new URL(API, location.origin);
+        url.searchParams.set("action", "status_bootstrap");
+        const headers = { Accept: "application/json" };
+        if (state.etag) headers["If-None-Match"] = state.etag;
+        const response = await fetch(url.toString(), { credentials: "include", cache: "default", redirect: "error", headers });
+        if (response.status === 304) {
+          if (manual) toast("Status sudah menggunakan snapshot terbaru.");
+          return;
+        }
+        const data = await response.json().catch(() => null);
+        if (!response.ok || !data || data.ok !== true) throw new Error(data && data.message ? data.message : "Snapshot status belum tersedia.");
+        state.etag = response.headers.get("ETag") || data.etag || state.etag;
+        state.dataUnavailable = false;
+        render(data);
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), data }));
+        } catch (_) {
+        }
+        if (manual) toast("Status berhasil disegarkan.");
+        announce("Status layanan diperbarui.");
+        if (!state.realtime && data.realtime && data.realtime.url && data.realtime.key && data.realtime.topic) connectRealtime(data.realtime);
+        else if (resubscribe && state.realtime && data.realtime && data.realtime.token) state.realtime.setAuth(data.realtime.token);
+      } catch (error) {
+        if (!state.snapshot) {
+          state.dataUnavailable = true;
+          render({ generatedAt: null, services: renderUnknownServices(), incidents: [], maintenance: [], incidentHistory: [] });
+        }
+        setConnection(navigator.onLine ? "error" : "offline", navigator.onLine ? "Snapshot belum tersedia" : "Perangkat offline");
+        if (manual) toast(error.message || "Status belum dapat disegarkan.");
+      } finally {
+        state.loading = false;
+        button.disabled = false;
+      }
+    }
+    function connectRealtime(config) {
+      state.realtime = new window.DiracRealtime({ url: config.url, key: config.key, token: config.token || "", onState: setConnection });
+      state.realtime.subscribe(config.topic, "status_invalidated", (payload) => {
+        const revision = Number(payload && payload.revision);
+        const current = Number(state.snapshot && state.snapshot.revision);
+        if (Number.isFinite(revision) && Number.isFinite(current) && revision <= current) return;
+        window.clearTimeout(state.invalidationTimer);
+        state.invalidationTimer = window.setTimeout(() => loadSnapshot(false, false), 180);
+      }, () => loadSnapshot(false, true));
+      state.realtime.connect();
+    }
+    function loadCache() {
+      try {
+        const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+        if (cached && cached.data && Array.isArray(cached.data.services)) {
+          state.dataUnavailable = false;
+          render(cached.data);
+        }
+      } catch (_) {
+      }
+    }
+    function setupTheme() {
+      let theme = "";
+      try {
+        theme = localStorage.getItem(THEME_KEY) || "";
+      } catch (_) {
+      }
+      if (!theme) theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      const apply = (value) => {
+        document.documentElement.dataset.theme = value;
+        $("#themeButton").textContent = value === "dark" ? "☼" : "◐";
+        $("meta[name='theme-color']").content = value === "dark" ? "#090b0f" : "#f4f5f7";
+        try {
+          localStorage.setItem(THEME_KEY, value);
+        } catch (_) {
+        }
+      };
+      apply(theme);
+      $("#themeButton").addEventListener("click", () => apply(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
+    }
+    function init() {
+      setupTheme();
+      $("#year").textContent = String((/* @__PURE__ */ new Date()).getFullYear());
+      loadCache();
+      $$(".filter-button").forEach((button) => button.addEventListener("click", () => {
+        state.filter = button.dataset.filter;
+        $$(".filter-button").forEach((candidate) => {
+          const active = candidate === button;
+          candidate.classList.toggle("active", active);
+          candidate.setAttribute("aria-pressed", String(active));
+        });
+        applyFilter();
+      }));
+      $("#refreshButton").addEventListener("click", () => loadSnapshot(true, false));
+      window.addEventListener("online", () => {
+        setConnection("connecting");
+        if (!state.realtime) loadSnapshot(false, false);
+      });
+      window.addEventListener("offline", () => setConnection("offline"));
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible" && state.snapshot) $("#generatedAt").textContent = relativeDate(state.snapshot.generatedAt || state.snapshot.generated_at);
+      });
+      window.addEventListener("pagehide", () => {
+        if (state.realtime) state.realtime.disconnect(true);
+      }, { once: true });
+      loadSnapshot(false, false);
+    }
+    init();
+  })();
+
+  // public/assets/chat.js
+  (function() {
+    "use strict";
+    if (document.body.dataset.diracPage !== "chat") return;
+    const api = window.createDiracApi("/api/support");
+    api.setCsrfRefresh(() => api("chat_public_config"));
+    const state = { conversation: null, messages: /* @__PURE__ */ new Map(), realtime: null, publicConfig: null, sending: false, authRefreshing: false, lastAuthRefresh: 0, startIdempotencyKey: crypto.randomUUID(), turnstileId: null, turnstileToken: "" };
+    const $ = (selector) => document.querySelector(selector);
+    function el(tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== void 0) node.textContent = String(text);
+      return node;
+    }
+    function setConnection(status, message) {
+      const pill = $("#connectionPill");
+      const labels = { connecting: "Menghubungkan…", connected: "Memeriksa izin…", live: "Realtime aktif", offline: "Perangkat offline", error: "Koneksi terganggu", closed: "Kanal ditutup" };
+      pill.dataset.state = status;
+      $("#connectionText").textContent = message || labels[status] || "Menunggu";
+      if (status === "error" && state.conversation && !state.authRefreshing && Date.now() - state.lastAuthRefresh > 45e3) refreshRealtimeAuth();
+    }
+    function toast(message) {
+      const host = $("#toast");
+      host.textContent = String(message || "");
+      host.classList.add("show");
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(() => host.classList.remove("show"), 2700);
+    }
+    function showError(message) {
+      const host = $("#welcomeError");
+      host.textContent = String(message || "");
+      host.hidden = !message;
+    }
+    function formatTime(value) {
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? "" : new Intl.DateTimeFormat("id-ID", { hour: "2-digit", minute: "2-digit" }).format(date);
+    }
+    function normalizeMessage(raw) {
+      return {
+        id: String(raw.id || raw.message_id || ""),
+        sequence: Number(raw.sequence || 0),
+        sender: String(raw.sender || raw.sender_type || raw.sender_kind || "system"),
+        body: String(raw.body || ""),
+        createdAt: raw.createdAt || raw.created_at || (/* @__PURE__ */ new Date()).toISOString(),
+        status: raw.status || "sent"
+      };
+    }
+    function appendMessage(raw, scroll) {
+      const message = normalizeMessage(raw);
+      if (!message.id || state.messages.has(message.id)) return;
+      state.messages.set(message.id, message);
+      const item = el("article", "message");
+      item.dataset.sender = message.sender;
+      item.dataset.sequence = String(message.sequence);
+      item.dataset.messageId = message.id;
+      item.append(el("div", "message-bubble", message.body));
+      const meta = el("div", "message-meta");
+      meta.append(el("span", "", message.sender === "customer" ? "Anda" : message.sender === "admin" ? "Tim Dukungan" : "Sistem"), el("span", "", "·"), el("time", "", formatTime(message.createdAt)));
+      item.append(meta);
+      const list = $("#messageList");
+      const position = Array.from(list.children).find((child) => Number(child.dataset.sequence || 0) > message.sequence);
+      if (position) list.insertBefore(item, position);
+      else list.append(item);
+      if (scroll !== false) list.scrollTo({ top: list.scrollHeight, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    }
+    function showConversation(data) {
+      state.conversation = data.conversation;
+      $("#welcomePanel").hidden = true;
+      $("#messageList").hidden = false;
+      $("#composer").hidden = false;
+      $("#closeChatButton").hidden = false;
+      $("#chatSubtitle").textContent = data.conversation && data.conversation.status === "waiting_customer" ? "Tim kami menunggu balasan Anda" : "Percakapan #" + String(data.conversation.publicCode || data.conversation.public_code || data.conversation.id).slice(-8).toUpperCase();
+      (data.messages || []).sort((a, b) => Number(a.sequence || 0) - Number(b.sequence || 0)).forEach((message) => appendMessage(message, false));
+      $("#messageList").scrollTop = $("#messageList").scrollHeight;
+      if (data.realtime) connectRealtime(data.realtime);
+    }
+    function lastSequence() {
+      return Array.from(state.messages.values()).reduce((max, message) => Math.max(max, Number(message.sequence || 0)), 0);
+    }
+    async function syncThread() {
+      if (!state.conversation) return;
+      try {
+        const result = await api("chat_bootstrap", { query: { after_sequence: lastSequence() } });
+        (result.data.messages || []).forEach((message) => appendMessage(message, false));
+        if (result.data.conversation) state.conversation = result.data.conversation;
+        if (result.data.realtime && state.realtime) state.realtime.setAuth(result.data.realtime.token || "");
+        $("#messageList").scrollTop = $("#messageList").scrollHeight;
+      } catch (error) {
+        setConnection(navigator.onLine ? "error" : "offline", error.message);
+      }
+    }
+    function connectRealtime(config) {
+      if (state.realtime) state.realtime.disconnect(true);
+      state.realtime = new window.DiracRealtime({ url: config.url, key: config.key, token: config.token || "", onState: setConnection });
+      state.realtime.subscribe(config.topic, "message_created", (payload) => {
+        appendMessage(payload.message || payload, true);
+        if (payload.conversation) state.conversation = payload.conversation;
+      }, syncThread);
+      state.realtime.subscribe(config.topic, "session_changed", (payload) => {
+        if (payload && payload.conversation) state.conversation = payload.conversation;
+        if (payload && (payload.status === "closed" || payload.status === "blocked")) lockComposer(payload.status);
+      });
+      state.realtime.subscribe(config.topic, "message_redacted", (payload) => {
+        const node = document.querySelector('[data-message-id="' + CSS.escape(String(payload.message_id || "")) + '"] .message-bubble');
+        if (node) node.textContent = "Pesan telah disunting oleh petugas sesuai kebijakan keamanan.";
+      });
+      state.realtime.connect();
+    }
+    async function refreshRealtimeAuth() {
+      if (state.authRefreshing || !state.conversation) return;
+      state.authRefreshing = true;
+      state.lastAuthRefresh = Date.now();
+      try {
+        const result = await api("customer_access_refresh", { method: "POST", body: {} });
+        if (result.data.realtime) connectRealtime(result.data.realtime);
+      } catch (_) {
+      } finally {
+        state.authRefreshing = false;
+      }
+    }
+    function lockComposer(status) {
+      $("#messageInput").disabled = true;
+      $("#sendButton").disabled = true;
+      $("#chatSubtitle").textContent = status === "blocked" ? "Percakapan diblokir" : "Percakapan telah ditutup";
+      toast(status === "blocked" ? "Sesi ini diblokir oleh sistem keamanan." : "Percakapan telah ditutup.");
+    }
+    function loadTurnstile(siteKey) {
+      if (!siteKey) return;
+      $("#turnstileField").hidden = false;
+      const render = () => {
+        if (!window.turnstile || state.turnstileId !== null) return;
+        state.turnstileId = window.turnstile.render("#turnstileWidget", {
+          sitekey: siteKey,
+          theme: document.documentElement.dataset.theme === "dark" ? "dark" : "light",
+          callback: (token) => {
+            state.turnstileToken = token;
+          },
+          "expired-callback": () => {
+            state.turnstileToken = "";
+          }
+        });
+      };
+      if (window.turnstile) render();
+      else {
+        const script = document.createElement("script");
+        script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+        script.async = true;
+        script.defer = true;
+        script.addEventListener("load", render, { once: true });
+        document.head.append(script);
+      }
+    }
+    async function initializeSession() {
+      try {
+        const config = await api("chat_public_config");
+        state.publicConfig = config.data;
+        loadTurnstile(config.data.turnstileSiteKey || "");
+        if (config.data.hasSession) {
+          const bootstrap = await api("chat_bootstrap");
+          if (bootstrap.data.conversation) showConversation(bootstrap.data);
+          else setConnection("connected", "Siap memulai chat");
+        } else setConnection("connected", "Siap memulai chat");
+      } catch (error) {
+        setConnection(navigator.onLine ? "error" : "offline", "Layanan chat belum tersedia");
+        showError(error.message || "Layanan chat belum dapat dibuka.");
+      }
+    }
+    async function startChat(event) {
+      event.preventDefault();
+      showError("");
+      if (!$("#consent").checked) {
+        showError("Persetujuan pemrosesan percakapan wajib diberikan.");
+        return;
+      }
+      if (state.publicConfig && state.publicConfig.turnstileRequired && !state.turnstileToken) {
+        showError("Selesaikan verifikasi keamanan terlebih dahulu.");
+        return;
+      }
+      const button = $("#startButton");
+      button.disabled = true;
+      try {
+        const result = await api("chat_start", { method: "POST", idempotencyKey: state.startIdempotencyKey, body: {
+          name: $("#customerName").value,
+          email: $("#customerEmail").value,
+          category: $("#category").value,
+          subject: $("#subject").value,
+          message: $("#initialMessage").value,
+          website: $("#websiteField").value,
+          consent: true,
+          turnstileToken: state.turnstileToken
+        } });
+        state.startIdempotencyKey = crypto.randomUUID();
+        showConversation(result.data);
+        toast("Percakapan berhasil dibuka.");
+      } catch (error) {
+        showError(error.message || "Percakapan belum dapat dimulai.");
+        if (window.turnstile && state.turnstileId !== null) {
+          window.turnstile.reset(state.turnstileId);
+          state.turnstileToken = "";
+        }
+      } finally {
+        button.disabled = false;
+      }
+    }
+    async function sendMessage(event) {
+      event.preventDefault();
+      const input = $("#messageInput");
+      const body = input.value.trim();
+      if (!body || state.sending || !state.conversation || !navigator.onLine) {
+        if (!navigator.onLine) toast("Pesan tidak dikirim saat offline untuk mencegah duplikasi.");
+        return;
+      }
+      state.sending = true;
+      $("#sendButton").disabled = true;
+      const clientId = crypto.randomUUID();
+      try {
+        const result = await api("chat_send", { method: "POST", idempotencyKey: clientId, body: { conversationId: state.conversation.id, clientMessageId: clientId, body } });
+        if (result.data.message) appendMessage(result.data.message, true);
+        input.value = "";
+        resizeComposer();
+      } catch (error) {
+        toast(error.message || "Pesan belum dapat dikirim.");
+      } finally {
+        state.sending = false;
+        $("#sendButton").disabled = false;
+        input.focus();
+      }
+    }
+    async function closeChat() {
+      if (!state.conversation || !confirm("Tutup percakapan ini? Anda tidak dapat mengirim pesan lagi setelah ditutup.")) return;
+      try {
+        await api("chat_close", { method: "POST", body: { conversationId: state.conversation.id } });
+        lockComposer("closed");
+      } catch (error) {
+        toast(error.message || "Percakapan belum dapat ditutup.");
+      }
+    }
+    function resizeComposer() {
+      const input = $("#messageInput");
+      $("#charCount").textContent = input.value.length + "/2000";
+    }
+    function setupTheme() {
+      let theme = "";
+      try {
+        theme = localStorage.getItem("dirac-support-theme") || "";
+      } catch (_) {
+      }
+      if (!theme) theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      const apply = (value) => {
+        document.documentElement.dataset.theme = value;
+        $("#themeButton").textContent = value === "dark" ? "☼" : "◐";
+        $("meta[name='theme-color']").content = value === "dark" ? "#090b0f" : "#f4f5f7";
+        try {
+          localStorage.setItem("dirac-support-theme", value);
+        } catch (_) {
+        }
+      };
+      apply(theme);
+      $("#themeButton").addEventListener("click", () => apply(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
+    }
+    function init() {
+      setupTheme();
+      $("#startForm").addEventListener("submit", startChat);
+      $("#composer").addEventListener("submit", sendMessage);
+      $("#closeChatButton").addEventListener("click", closeChat);
+      $("#messageInput").addEventListener("input", resizeComposer);
+      $("#messageInput").addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+          event.preventDefault();
+          $("#composer").requestSubmit();
+        }
+      });
+      window.addEventListener("offline", () => setConnection("offline"));
+      window.addEventListener("pagehide", () => {
+        if (state.realtime) state.realtime.disconnect(true);
+      }, { once: true });
+      initializeSession();
+    }
+    init();
+  })();
+
+  // public/assets/admin.js
+  (function() {
+    "use strict";
+    if (document.body.dataset.diracPage !== "admin") return;
+    const api = window.createDiracApi("/api/support");
+    api.setCsrfRefresh(() => api("admin_public_config"));
+    const STAGES = ["detected", "investigating", "identified", "fixing", "monitoring", "resolved"];
+    const STAGE_LABELS = { detected: "Terdeteksi", investigating: "Investigasi", identified: "Teridentifikasi", fixing: "Perbaikan", monitoring: "Pemantauan", resolved: "Selesai" };
+    const STATUS_LABELS = { operational: "Normal", degraded: "Performa menurun", partial_outage: "Gangguan sebagian", major_outage: "Gangguan besar", maintenance: "Pemeliharaan", unknown: "Belum diketahui" };
+    const state = { admin: null, queue: [], queueFilter: "active", selected: null, messages: /* @__PURE__ */ new Map(), realtime: null, status: null, queueTimer: 0, statusTimer: 0, threadTimer: 0, threadSyncing: false, threadPending: false, threadRequest: 0, sending: false, mfaPending: false, authRefreshing: false, lastAuthRefresh: 0, publicConfig: null, turnstileId: null, turnstileToken: "" };
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+    function el(tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== void 0) node.textContent = String(text);
+      return node;
+    }
+    function showError(target, message) {
+      const host = $(target);
+      host.textContent = String(message || "");
+      host.hidden = !message;
+    }
+    function toast(message) {
+      const host = $("#toast");
+      host.textContent = String(message || "");
+      host.classList.add("show");
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(() => host.classList.remove("show"), 2700);
+    }
+    function formatTime(value, full) {
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? "—" : new Intl.DateTimeFormat("id-ID", full ? { dateStyle: "medium", timeStyle: "short" } : { hour: "2-digit", minute: "2-digit" }).format(date);
+    }
+    function initials(value) {
+      return String(value || "?").trim().split(/\s+/).slice(0, 2).map((part) => part.charAt(0)).join("").toUpperCase();
+    }
+    function setConnection(status, message) {
+      const pill = $("#adminConnection");
+      if (!pill) return;
+      const labels = { connecting: "Menghubungkan…", connected: "Memeriksa izin…", live: "Realtime aktif", offline: "Offline", error: "Koneksi terganggu", closed: "Ditutup" };
+      pill.dataset.state = status;
+      $("#adminConnectionText").textContent = message || labels[status] || "Menunggu";
+      if (status === "error" && state.admin && !state.authRefreshing && Date.now() - state.lastAuthRefresh > 45e3) refreshAdminRealtime();
+    }
+    async function refreshAdminRealtime() {
+      state.authRefreshing = true;
+      state.lastAuthRefresh = Date.now();
+      try {
+        const result = await api("admin_bootstrap");
+        if (result.data.realtime) connectRealtime(result.data.realtime);
+        state.queue = result.data.queue || state.queue;
+        state.status = result.data.status || state.status;
+        renderQueue();
+        if (state.status) renderStatusConsole();
+      } catch (error) {
+        if (error.status === 401 || error.status === 403) {
+          state.admin = null;
+          location.reload();
+        }
+      } finally {
+        state.authRefreshing = false;
+      }
+    }
+    async function publicBootstrap() {
+      try {
+        const config = await api("admin_public_config");
+        state.publicConfig = config.data;
+        if (!config.data.hasSession) loadAdminTurnstile(config.data.turnstileSiteKey || "");
+        const result = await api("admin_bootstrap");
+        openAdmin(result.data);
+      } catch (error) {
+        if (state.publicConfig && state.publicConfig.turnstileSiteKey) loadAdminTurnstile(state.publicConfig.turnstileSiteKey);
+        if (error.status !== 401 && error.status !== 403) showError("#loginError", error.message || "Konsol belum tersedia.");
+        setConnection("offline");
+      }
+    }
+    async function login(event) {
+      event.preventDefault();
+      showError("#loginError", "");
+      if (state.publicConfig && state.publicConfig.turnstileRequired && !state.turnstileToken) {
+        showError("#loginError", "Selesaikan verifikasi keamanan terlebih dahulu.");
+        return;
+      }
+      const button = $("#loginButton");
+      button.disabled = true;
+      try {
+        const result = await api("admin_login", { method: "POST", body: { email: $("#adminEmail").value, password: $("#adminPassword").value, enrollmentSecret: $("#adminEnrollmentSecret").value, turnstileToken: state.turnstileToken } });
+        $("#adminPassword").value = "";
+        $("#adminEnrollmentSecret").value = "";
+        if (result.data.mfaRequired) {
+          resetAdminTurnstile();
+          const enrollment = result.data.mfaEnrollment;
+          $("#mfaEnrollment").hidden = !enrollment;
+          if (enrollment) {
+            $("#mfaQr").src = enrollment.qrCode;
+            $("#mfaSecret").textContent = enrollment.secret;
+          }
+          state.mfaPending = true;
+          $("#passwordPanel").hidden = true;
+          $("#mfaPanel").hidden = false;
+          $("#mfaCode").focus();
+        } else openAdmin(result.data);
+      } catch (error) {
+        showError("#loginError", error.message || "Login ditolak.");
+        resetAdminTurnstile();
+      } finally {
+        button.disabled = false;
+      }
+    }
+    function loadAdminTurnstile(siteKey) {
+      if (!siteKey) return;
+      $("#adminTurnstileField").hidden = false;
+      const render = () => {
+        if (!window.turnstile || state.turnstileId !== null) return;
+        state.turnstileId = window.turnstile.render("#adminTurnstileWidget", {
+          sitekey: siteKey,
+          theme: document.documentElement.dataset.theme === "dark" ? "dark" : "light",
+          callback: (token) => {
+            state.turnstileToken = token;
+          },
+          "expired-callback": () => {
+            state.turnstileToken = "";
+          }
+        });
+      };
+      if (window.turnstile) render();
+      else {
+        const script = document.createElement("script");
+        script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+        script.async = true;
+        script.defer = true;
+        script.addEventListener("load", render, { once: true });
+        document.head.append(script);
+      }
+    }
+    function resetAdminTurnstile() {
+      state.turnstileToken = "";
+      if (window.turnstile && state.turnstileId !== null) window.turnstile.reset(state.turnstileId);
+    }
+    async function verifyMfa(event) {
+      event.preventDefault();
+      showError("#mfaError", "");
+      const button = $("#mfaButton");
+      button.disabled = true;
+      try {
+        const result = await api("admin_mfa_verify", { method: "POST", body: { code: $("#mfaCode").value } });
+        state.mfaPending = false;
+        openAdmin(result.data);
+      } catch (error) {
+        showError("#mfaError", error.message || "Kode verifikasi ditolak.");
+        $("#mfaCode").select();
+      } finally {
+        button.disabled = false;
+      }
+    }
+    function openAdmin(data) {
+      state.admin = data.admin;
+      const canManageOperations = ["lead", "admin"].includes(String(data.admin.role || ""));
+      $("#loginView").hidden = true;
+      $("#adminView").hidden = false;
+      $("#adminName").textContent = data.admin.displayName || data.admin.display_name || data.admin.email;
+      $("#adminRole").textContent = String(data.admin.role || "agent").replace("_", " ");
+      $("#adminAvatar").textContent = initials(data.admin.displayName || data.admin.email);
+      const statusTab = document.querySelector('.admin-tab[data-view="status"]');
+      if (statusTab) statusTab.hidden = !canManageOperations;
+      $("#blockButton").hidden = !canManageOperations;
+      state.queue = data.queue || [];
+      if (data.status) {
+        state.status = data.status;
+        renderStatusConsole();
+      }
+      renderQueue();
+      if (data.realtime) connectRealtime(data.realtime);
+    }
+    function connectRealtime(config) {
+      if (state.realtime) state.realtime.disconnect(true);
+      state.realtime = new window.DiracRealtime({ url: config.url, key: config.key, token: config.token || "", onState: setConnection });
+      state.realtime.subscribe(config.topic, "queue_changed", () => scheduleQueueSync(), syncQueue);
+      state.realtime.subscribe(config.topic, "message_created", (payload) => {
+        const conversationId = String(payload.conversation_id || payload.session_id || payload.message && payload.message.conversation_id || "");
+        if (state.selected && state.selected.id === conversationId) scheduleThreadSync();
+        scheduleQueueSync();
+      });
+      state.realtime.subscribe(config.topic, "session_changed", (payload) => {
+        if (state.selected && state.selected.id === String(payload.conversation_id || "")) scheduleThreadSync();
+        scheduleQueueSync();
+      });
+      state.realtime.subscribe(config.topic, "incident_changed", () => scheduleStatusSync());
+      state.realtime.subscribe(config.topic, "status_changed", () => scheduleStatusSync());
+      state.realtime.subscribe(config.topic, "monitor_config_changed", () => scheduleStatusSync());
+      state.realtime.connect();
+    }
+    function scheduleQueueSync() {
+      clearTimeout(state.queueTimer);
+      state.queueTimer = setTimeout(syncQueue, 180);
+    }
+    function scheduleStatusSync() {
+      clearTimeout(state.statusTimer);
+      state.statusTimer = setTimeout(syncStatus, 180);
+    }
+    function scheduleThreadSync() {
+      clearTimeout(state.threadTimer);
+      state.threadTimer = setTimeout(syncThread, 120);
+    }
+    async function syncQueue() {
+      try {
+        const result = await api("admin_queue", { query: { filter: state.queueFilter, limit: 50 } });
+        state.queue = result.data.queue || [];
+        renderQueue();
+      } catch (error) {
+        toast(error.message || "Antrean belum dapat disegarkan.");
+      }
+    }
+    async function syncThread() {
+      if (!state.selected) return;
+      if (state.threadSyncing) {
+        state.threadPending = true;
+        return;
+      }
+      const conversationId = state.selected.id;
+      const after = Math.max(0, ...Array.from(state.messages.values(), (message) => Number(message.sequence || 0)));
+      state.threadSyncing = true;
+      state.threadPending = false;
+      try {
+        const result = await api("admin_thread", { query: { conversation_id: conversationId, after_sequence: after, limit: 100 } });
+        if (!state.selected || state.selected.id !== conversationId) return;
+        state.selected = result.data.conversation || state.selected;
+        populateDetails(state.selected);
+        (result.data.messages || []).forEach((message) => appendAdminMessage(message, true));
+      } catch (error) {
+        toast(error.message || "Percakapan belum dapat disegarkan.");
+      } finally {
+        state.threadSyncing = false;
+        if (state.threadPending) scheduleThreadSync();
+      }
+    }
+    function filteredQueue() {
+      const query = $("#queueSearch").value.trim().toLowerCase();
+      return state.queue.filter((item) => {
+        const status = String(item.status || "");
+        const matchesFilter = state.queueFilter === "active" ? !["closed", "blocked"].includes(status) : state.queueFilter === "new" ? ["new", "queued", "waiting_admin"].includes(status) : state.queueFilter === "mine" ? String(item.assignedAdminId || item.assigned_admin_id || "") === String(state.admin.id || state.admin.userId || "") : ["closed", "blocked"].includes(status);
+        const haystack = [item.customerName, item.customer_name, item.subject, item.publicCode, item.public_code, item.email].join(" ").toLowerCase();
+        return matchesFilter && (!query || haystack.includes(query));
+      });
+    }
+    function renderQueue() {
+      const host = $("#conversationList");
+      host.replaceChildren();
+      const queue = filteredQueue();
+      $("#queueCount").textContent = queue.length + " sesi";
+      if (!queue.length) {
+        const empty = el("div", "thread-placeholder");
+        const copy = el("div");
+        copy.append(el("strong", "", "Antrean kosong"), el("p", "", "Tidak ada percakapan yang cocok dengan filter saat ini."));
+        empty.append(copy);
+        host.append(empty);
+        return;
+      }
+      queue.forEach((conversation) => {
+        const button = el("button", "conversation-row");
+        button.type = "button";
+        button.dataset.id = conversation.id;
+        if (state.selected && state.selected.id === conversation.id) button.classList.add("active");
+        const name = conversation.customerName || conversation.customer_name || "Pelanggan";
+        const avatar = el("span", "conversation-avatar", initials(name));
+        const main = el("span", "conversation-main");
+        const title = el("span", "conversation-title");
+        title.append(el("strong", "", name));
+        main.append(title, el("p", "", conversation.lastMessagePreview || conversation.last_message_preview || conversation.subject || "Percakapan baru"));
+        const side = el("span");
+        side.append(el("span", "conversation-time", formatTime(conversation.lastMessageAt || conversation.last_message_at)));
+        const unread = Number(conversation.unreadAdmin || conversation.unread_admin || 0);
+        if (unread > 0) side.append(el("span", "unread-badge", unread > 99 ? "99+" : unread));
+        button.append(avatar, main, side);
+        button.addEventListener("click", () => openThread(conversation));
+        host.append(button);
+      });
+    }
+    async function openThread(conversation) {
+      const request = ++state.threadRequest;
+      let next = conversation;
+      const role = String(state.admin && state.admin.role || "agent");
+      const selfId = String(state.admin && (state.admin.id || state.admin.userId) || "");
+      const assignedId = String(conversation.assignedAdminId || conversation.assigned_admin_id || conversation.assigned_to || "");
+      if (role === "agent" && assignedId && assignedId !== selfId) {
+        toast("Percakapan ini sedang ditangani petugas lain.");
+        return;
+      }
+      if (role === "agent" && !assignedId) {
+        try {
+          const claimed = await api("admin_conversation_update", { method: "POST", body: { conversationId: conversation.id, operation: "claim" } });
+          if (request !== state.threadRequest) return;
+          next = claimed.data.conversation || conversation;
+        } catch (error) {
+          toast(error.message || "Percakapan belum dapat diambil.");
+          return;
+        }
+      }
+      state.selected = next;
+      state.messages.clear();
+      renderQueue();
+      $("#threadPlaceholder").hidden = true;
+      $("#adminMessages").hidden = false;
+      $("#adminComposer").hidden = false;
+      $("#threadTitle").textContent = next.customerName || next.customer_name || "Pelanggan";
+      $("#threadSubtitle").textContent = next.subject || "Percakapan dukungan";
+      $("#threadStatus").hidden = false;
+      $("#threadStatus").textContent = String(next.status || "active").replace(/_/g, " ");
+      populateDetails(next);
+      $("#inboxView").classList.add("thread-open");
+      $("#adminMessages").replaceChildren();
+      try {
+        const result = await api("admin_thread", { query: { conversation_id: next.id, limit: 100 } });
+        if (request !== state.threadRequest) return;
+        state.selected = result.data.conversation || next;
+        populateDetails(state.selected);
+        (result.data.messages || []).forEach((message) => appendAdminMessage(message, false));
+        $("#adminMessages").scrollTop = $("#adminMessages").scrollHeight;
+      } catch (error) {
+        toast(error.message || "Riwayat belum dapat dimuat.");
+      }
+    }
+    function populateDetails(conversation) {
+      $("#detailName").textContent = conversation.customerName || conversation.customer_name || "—";
+      $("#detailEmail").textContent = conversation.customerEmail || conversation.customer_email || "Tidak diberikan";
+      $("#detailCode").textContent = conversation.publicCode || conversation.public_code || String(conversation.id || "").slice(-8).toUpperCase();
+      $("#detailCategory").textContent = conversation.category || "—";
+      $("#detailSubject").textContent = conversation.subject || "—";
+      $("#detailAssignee").textContent = conversation.assignedAdminName || conversation.assigned_admin_name || (conversation.assignedAdminId || conversation.assigned_admin_id ? "Petugas terdaftar" : "Belum ditugaskan");
+      const locked = ["closed", "blocked"].includes(conversation.status);
+      $("#adminMessageInput").disabled = locked;
+      $("#adminSendButton").disabled = locked;
+    }
+    function appendAdminMessage(raw, scroll) {
+      const message = { id: String(raw.id || raw.message_id || ""), sequence: Number(raw.sequence || 0), sender: String(raw.sender || raw.sender_type || raw.sender_kind || "system"), body: String(raw.body || ""), createdAt: raw.createdAt || raw.created_at || (/* @__PURE__ */ new Date()).toISOString() };
+      if (!message.id || state.messages.has(message.id)) return;
+      state.messages.set(message.id, message);
+      const item = el("article", "message");
+      item.dataset.sender = message.sender;
+      item.dataset.sequence = String(message.sequence);
+      item.dataset.messageId = message.id;
+      item.append(el("div", "message-bubble", message.body));
+      const meta = el("div", "message-meta");
+      meta.append(el("span", "", message.sender === "admin" ? "Tim Dukungan" : message.sender === "customer" ? "Pelanggan" : "Sistem"), el("span", "", "·"), el("time", "", formatTime(message.createdAt)));
+      item.append(meta);
+      const host = $("#adminMessages");
+      const before = Array.from(host.children).find((child) => Number(child.dataset.sequence || 0) > message.sequence);
+      if (before) host.insertBefore(item, before);
+      else host.append(item);
+      if (scroll !== false) host.scrollTo({ top: host.scrollHeight, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    }
+    async function sendReply(event) {
+      event.preventDefault();
+      const input = $("#adminMessageInput");
+      const body = input.value.trim();
+      if (!body || !state.selected || state.sending) return;
+      state.sending = true;
+      $("#adminSendButton").disabled = true;
+      const clientId = crypto.randomUUID();
+      try {
+        const result = await api("admin_send", { method: "POST", idempotencyKey: clientId, body: { conversationId: state.selected.id, clientMessageId: clientId, body } });
+        if (result.data.message) appendAdminMessage(result.data.message, true);
+        input.value = "";
+        resizeAdminComposer();
+      } catch (error) {
+        toast(error.message || "Balasan belum dapat dikirim.");
+      } finally {
+        state.sending = false;
+        $("#adminSendButton").disabled = false;
+        input.focus();
+      }
+    }
+    async function conversationAction(action, confirmation) {
+      if (!state.selected) return;
+      if (confirmation && !confirm(confirmation)) return;
+      try {
+        const result = await api("admin_conversation_update", { method: "POST", body: { conversationId: state.selected.id, operation: action } });
+        state.selected = result.data.conversation;
+        populateDetails(state.selected);
+        await syncQueue();
+        toast("Percakapan diperbarui.");
+      } catch (error) {
+        toast(error.message || "Perubahan ditolak.");
+      }
+    }
+    async function syncStatus() {
+      try {
+        const result = await api("admin_status_snapshot");
+        state.status = result.data;
+        renderStatusConsole();
+      } catch (error) {
+        toast(error.message || "Status belum dapat dimuat.");
+      }
+    }
+    function renderStatusConsole() {
+      if (!state.status) return;
+      const services = state.status.services || [];
+      const grid = $("#componentGrid");
+      grid.replaceChildren();
+      const options = $("#incidentComponents");
+      const maintenanceOptions = $("#maintenanceComponents");
+      options.replaceChildren();
+      maintenanceOptions.replaceChildren();
+      services.forEach((service) => {
+        const card = el("article", "component-card");
+        const head = el("div", "component-card-head");
+        const copy = el("div");
+        copy.append(el("h3", "", service.name), el("p", "", service.description || service.group || "Komponen layanan"));
+        head.append(copy, el("span", "badge " + (service.status === "operational" ? "ok" : service.status === "degraded" || service.status === "maintenance" ? "warn" : "danger"), STATUS_LABELS[service.status] || service.status));
+        const select = el("select", "select");
+        select.setAttribute("aria-label", "Status " + service.name);
+        Object.keys(STATUS_LABELS).forEach((value) => {
+          const option = el("option", "", STATUS_LABELS[value]);
+          option.value = value;
+          option.selected = value === service.status;
+          select.append(option);
+        });
+        const save = el("button", "soft-button", "Simpan status");
+        save.type = "button";
+        save.addEventListener("click", () => updateComponent(service.id, select.value, save));
+        card.append(head, select, save);
+        grid.append(card);
+        [options, maintenanceOptions].forEach((host) => {
+          const option = el("option", "", service.name);
+          option.value = service.id;
+          host.append(option);
+        });
+      });
+      renderMonitorTargets(services);
+      renderAdminIncidents(state.status.incidents || []);
+      renderAdminMaintenance(state.status.maintenance || []);
+    }
+    function renderMonitorTargets(services) {
+      const host = $("#monitorGrid");
+      host.replaceChildren();
+      const active = services.filter((service) => service.monitor && service.monitor.enabled).length;
+      $("#monitorTargetCount").textContent = active + " aktif";
+      services.forEach((service) => {
+        const monitor = service.monitor && typeof service.monitor === "object" ? service.monitor : {};
+        const row = el("article", "monitor-row");
+        const head = el("div", "monitor-row-head");
+        const copy = el("div");
+        copy.append(el("h3", "", service.name || "Komponen layanan"));
+        const last = monitor.lastCheckedAt ? "Terakhir diperiksa " + formatTime(monitor.lastCheckedAt, true) : monitor.configured ? "Belum pernah diperiksa" : "Belum memiliki target";
+        copy.append(el("p", "", last));
+        const stateBadge = el("span", "badge " + (monitor.enabled ? monitor.healthy === false ? "danger" : "ok" : ""), monitor.enabled ? monitor.healthy === false ? "Bermasalah" : "Aktif" : monitor.configured ? "Nonaktif" : "Kosong");
+        head.append(copy, stateBadge);
+
+        const form = el("form", "monitor-form");
+        const urlField = el("div", "field");
+        const urlLabel = el("label", "", "URL health HTTPS");
+        const urlInput = el("input", "input");
+        urlInput.type = "url";
+        urlInput.maxLength = 2048;
+        urlInput.autocomplete = "off";
+        urlInput.spellcheck = false;
+        urlInput.placeholder = "Masukkan endpoint HTTPS publik";
+        urlInput.value = monitor.url || "";
+        urlField.append(urlLabel, urlInput);
+
+        const timeoutField = el("div", "field");
+        timeoutField.append(el("label", "", "Timeout (ms)"));
+        const timeout = el("input", "input");
+        timeout.type = "number"; timeout.min = "1000"; timeout.max = "5000"; timeout.step = "250"; timeout.value = String(monitor.timeoutMs || 3000);
+        timeoutField.append(timeout);
+
+        const minField = el("div", "field");
+        minField.append(el("label", "", "HTTP min"));
+        const expectedMin = el("input", "input");
+        expectedMin.type = "number"; expectedMin.min = "100"; expectedMin.max = "599"; expectedMin.value = String(monitor.expectedMin || 200);
+        minField.append(expectedMin);
+
+        const maxField = el("div", "field");
+        maxField.append(el("label", "", "HTTP maks"));
+        const expectedMax = el("input", "input");
+        expectedMax.type = "number"; expectedMax.min = "100"; expectedMax.max = "599"; expectedMax.value = String(monitor.expectedMax || 299);
+        maxField.append(expectedMax);
+        form.append(urlField, timeoutField, minField, maxField);
+
+        const enabledLabel = el("label", "monitor-toggle");
+        const enabled = el("input");
+        enabled.type = "checkbox"; enabled.checked = monitor.enabled === true;
+        enabledLabel.append(enabled, el("span", "", "Aktifkan pemantauan otomatis"));
+        const actions = el("div", "monitor-actions");
+        const save = el("button", "soft-button", "Simpan target");
+        save.type = "submit";
+        const clear = el("button", "ghost-button", "Hapus target");
+        clear.type = "button"; clear.disabled = !monitor.configured;
+        actions.append(save, clear);
+        const formFooter = el("div", "monitor-form-footer");
+        formFooter.append(enabledLabel, actions);
+        form.append(formFooter);
+        const diagnostic = el("div", "monitor-diagnostic", monitor.lastCheckedAt ? "Respons " + String(monitor.statusCode || 0) + " · " + String(monitor.latencyMs || 0) + " ms" + (monitor.errorCode ? " · " + monitor.errorCode : "") : "Domain, path, query, dan port HTTPS publik boleh berbeda pada setiap komponen.");
+        const syncRequired = () => { urlInput.required = enabled.checked; };
+        enabled.addEventListener("change", syncRequired);
+        syncRequired();
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          saveMonitorTarget(service.id, {
+            enabled: enabled.checked,
+            url: urlInput.value,
+            timeoutMs: Number(timeout.value),
+            expectedMin: Number(expectedMin.value),
+            expectedMax: Number(expectedMax.value)
+          }, save, clear);
+        });
+        clear.addEventListener("click", () => {
+          if (!confirm("Hapus target monitor untuk " + service.name + "? Insiden otomatis aktif dari target ini akan ditutup.")) return;
+          saveMonitorTarget(service.id, { enabled: false, url: "", timeoutMs: 3000, expectedMin: 200, expectedMax: 299 }, save, clear);
+        });
+        row.append(head, form, diagnostic);
+        host.append(row);
+      });
+    }
+    async function saveMonitorTarget(componentId, values, saveButton, clearButton) {
+      saveButton.disabled = true;
+      clearButton.disabled = true;
+      try {
+        await api("admin_monitor_config_update", { method: "POST", body: Object.assign({ componentId }, values) });
+        toast(values.url.trim() ? "Target monitor disimpan tanpa redeploy." : "Target monitor dihapus.");
+        await syncStatus();
+      } catch (error) {
+        toast(error.message || "Konfigurasi target monitor ditolak.");
+        saveButton.disabled = false;
+        clearButton.disabled = false;
+      }
+    }
+    async function updateComponent(id, status, button) {
+      button.disabled = true;
+      try {
+        await api("admin_component_update", { method: "POST", body: { componentId: id, status } });
+        toast("Status komponen diperbarui.");
+        await syncStatus();
+      } catch (error) {
+        toast(error.message || "Status komponen ditolak.");
+      } finally {
+        button.disabled = false;
+      }
+    }
+    function renderAdminIncidents(items) {
+      const host = $("#adminIncidentList");
+      host.replaceChildren();
+      const active = items.filter((item) => !["resolved", "cancelled"].includes(item.stage || item.status));
+      $("#activeIncidentCount").textContent = active.length + " aktif";
+      if (!active.length) {
+        host.append(el("p", "", "Tidak ada insiden aktif."));
+        return;
+      }
+      active.forEach((incident) => {
+        const form = el("form", "compact-form");
+        form.dataset.id = incident.id;
+        form.dataset.revision = String(incident.revision || 0);
+        form.append(el("strong", "", incident.title));
+        const select = el("select", "select");
+        STAGES.forEach((stage) => {
+          const option = el("option", "", STAGE_LABELS[stage]);
+          option.value = stage;
+          option.selected = stage === (incident.stage || incident.status);
+          select.append(option);
+        });
+        const progress = el("input", "input");
+        progress.type = "number";
+        progress.min = "0";
+        progress.max = "100";
+        progress.value = String(incident.progress || 0);
+        progress.setAttribute("aria-label", "Progress persen");
+        const message = el("textarea", "textarea");
+        message.maxLength = 2e3;
+        message.required = true;
+        message.value = incident.message || incident.summary || "";
+        message.setAttribute("aria-label", "Pesan publik");
+        const submit = el("button", "primary-button", "Catat pembaruan");
+        submit.type = "submit";
+        form.append(select, progress, message, submit);
+        form.addEventListener("submit", (event) => advanceIncident(event, incident, select, progress, message, submit));
+        host.append(form);
+      });
+    }
+    async function advanceIncident(event, incident, select, progress, message, button) {
+      event.preventDefault();
+      button.disabled = true;
+      try {
+        await api("admin_incident_advance", { method: "POST", body: { incidentId: incident.id, expectedRevision: incident.revision, stage: select.value, progress: Number(progress.value), message: message.value } });
+        toast("Tahap insiden diperbarui.");
+        await syncStatus();
+      } catch (error) {
+        toast(error.status === 409 ? "Data berubah di admin lain. Snapshot dimuat ulang." : error.message || "Pembaruan insiden ditolak.");
+        if (error.status === 409) await syncStatus();
+      } finally {
+        button.disabled = false;
+      }
+    }
+    function renderAdminMaintenance(items) {
+      const host = $("#adminMaintenanceList");
+      host.replaceChildren();
+      $("#adminMaintenanceCount").textContent = items.length + " jadwal";
+      if (!items.length) {
+        host.append(el("p", "", "Belum ada pemeliharaan aktif."));
+        return;
+      }
+      items.forEach((item) => {
+        const row = el("div", "detail-section");
+        row.append(el("strong", "", item.title), el("p", "", formatTime(item.startsAt || item.starts_at, true) + " — " + String(item.status || "scheduled")));
+        host.append(row);
+      });
+    }
+    async function createIncident(event) {
+      event.preventDefault();
+      const ids = Array.from($("#incidentComponents").selectedOptions).map((option) => option.value);
+      try {
+        await api("admin_incident_create", { method: "POST", body: { title: $("#incidentTitle").value, summary: $("#incidentSummary").value, impact: $("#incidentImpact").value, componentIds: ids } });
+        event.target.reset();
+        toast("Insiden dipublikasikan.");
+        await syncStatus();
+      } catch (error) {
+        toast(error.message || "Insiden belum dapat dibuat.");
+      }
+    }
+    async function createMaintenance(event) {
+      event.preventDefault();
+      const ids = Array.from($("#maintenanceComponents").selectedOptions).map((option) => option.value);
+      try {
+        await api("admin_maintenance_create", { method: "POST", body: { title: $("#maintenanceTitle").value, message: $("#maintenanceMessage").value, startsAt: new Date($("#maintenanceStart").value).toISOString(), endsAt: new Date($("#maintenanceEnd").value).toISOString(), componentIds: ids } });
+        event.target.reset();
+        toast("Pemeliharaan dijadwalkan.");
+        await syncStatus();
+      } catch (error) {
+        toast(error.message || "Jadwal belum dapat disimpan.");
+      }
+    }
+    async function logout() {
+      try {
+        await api("admin_logout", { method: "POST", body: {} });
+      } catch (_) {
+      }
+      if (state.realtime) state.realtime.disconnect(true);
+      location.reload();
+    }
+    function resizeAdminComposer() {
+      const input = $("#adminMessageInput");
+      $("#adminCharCount").textContent = input.value.length + "/2000";
+    }
+    function setupTheme() {
+      let theme = "";
+      try {
+        theme = localStorage.getItem("dirac-admin-theme") || "";
+      } catch (_) {
+      }
+      if (!theme) theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      const apply = (value) => {
+        document.documentElement.dataset.theme = value;
+        $("#adminTheme").textContent = value === "dark" ? "☼" : "◐";
+        try {
+          localStorage.setItem("dirac-admin-theme", value);
+        } catch (_) {
+        }
+      };
+      apply(theme);
+      $("#adminTheme").addEventListener("click", () => apply(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
+    }
+    function init() {
+      setupTheme();
+      $("#loginForm").addEventListener("submit", login);
+      $("#mfaForm").addEventListener("submit", verifyMfa);
+      $("#backToLogin").addEventListener("click", () => {
+        $("#mfaPanel").hidden = true;
+        $("#passwordPanel").hidden = false;
+        $("#mfaEnrollment").hidden = true;
+        $("#mfaQr").removeAttribute("src");
+        $("#mfaSecret").textContent = "";
+        showError("#mfaError", "");
+        resetAdminTurnstile();
+      });
+      $$(".admin-tab").forEach((button) => button.addEventListener("click", () => {
+        const view = button.dataset.view;
+        $$(".admin-tab").forEach((candidate) => candidate.classList.toggle("active", candidate === button));
+        $("#inboxView").hidden = view !== "inbox";
+        $("#statusView").hidden = view !== "status";
+        if (view === "status" && !state.status) syncStatus();
+      }));
+      $$(".queue-filter").forEach((button) => button.addEventListener("click", () => {
+        state.queueFilter = button.dataset.queue;
+        $$(".queue-filter").forEach((candidate) => candidate.classList.toggle("active", candidate === button));
+        syncQueue();
+      }));
+      $("#queueSearch").addEventListener("input", renderQueue);
+      $("#adminComposer").addEventListener("submit", sendReply);
+      $("#adminMessageInput").addEventListener("input", resizeAdminComposer);
+      $("#adminMessageInput").addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+          event.preventDefault();
+          $("#adminComposer").requestSubmit();
+        }
+      });
+      $("#claimButton").addEventListener("click", () => conversationAction("claim"));
+      $("#waitingButton").addEventListener("click", () => conversationAction("waiting_customer"));
+      $("#resolveButton").addEventListener("click", () => conversationAction("close", "Selesaikan percakapan ini?"));
+      $("#blockButton").addEventListener("click", () => conversationAction("block", "Blokir sesi ini? Tindakan dicatat di audit."));
+      $("#incidentCreateForm").addEventListener("submit", createIncident);
+      $("#maintenanceForm").addEventListener("submit", createMaintenance);
+      $("#reloadStatusButton").addEventListener("click", syncStatus);
+      $("#logoutButton").addEventListener("click", logout);
+      window.addEventListener("offline", () => setConnection("offline"));
+      window.addEventListener("pagehide", () => {
+        if (state.realtime) state.realtime.disconnect(true);
+      }, { once: true });
+      publicBootstrap();
+    }
+    init();
+  })();
+})();
+</script>
+</body>
+</html>
