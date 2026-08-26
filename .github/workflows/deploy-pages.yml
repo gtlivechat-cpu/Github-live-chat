@@ -1,0 +1,175 @@
+name: Deploy support frontend to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: dirac-support-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    env:
+      DIRAC_SUPPORT_API_ORIGIN: ${{ vars.DIRAC_SUPPORT_API_ORIGIN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build frontend
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.parse import urlsplit
+          import ipaddress
+          import os
+          import re
+          import shutil
+
+          token = "__DIRAC_SUPPORT_API_ORIGIN__"
+          raw = os.environ.get("DIRAC_SUPPORT_API_ORIGIN", "").strip().rstrip("/")
+
+          try:
+              parsed = urlsplit(raw)
+              port = parsed.port
+          except ValueError as error:
+              raise SystemExit(f"DIRAC_SUPPORT_API_ORIGIN tidak valid: {error}")
+
+          if (
+              parsed.scheme != "https"
+              or not parsed.hostname
+              or parsed.username
+              or parsed.password
+              or parsed.path not in ("", "/")
+              or parsed.query
+              or parsed.fragment
+          ):
+              raise SystemExit(
+                  "DIRAC_SUPPORT_API_ORIGIN wajib berupa origin HTTPS tanpa path, query, kredensial, atau fragmen."
+              )
+
+          hostname = parsed.hostname.rstrip(".").lower()
+
+          if hostname == "localhost" or hostname.endswith(
+              (".localhost", ".local", ".internal")
+          ):
+              raise SystemExit(
+                  "DIRAC_SUPPORT_API_ORIGIN tidak boleh memakai hostname lokal."
+              )
+
+          try:
+              address = ipaddress.ip_address(hostname)
+          except ValueError:
+              labels = hostname.split(".")
+
+              if (
+                  len(labels) < 2
+                  or len(hostname) > 253
+                  or any(
+                      not re.fullmatch(
+                          r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?",
+                          label,
+                      )
+                      for label in labels
+                  )
+              ):
+                  raise SystemExit(
+                      "Hostname DIRAC_SUPPORT_API_ORIGIN tidak valid."
+                  )
+          else:
+              if not address.is_global:
+                  raise SystemExit(
+                      "DIRAC_SUPPORT_API_ORIGIN wajib memakai alamat publik."
+                  )
+
+          host_for_origin = f"[{hostname}]" if ":" in hostname else hostname
+          origin = f"https://{host_for_origin}" + (
+              f":{port}" if port else ""
+          )
+
+          source = Path("public")
+          output = Path("_site")
+
+          if output.exists():
+              shutil.rmtree(output)
+
+          output.mkdir()
+
+          rendered = {}
+
+          for name in (
+              "chat.html",
+              "chat-admin.html",
+              "status.html",
+          ):
+              text = (source / name).read_text(encoding="utf-8")
+
+              if text.count(token) != 2:
+                  raise SystemExit(
+                      f"Jumlah placeholder API tidak valid pada {name}."
+                  )
+
+              text = text.replace(token, origin)
+
+              if token in text:
+                  raise SystemExit(
+                      f"Placeholder API tertinggal pada {name}."
+                  )
+
+              rendered[name] = text
+              (output / name).write_text(
+                  text,
+                  encoding="utf-8",
+              )
+
+          shutil.copy2(
+              source / "favicon.svg",
+              output / "favicon.svg",
+          )
+
+          (output / "index.html").write_text(
+              rendered["chat.html"],
+              encoding="utf-8",
+          )
+
+          for route, name in (
+              ("chat", "chat.html"),
+              ("admin", "chat-admin.html"),
+              ("status", "status.html"),
+          ):
+              route_directory = output / route
+              route_directory.mkdir()
+
+              (route_directory / "index.html").write_text(
+                  rendered[name],
+                  encoding="utf-8",
+              )
+          PY
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
