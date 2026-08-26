@@ -103,7 +103,7 @@ jobs:
               f":{port}" if port else ""
           )
 
-          source = Path("public")
+          source = Path(".")
           output = Path("_site")
 
           if output.exists():
