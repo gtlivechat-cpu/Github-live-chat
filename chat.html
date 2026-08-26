@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#f4f5f7">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'sha256-kYaIeq37ySMIePw97mrnxX/zYPgIOgafEenIrCUbh0k='; script-src 'self' 'sha256-cK4BbVwBC01xug0i3kUH6Uu7lu7xLSZiXBDroy6dV6o=' https://challenges.cloudflare.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'sha256-erGN6PxLtZbdlt3WM/QNzNMyy0HT2CBfN/tHG13BzZA='; script-src 'self' 'sha256-cK4BbVwBC01xug0i3kUH6Uu7lu7xLSZiXBDroy6dV6o=' https://challenges.cloudflare.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
   <title>Live Chat — Dirac Group</title>
   <style>:root {
   color-scheme: light;
@@ -238,7 +238,7 @@ button:disabled { cursor: not-allowed; opacity: .52; box-shadow: none; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 16px; margin-top: 28px; padding-top: 15px; border-top: 1px solid var(--line); color: var(--faint); font-size: 9.5px; }
 
 /* Chat customer */
-.chat-page { min-height: 100vh; display: grid; grid-template-rows: auto 1fr; background: var(--canvas); }
+.chat-page { min-height: 100vh; min-height: 100dvh; display: grid; grid-template-rows: auto 1fr; background: var(--canvas); }
 .chat-wrap { width: min(1100px, calc(100% - 36px)); min-height: 0; margin: 24px auto; display: grid; grid-template-columns: 340px minmax(0, 1fr); overflow: hidden; border: 1px solid var(--line); border-radius: 24px; background: var(--surface); box-shadow: var(--shadow-lg); }
 .chat-info { position: relative; overflow: hidden; padding: 34px; border-right: 1px solid var(--line); background: #172244; color: #fff; }
 .chat-info::before { content: ""; position: absolute; width: 360px; height: 360px; right: -230px; top: -215px; border: 1px solid rgba(255,255,255,.14); border-radius: 50%; box-shadow: 0 0 0 58px rgba(255,255,255,.025), 0 0 0 116px rgba(255,255,255,.018); }
@@ -434,9 +434,9 @@ html[data-theme="dark"] .send-button { color: #07102f; }
   .footer-grid > :first-child { grid-column: auto; }
   .chat-page { display: block; }
   .chat-page .site-header { position: relative; }
-  .chat-wrap { width: 100%; min-height: calc(100vh - var(--header-h)); margin: 0; grid-template-columns: 1fr; border: 0; border-radius: 0; box-shadow: none; }
+  .chat-wrap { width: 100%; min-height: calc(100vh - var(--header-h)); min-height: calc(100dvh - var(--header-h)); margin: 0; grid-template-columns: 1fr; border: 0; border-radius: 0; box-shadow: none; }
   .chat-info { display: none; }
-  .chat-shell { min-height: calc(100vh - var(--header-h)); }
+  .chat-shell { min-height: calc(100vh - var(--header-h)); min-height: calc(100dvh - var(--header-h)); }
   .chat-welcome { align-content: start; padding: 30px 20px; }
   .form-grid { grid-template-columns: 1fr; }
   .field.full { grid-column: auto; }
