@@ -1,0 +1,21 @@
+DIRAC LIVE CHAT — FILE FINAL
+
+Semua file runtime final ada di ZIP ini. SQL sengaja tidak disertakan.
+
+Frontend GitHub Pages (root repository):
+- chat.html
+- chat-admin.html
+- status.html
+- favicon.svg
+- .github/workflows/deploy-pages.yml
+
+Backend Vercel:
+- api/support.js
+- package.json
+- vercel.json
+- .env.support.example (contoh nama ENV saja; jangan commit secret nyata)
+
+Catatan:
+- health.js tidak termasuk dan tidak perlu diubah.
+- Hanya ada satu file JavaScript fisik: api/support.js.
+- Jangan masukkan secret nyata ke repository.
