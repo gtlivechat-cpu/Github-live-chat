@@ -7,9 +7,10 @@
   <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#f4f5f7">
-  <meta name="dirac-support-api-origin" content="__DIRAC_SUPPORT_API_ORIGIN__">
+  <meta name="dirac-support-api-origin" content="https://api.diracgroup.store">
   <meta name="dirac-support-admin-binding-proof" content="__DIRAC_SUPPORT_ADMIN_BINDING_PROOF__">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'sha256-O3/aFrZdy7Lehw5NIAAJUi3WoJbXHD2Qj8K5zxzSg6I='; script-src 'self' 'sha256-aZR6Mtxf9O40fu0sODkQGFRpVkGNfad7LtbulNJm63c=' https://challenges.cloudflare.com; connect-src 'self' __DIRAC_SUPPORT_API_ORIGIN__ https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; style-src &#x27;self&#x27; &#x27;sha256-O3/aFrZdy7Lehw5NIAAJUi3WoJbXHD2Qj8K5zxzSg6I=&#x27;; script-src &#x27;self&#x27; https://challenges.cloudflare.com &#x27;sha256-j6WZ4t0XRzbcBNjEH3pWF6k/eNyrqR4n1JX5udW63+c=&#x27;; connect-src &#x27;self&#x27; https://api.diracgroup.store https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;; frame-ancestors &#x27;none&#x27;; upgrade-insecure-requests">
+<meta name="dirac-base-domain" content="diracgroup.store">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <title>Support Console — Dirac Group</title>
   <style>:root {
@@ -1367,7 +1368,16 @@ html[data-theme="dark"] .send-button { color: #07102f; }
         state.dataUnavailable = false;
         render(data);
         try {
-          localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), data }));
+          const cacheData = {
+            revision: data.revision,
+            generatedAt: data.generatedAt || data.generated_at || null,
+            overall: data.overall || 'unknown',
+            services: Array.isArray(data.services) ? data.services : [],
+            incidents: Array.isArray(data.incidents) ? data.incidents : [],
+            maintenance: Array.isArray(data.maintenance) ? data.maintenance : [],
+            incidentHistory: Array.isArray(data.incidentHistory) ? data.incidentHistory : (Array.isArray(data.incident_history) ? data.incident_history : [])
+          };
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), data: cacheData }));
         } catch (_) {
         }
         if (manual) toast("Status berhasil disegarkan.");
@@ -1462,7 +1472,7 @@ html[data-theme="dark"] .send-button { color: #07102f; }
     if (document.body.dataset.diracPage !== "chat") return;
     const api = window.createDiracApi(window.DiracSupportApiEndpoint);
     api.setCsrfRefresh(() => api("chat_public_config"));
-    const state = { conversation: null, messages: /* @__PURE__ */ new Map(), realtime: null, publicConfig: null, sending: false, authRefreshing: false, lastAuthRefresh: 0, startIdempotencyKey: crypto.randomUUID(), turnstileId: null, turnstileToken: "" };
+    const state = { conversation: null, messages: /* @__PURE__ */ new Map(), realtime: null, publicConfig: null, sending: false, composerLocked: false, authRefreshing: false, lastAuthRefresh: 0, startIdempotencyKey: crypto.randomUUID(), turnstileId: null, turnstileToken: "" };
     const $ = (selector) => document.querySelector(selector);
     function el(tag, className, text) {
       const node = document.createElement(tag);
@@ -1523,6 +1533,9 @@ html[data-theme="dark"] .send-button { color: #07102f; }
     }
     function showConversation(data) {
       state.conversation = data.conversation;
+      state.composerLocked = !state.conversation || ["closed", "blocked"].includes(String(state.conversation.status || ""));
+      $("#messageInput").disabled = state.composerLocked;
+      $("#sendButton").disabled = state.composerLocked;
       $("#welcomePanel").hidden = true;
       $("#messageList").hidden = false;
       $("#composer").hidden = false;
@@ -1571,12 +1584,15 @@ html[data-theme="dark"] .send-button { color: #07102f; }
       try {
         const result = await api("customer_access_refresh", { method: "POST", body: {} });
         if (result.data.realtime) connectRealtime(result.data.realtime);
-      } catch (_) {
+      } catch (error) {
+        if ([401, 403, 423].includes(error.status)) lockComposer("blocked");
+        else setConnection(navigator.onLine ? "error" : "offline", "Sesi realtime belum dapat diverifikasi.");
       } finally {
         state.authRefreshing = false;
       }
     }
     function lockComposer(status) {
+      state.composerLocked = true;
       $("#messageInput").disabled = true;
       $("#sendButton").disabled = true;
       $("#chatSubtitle").textContent = status === "blocked" ? "Percakapan diblokir" : "Percakapan telah ditutup";
@@ -1664,7 +1680,7 @@ html[data-theme="dark"] .send-button { color: #07102f; }
       event.preventDefault();
       const input = $("#messageInput");
       const body = input.value.trim();
-      if (!body || state.sending || !state.conversation || !navigator.onLine) {
+      if (!body || state.sending || state.composerLocked || !state.conversation || !navigator.onLine) {
         if (!navigator.onLine) toast("Pesan tidak dikirim saat offline untuk mencegah duplikasi.");
         return;
       }
@@ -1677,11 +1693,12 @@ html[data-theme="dark"] .send-button { color: #07102f; }
         input.value = "";
         resizeComposer();
       } catch (error) {
+        if ([401, 403, 423].includes(error.status)) lockComposer("blocked");
         toast(error.message || "Pesan belum dapat dikirim.");
       } finally {
         state.sending = false;
-        $("#sendButton").disabled = false;
-        input.focus();
+        $("#sendButton").disabled = state.composerLocked;
+        if (!state.composerLocked) input.focus();
       }
     }
     async function closeChat() {
@@ -1746,7 +1763,7 @@ html[data-theme="dark"] .send-button { color: #07102f; }
     const STAGES = ["detected", "investigating", "identified", "fixing", "monitoring", "resolved"];
     const STAGE_LABELS = { detected: "Terdeteksi", investigating: "Investigasi", identified: "Teridentifikasi", fixing: "Perbaikan", monitoring: "Pemantauan", resolved: "Selesai" };
     const STATUS_LABELS = { operational: "Normal", degraded: "Performa menurun", partial_outage: "Gangguan sebagian", major_outage: "Gangguan besar", maintenance: "Pemeliharaan", unknown: "Belum diketahui" };
-    const state = { admin: null, queue: [], queueFilter: "active", selected: null, messages: /* @__PURE__ */ new Map(), realtime: null, status: null, queueTimer: 0, statusTimer: 0, threadTimer: 0, threadSyncing: false, threadPending: false, threadRequest: 0, sending: false, mfaPending: false, authRefreshing: false, lastAuthRefresh: 0, publicConfig: null, turnstileId: null, turnstileToken: "" };
+    const state = { loggingOut: false, admin: null, queue: [], queueFilter: "active", selected: null, messages: /* @__PURE__ */ new Map(), realtime: null, status: null, queueTimer: 0, statusTimer: 0, queueSyncing: null, queuePending: null, statusSyncing: null, statusPending: null, threadTimer: 0, threadSyncing: false, threadPending: false, threadRequest: 0, sending: false, mfaPending: false, authRefreshing: false, lastAuthRefresh: 0, publicConfig: null, turnstileId: null, turnstileToken: "" };
     const $ = (selector) => document.querySelector(selector);
     const $$ = (selector) => Array.from(document.querySelectorAll(selector));
     function el(tag, className, text) {
@@ -1787,6 +1804,7 @@ html[data-theme="dark"] .send-button { color: #07102f; }
       state.lastAuthRefresh = Date.now();
       try {
         const result = await api("admin_bootstrap");
+        if (state.loggingOut) return;
         if (result.data.realtime) connectRealtime(result.data.realtime);
         state.queue = result.data.queue || state.queue;
         state.status = result.data.status || state.status;
@@ -1807,6 +1825,7 @@ html[data-theme="dark"] .send-button { color: #07102f; }
         state.publicConfig = config.data;
         if (!config.data.hasSession) loadAdminTurnstile(config.data.turnstileSiteKey || "");
         const result = await api("admin_bootstrap");
+        if (state.loggingOut) return;
         openAdmin(result.data);
       } catch (error) {
         if (state.publicConfig && state.publicConfig.turnstileSiteKey) loadAdminTurnstile(state.publicConfig.turnstileSiteKey);
@@ -1816,6 +1835,7 @@ html[data-theme="dark"] .send-button { color: #07102f; }
     }
     async function login(event) {
       event.preventDefault();
+      if (state.loggingOut) return;
       showError("#loginError", "");
       if (state.publicConfig && state.publicConfig.turnstileRequired && !state.turnstileToken) {
         showError("#loginError", "Selesaikan verifikasi keamanan terlebih dahulu.");
@@ -1894,6 +1914,10 @@ html[data-theme="dark"] .send-button { color: #07102f; }
       }
     }
     function openAdmin(data) {
+      if (state.loggingOut) return;
+      $("#mfaQr").removeAttribute("src");
+      $("#mfaSecret").textContent = "";
+      $("#mfaCode").value = "";
       state.admin = data.admin;
       const canManageOperations = ["lead", "admin"].includes(String(data.admin.role || ""));
       $("#loginView").hidden = true;
@@ -1951,13 +1975,31 @@ html[data-theme="dark"] .send-button { color: #07102f; }
       state.threadTimer = setTimeout(syncThread, 120);
     }
     async function syncQueue() {
-      try {
-        const result = await api("admin_queue", { query: { filter: state.queueFilter, limit: 50 } });
-        state.queue = result.data.queue || [];
-        renderQueue();
-      } catch (error) {
-        toast(error.message || "Antrean belum dapat disegarkan.");
+      if (state.loggingOut || !state.admin) return;
+      const admin = state.admin;
+      if (state.queueSyncing) {
+        if (!state.queuePending) state.queuePending = state.queueSyncing.then(() => {
+          state.queuePending = null;
+          if (state.loggingOut || state.admin !== admin) return;
+          return syncQueue();
+        });
+        return state.queuePending;
       }
+      const filter = state.queueFilter;
+      state.queueSyncing = Promise.resolve().then(async () => {
+        if (state.loggingOut || state.admin !== admin) return;
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 30000);
+        try {
+          const result = await api("admin_queue", { signal: controller.signal, query: { filter: filter, limit: 50 } });
+          if (state.loggingOut || state.admin !== admin || state.queueFilter !== filter) return;
+          state.queue = result.data.queue || [];
+          renderQueue();
+        } catch (error) {
+          if (!state.loggingOut && state.admin === admin) toast(error.message || "Antrean belum dapat disegarkan.");
+        } finally { clearTimeout(timer); }
+      }).finally(() => { state.queueSyncing = null; });
+      return state.queueSyncing;
     }
     async function syncThread() {
       if (!state.selected) return;
@@ -2025,6 +2067,7 @@ html[data-theme="dark"] .send-button { color: #07102f; }
       });
     }
     async function openThread(conversation) {
+      if (state.loggingOut || !state.admin) return;
       const request = ++state.threadRequest;
       let next = conversation;
       const role = String(state.admin && state.admin.role || "agent");
@@ -2101,12 +2144,15 @@ html[data-theme="dark"] .send-button { color: #07102f; }
       event.preventDefault();
       const input = $("#adminMessageInput");
       const body = input.value.trim();
-      if (!body || !state.selected || state.sending) return;
+      if (!body || !state.admin || !state.selected || state.sending || state.loggingOut || ["closed", "blocked"].includes(state.selected.status)) return;
+      const conversationId = state.selected.id;
+      const threadRequest = state.threadRequest;
       state.sending = true;
       $("#adminSendButton").disabled = true;
       const clientId = crypto.randomUUID();
       try {
-        const result = await api("admin_send", { method: "POST", idempotencyKey: clientId, body: { conversationId: state.selected.id, clientMessageId: clientId, body } });
+        const result = await api("admin_send", { method: "POST", idempotencyKey: clientId, body: { conversationId, clientMessageId: clientId, body } });
+        if (state.loggingOut || threadRequest !== state.threadRequest || !state.selected || state.selected.id !== conversationId) return;
         if (result.data.message) appendAdminMessage(result.data.message, true);
         input.value = "";
         resizeAdminComposer();
@@ -2114,15 +2160,20 @@ html[data-theme="dark"] .send-button { color: #07102f; }
         toast(error.message || "Balasan belum dapat dikirim.");
       } finally {
         state.sending = false;
-        $("#adminSendButton").disabled = false;
-        input.focus();
+        if (state.loggingOut || threadRequest !== state.threadRequest || !state.selected || state.selected.id !== conversationId) return;
+        const locked = ["closed", "blocked"].includes(state.selected.status);
+        $("#adminSendButton").disabled = locked;
+        if (!locked) input.focus();
       }
     }
     async function conversationAction(action, confirmation) {
-      if (!state.selected) return;
+      if (state.loggingOut || !state.selected) return;
       if (confirmation && !confirm(confirmation)) return;
+      const conversationId = state.selected.id;
+      const threadRequest = state.threadRequest;
       try {
-        const result = await api("admin_conversation_update", { method: "POST", body: { conversationId: state.selected.id, operation: action } });
+        const result = await api("admin_conversation_update", { method: "POST", body: { conversationId, operation: action } });
+        if (state.loggingOut || threadRequest !== state.threadRequest || !state.selected || state.selected.id !== conversationId) return;
         state.selected = result.data.conversation;
         populateDetails(state.selected);
         await syncQueue();
@@ -2132,13 +2183,30 @@ html[data-theme="dark"] .send-button { color: #07102f; }
       }
     }
     async function syncStatus() {
-      try {
-        const result = await api("admin_status_snapshot");
-        state.status = result.data;
-        renderStatusConsole();
-      } catch (error) {
-        toast(error.message || "Status belum dapat dimuat.");
+      if (state.loggingOut || !state.admin) return;
+      const admin = state.admin;
+      if (state.statusSyncing) {
+        if (!state.statusPending) state.statusPending = state.statusSyncing.then(() => {
+          state.statusPending = null;
+          if (state.loggingOut || state.admin !== admin) return;
+          return syncStatus();
+        });
+        return state.statusPending;
       }
+      state.statusSyncing = Promise.resolve().then(async () => {
+        if (state.loggingOut || state.admin !== admin) return;
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 30000);
+        try {
+          const result = await api("admin_status_snapshot", { signal: controller.signal });
+          if (state.loggingOut || state.admin !== admin) return;
+          state.status = result.data;
+          renderStatusConsole();
+        } catch (error) {
+          if (!state.loggingOut && state.admin === admin) toast(error.message || "Status belum dapat dimuat.");
+        } finally { clearTimeout(timer); }
+      }).finally(() => { state.statusSyncing = null; });
+      return state.statusSyncing;
     }
     function renderStatusConsole() {
       if (!state.status) return;
@@ -2377,12 +2445,39 @@ html[data-theme="dark"] .send-button { color: #07102f; }
       }
     }
     async function logout() {
-      try {
-        await api("admin_logout", { method: "POST", body: {} });
-      } catch (_) {
-      }
+      if (state.loggingOut) return;
+      state.loggingOut = true;
+      $("#mfaQr").removeAttribute("src");
+      $("#mfaSecret").textContent = "";
+      $("#mfaCode").value = "";
+      state.threadRequest += 1;
+      state.admin = null;
+      state.selected = null;
+      state.queue = [];
+      state.messages.clear();
+      [state.queueTimer, state.statusTimer, state.threadTimer].forEach(clearTimeout);
       if (state.realtime) state.realtime.disconnect(true);
-      location.reload();
+      $("#adminView").hidden = true;
+      $("#loginView").hidden = false;
+      $("#passwordPanel").hidden = false;
+      $("#mfaPanel").hidden = true;
+      $("#loginButton").disabled = true;
+      showError("#loginError", "Menunggu konfirmasi pencabutan sesi...");
+      try {
+        const result = await api("admin_logout", { method: "POST", body: {} });
+        if (!result.data || result.data.ok !== true) throw new Error("LOGOUT_NOT_CONFIRMED");
+        location.reload();
+      } catch (_) {
+        showError("#loginError", "Server belum mengonfirmasi logout. Konsol tetap dikunci. Periksa koneksi lalu coba lagi.");
+        const retry = el("button", "soft-button", "Coba logout lagi");
+        retry.type = "button";
+        retry.addEventListener("click", () => {
+          retry.disabled = true;
+          state.loggingOut = false;
+          logout();
+        }, { once: true });
+        $("#loginError").append(retry);
+      }
     }
     function resizeAdminComposer() {
       const input = $("#adminMessageInput");
@@ -2416,6 +2511,7 @@ html[data-theme="dark"] .send-button { color: #07102f; }
         $("#mfaEnrollment").hidden = true;
         $("#mfaQr").removeAttribute("src");
         $("#mfaSecret").textContent = "";
+        $("#mfaCode").value = "";
         showError("#mfaError", "");
         resetAdminTurnstile();
       });
