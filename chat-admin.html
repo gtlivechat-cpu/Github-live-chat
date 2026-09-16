@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#f4f5f7">
   <meta name="dirac-support-api-origin" content="">
   <meta name="dirac-support-admin-binding-proof" content="__DIRAC_SUPPORT_ADMIN_BINDING_PROOF__">
-  <meta http-equiv="Content-Security-Policy" content="style-src &#x27;self&#x27; &#x27;sha512-9lmKqty4QmdI9leaFrSwkzDiMPC2gXUdZfKnnuJXH/xLE2HozmAdKGy79Go+dU7UeokxN+n+d8daP4AMccQ71Q==&#x27; &#x27;sha512-5KvljkkgkUBUptPVWEiwlS19OkIhbF2BykZOTKmGGAB+NsB2vEYHI94Ugnrfp31YpiDUZoN9r+uAbhG6BidYIg==&#x27;; script-src &#x27;self&#x27; https://challenges.cloudflare.com &#x27;sha512-lhbnNRDb7+6KhdAw5KNM+EW860liL+GBeP6CU2pCwBJ5pfe+F+Hz3ANcV9bgvZsd5cbsn8VHxQ1cQzc45Hhoyg==&#x27; &#x27;sha512-l+wzHVp4cZ8CUmfGcUII7PegsCwOGKBhyqv6Dk3JhqS8LFVNmIGopBTtn0kRjsrz0AA/axJmukcDwgvyOBgjAQ==&#x27;; frame-src https://challenges.cloudflare.com; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;; frame-ancestors &#x27;none&#x27;; upgrade-insecure-requests; media-src &#x27;none&#x27;; manifest-src &#x27;none&#x27;; worker-src &#x27; &#x27;sha512-l+wzHVp4cZ8CUmfGcUII7PegsCwOGKBhyqv6Dk3JhqS8LFVNmIGopBTtn0kRjsrz0AA/axJmukcDwgvyOBgjAQ==&#x27;; child-src &#x27;none&#x27;;">
+  <meta http-equiv="Content-Security-Policy" content="style-src &#x27;self&#x27; &#x27;sha512-9lmKqty4QmdI9leaFrSwkzDiMPC2gXUdZfKnnuJXH/xLE2HozmAdKGy79Go+dU7UeokxN+n+d8daP4AMccQ71Q==&#x27; &#x27;sha512-5KvljkkgkUBUptPVWEiwlS19OkIhbF2BykZOTKmGGAB+NsB2vEYHI94Ugnrfp31YpiDUZoN9r+uAbhG6BidYIg==&#x27;; script-src &#x27;self&#x27; https://challenges.cloudflare.com &#x27;sha512-sctgxXrhCe7PM/Ozy0EJLyr9IWTdr+0RS2G2ysLPbSL6MVGrc/roII3Jz3K5xuCJslSHThuV+/VKFoiukm7O4g==&#x27; &#x27;sha512-TeYcjm9QxADuD6UGjP4YkRYe/7kvbbOP97P7pyBAnvHFjXebhGSyrzq+xYLW0EpG9Gu32pl4t8AyMZqw1Pxg3Q==&#x27; &#x27;sha512-l+wzHVp4cZ8CUmfGcUII7PegsCwOGKBhyqv6Dk3JhqS8LFVNmIGopBTtn0kRjsrz0AA/axJmukcDwgvyOBgjAQ==&#x27;; frame-src https://challenges.cloudflare.com; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;; frame-ancestors &#x27;none&#x27;; upgrade-insecure-requests; media-src &#x27;none&#x27;; manifest-src &#x27;none&#x27;; worker-src &#x27; &#x27;sha512-l+wzHVp4cZ8CUmfGcUII7PegsCwOGKBhyqv6Dk3JhqS8LFVNmIGopBTtn0kRjsrz0AA/axJmukcDwgvyOBgjAQ==&#x27;; child-src &#x27;none&#x27;;">
 <meta name="dirac-base-domain" content="">
 <script id="dirac-runtime-domain-bootstrap-v2">(function(){
 'use strict';
@@ -33,7 +33,8 @@ function origin(role){
   role=String(role||'base').toLowerCase();
   if(!base)return '';
   if(localHost(base))return location.origin;
-  if(role==='base'||role==='shop'||role==='project'||role==='domain'||role==='topup')return 'https://'+base;
+  if(role==='base'||role==='shop'||role==='project')return 'https://'+base;
+  if(role==='domain'||role==='topup'||role==='pt')return 'https://pt.'+base;
   if(!ROLES[role])return '';
   return 'https://'+role+'.'+base;
 }
@@ -41,7 +42,8 @@ function host(role){
   role=String(role||'base').toLowerCase();
   if(!base)return '';
   if(localHost(base))return location.hostname;
-  if(role==='base'||role==='shop'||role==='project'||role==='domain'||role==='topup')return base;
+  if(role==='base'||role==='shop'||role==='project')return base;
+  if(role==='domain'||role==='topup'||role==='pt')return 'pt.'+base;
   return ROLES[role]?role+'.'+base:'';
 }
 function email(local){
@@ -65,19 +67,75 @@ window.__DIRAC_BASE_DOMAIN__=base;
 window.DiracRuntimeDomain=Object.freeze({baseDomain:base,origin:origin,host:host,email:email});
 var baseMeta=document.querySelector('meta[name="dirac-base-domain"]');if(baseMeta)baseMeta.setAttribute('content',base);
 var supportMeta=document.querySelector('meta[name="dirac-support-api-origin"]');if(supportMeta)supportMeta.setAttribute('content',origin('api'));
-var policy="default-src 'none'; style-src 'self' 'sha512-9lmKqty4QmdI9leaFrSwkzDiMPC2gXUdZfKnnuJXH/xLE2HozmAdKGy79Go+dU7UeokxN+n+d8daP4AMccQ71Q==' 'sha512-5KvljkkgkUBUptPVWEiwlS19OkIhbF2BykZOTKmGGAB+NsB2vEYHI94Ugnrfp31YpiDUZoN9r+uAbhG6BidYIg=='; script-src 'self' https://challenges.cloudflare.com 'sha512-l+wzHVp4cZ8CUmfGcUII7PegsCwOGKBhyqv6Dk3JhqS8LFVNmIGopBTtn0kRjsrz0AA/axJmukcDwgvyOBgjAQ=='; connect-src 'self' __DIRAC_CSP_API__ https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests;";
+var policy="default-src 'none'; style-src 'self' 'sha512-9lmKqty4QmdI9leaFrSwkzDiMPC2gXUdZfKnnuJXH/xLE2HozmAdKGy79Go+dU7UeokxN+n+d8daP4AMccQ71Q==' 'sha512-5KvljkkgkUBUptPVWEiwlS19OkIhbF2BykZOTKmGGAB+NsB2vEYHI94Ugnrfp31YpiDUZoN9r+uAbhG6BidYIg=='; script-src 'self' https://challenges.cloudflare.com 'sha512-TeYcjm9QxADuD6UGjP4YkRYe/7kvbbOP97P7pyBAnvHFjXebhGSyrzq+xYLW0EpG9Gu32pl4t8AyMZqw1Pxg3Q==' 'sha512-l+wzHVp4cZ8CUmfGcUII7PegsCwOGKBhyqv6Dk3JhqS8LFVNmIGopBTtn0kRjsrz0AA/axJmukcDwgvyOBgjAQ=='; connect-src 'self' __DIRAC_CSP_API__ https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com __DIRAC_CSP_ORDER__; frame-src https://challenges.cloudflare.com; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests;";
 policy=policy.split('__DIRAC_CSP_BASE__').join(origin('base'));
 policy=policy.split('__DIRAC_CSP_API__').join(origin('api'));
+policy=policy.split('__DIRAC_CSP_ORDER__').join(origin('order'));
 policy=policy.split('__DIRAC_CSP_WWW__').join(origin('www'));
 policy=policy.split('__DIRAC_CSP_SECURE__').join(origin('secure'));
 policy=policy.split('__DIRAC_CSP_PARFUM__').join(origin('parfum'));
 if(policy.indexOf('__DIRAC_CSP_')>=0){failClosed();return;}
 install(policy);
-function setLink(id,role,path){var el=document.getElementById(id),o=origin(role);if(el&&o&&/^\/[A-Za-z0-9._~!$&()*+,;=:@%/\-]*$/.test(path))el.setAttribute('href',o+path);}
+function canonicalPageRole(path,fallback){
+  var file=(String(path||'').split('?')[0].split('#')[0].split('/').pop()||'').toLowerCase();
+  if(file==='parfum.html')return 'shop';
+  if(file==='website.html')return 'project';
+  if(file==='masuk.html')return 'auth';
+  if(file==='dashboard.html')return 'panel';
+  if(file==='pesanan.html')return 'order';
+  if(file==='keamanan.html')return 'security';
+  if(file==='chat.html')return 'cs';
+  if(file==='chat-admin.html')return 'cs';
+  if(/^[a-z0-9][a-z0-9._-]*\.html$/.test(file))return 'pt';
+  return fallback;
+}
+function setLink(id,role,path){role=canonicalPageRole(path,role);var el=document.getElementById(id),o=origin(role);if(el&&o&&/^\/[A-Za-z0-9._~!$&()*+,;=:@%/\-]*$/.test(path))el.setAttribute('href',o+path);}
 function setEmail(id,local){var el=document.getElementById(id),v=email(local);if(el&&v){el.textContent=v;el.setAttribute('href','mailto:'+v);}}
 function setHost(id,role){var el=document.getElementById(id),v=host(role);if(el&&v)el.textContent=v;}
 function hydrate(){}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',hydrate,{once:true});else hydrate();
+})();</script><script id="dirac-central-logo-source-v1">(function(){'use strict';
+if(window.DiracCentralLogo)return;
+var runtime=window.DiracRuntimeDomain||null;
+var pt=window.DiracPtRouteBootstrap||null;
+var base=runtime&&runtime.baseDomain?String(runtime.baseDomain):pt&&pt.baseDomain?String(pt.baseDomain):'';
+var orderOrigin='';
+if(runtime&&typeof runtime.origin==='function')orderOrigin=String(runtime.origin('order')||'');
+else if(pt&&pt.orderOrigin)orderOrigin=String(pt.orderOrigin||'');
+else if(base)orderOrigin=(location.protocol==='http:'&&/^(?:localhost|127\.|\[?::1\]?$)/i.test(String(location.hostname||'')))?location.origin:'https://order.'+base;
+if(!orderOrigin){document.documentElement.setAttribute('data-dirac-logo-source','invalid');return;}
+var cache=Object.create(null);
+function allowed(name){return name==='logo1.webp'||name==='logo2.webp'||name==='logo3.webp';}
+function asData(blob){
+  return new Promise(function(resolve,reject){
+    if(!blob||blob.size<1||blob.size>5242880){reject(new Error('DIRAC_LOGO_SIZE'));return;}
+    if(blob.type&&!/^image\/webp(?:;|$)/i.test(blob.type)){reject(new Error('DIRAC_LOGO_TYPE'));return;}
+    var reader=new FileReader();
+    reader.onload=function(){typeof reader.result==='string'?resolve(reader.result):reject(new Error('DIRAC_LOGO_DATA'));};
+    reader.onerror=function(){reject(new Error('DIRAC_LOGO_READ'));};
+    reader.readAsDataURL(blob);
+  });
+}
+function load(name){
+  name=String(name||'');
+  if(!allowed(name))return Promise.reject(new Error('DIRAC_LOGO_NAME'));
+  if(cache[name])return cache[name];
+  cache[name]=fetch(orderOrigin+'/'+name,{method:'GET',mode:'cors',credentials:'omit',cache:'force-cache',redirect:'error',referrerPolicy:'no-referrer'})
+    .then(function(response){if(!response||!response.ok||response.type==='opaque')throw new Error('DIRAC_LOGO_HTTP');return response.blob();})
+    .then(asData);
+  return cache[name];
+}
+function apply(name,node){
+  if(!node||String(node.tagName||'').toUpperCase()!=='IMG')return Promise.resolve(false);
+  return load(name).then(function(data){node.src=data;return true;},function(){try{node.removeAttribute('src');node.dispatchEvent(new Event('error'));}catch(_){}return false;});
+}
+window.DiracCentralLogo=Object.freeze({origin:orderOrigin,load:load,apply:apply});
+load('logo1.webp');
+load('logo3.webp');
+document.addEventListener('DOMContentLoaded',function(){
+var n1=document.querySelector('[data-dirac-central-logo-slot="1"]');if(n1)window.DiracCentralLogo.apply('logo1.webp',n1);
+var n2=document.querySelector('[data-dirac-central-logo-slot="2"]');if(n2)window.DiracCentralLogo.apply('logo1.webp',n2);
+},{once:true});
 })();</script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <title>Support Console — Dirac Group</title>
@@ -600,7 +658,7 @@ html body :is(.skeleton,.app-skeleton)::after,html body .dirac-video-frame.is-vi
 <body class="admin-body" data-dirac-page="admin">
   <main class="admin-login" id="loginView">
     <section class="login-card" id="passwordPanel">
-      <div class="brand"><span class="brand-mark" aria-hidden="true"><img src="logo1.webp" alt="" decoding="async" loading="eager"></span><span class="brand-copy"><strong>Dirac Group</strong><span>Internal support console</span></span></div>
+      <div class="brand"><span class="brand-mark" aria-hidden="true"><img data-dirac-central-logo-slot="1" alt="" decoding="async" loading="eager"></span><span class="brand-copy"><strong>Dirac Group</strong><span>Internal support console</span></span></div>
       <h1>Masuk sebagai petugas</h1>
       <p>Hanya akun Supabase Auth yang ada di allowlist staff aktif dan memenuhi kebijakan MFA yang dapat mengakses konsol ini.</p>
       <div class="error-box" id="loginError" role="alert" hidden></div>
@@ -633,7 +691,7 @@ html body :is(.skeleton,.app-skeleton)::after,html body .dirac-video-frame.is-vi
 
   <main class="admin-app" id="adminView" hidden>
     <header class="admin-header">
-      <span class="brand-mark" aria-hidden="true"><img src="logo1.webp" alt="" decoding="async" loading="eager"></span>
+      <span class="brand-mark" aria-hidden="true"><img data-dirac-central-logo-slot="2" alt="" decoding="async" loading="eager"></span>
       <span class="brand-copy"><strong>Support Console</strong><span>Dirac Group</span></span>
       <nav class="admin-tabs" aria-label="Modul admin">
         <button class="admin-tab active" type="button" data-view="inbox">Live chat</button>
