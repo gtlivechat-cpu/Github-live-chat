@@ -24,7 +24,7 @@ window.__DIRAC_BASE_DOMAIN__=base;
 window.DiracRuntimeDomain=Object.freeze({baseDomain:base,origin:origin});
 var apiOrigin=origin('api');
 var logoOrigin=origin('order');
-var policy="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com 'sha512-tVkhnUfdo6ODYrqpufmrloHZiBdmDCeQfVClH9klU8CUmztSHnIzP4wJqGrA1jWuxeyLwB6EocRCn4d/2wv9Tw==' 'sha512-JGZePcczvzoqbPRVOmmWWdtcukjE+leZrO0/DJA2o8p5ON/o1Z+uLWQJtT/PXNBn9tk44647Id5JDViQs48xLg==' 'sha512-JFScnZVH2LfXuwK7mGUJG1M2WQx9zCsP2Bfi2ZfUcXzZGcrNqZmvxhODIaPyzirezu2I1miwKQGcXf8YDwGIdQ==' 'sha512-TnxWnXVKcw3zc7Hdd7XxE0qLJ/nJXm3MdiKhW9u7Hf7khXyP6IKHzjvOuDJFmjoNVenL2D/aFAKhYFXf+EnweQ==' 'sha512-r1txH+/F2Z2G0r2TW3a/W4leGGxbKfbQ9ap/ocP9JEBAUeub5fCEe+5/pGZ+xHeo0KhgfLdja6BS6wrWgmCspw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-elem 'self' https://challenges.cloudflare.com 'sha512-tVkhnUfdo6ODYrqpufmrloHZiBdmDCeQfVClH9klU8CUmztSHnIzP4wJqGrA1jWuxeyLwB6EocRCn4d/2wv9Tw==' 'sha512-JGZePcczvzoqbPRVOmmWWdtcukjE+leZrO0/DJA2o8p5ON/o1Z+uLWQJtT/PXNBn9tk44647Id5JDViQs48xLg==' 'sha512-JFScnZVH2LfXuwK7mGUJG1M2WQx9zCsP2Bfi2ZfUcXzZGcrNqZmvxhODIaPyzirezu2I1miwKQGcXf8YDwGIdQ==' 'sha512-TnxWnXVKcw3zc7Hdd7XxE0qLJ/nJXm3MdiKhW9u7Hf7khXyP6IKHzjvOuDJFmjoNVenL2D/aFAKhYFXf+EnweQ==' 'sha512-r1txH+/F2Z2G0r2TW3a/W4leGGxbKfbQ9ap/ocP9JEBAUeub5fCEe+5/pGZ+xHeo0KhgfLdja6BS6wrWgmCspw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-attr 'none'; style-src 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-LTwPqNYz0ct//TUWCLaNyO91SWuHlzzKmIhImS5I6dIADXMgcmuukXLgd3QDOano4PEu3G2VCVua6kZzVCEoSg==' 'sha512-RByjnmcR2aYT0aPXmaCDvp2QcX01dau95aKm45EtmUdCVVC/MK44Ua1TuyKp7Lg1iijGHkQEbTUSGxgcuSB4IQ==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-WS/mJK7LJFBo/ZCgKdZ6jukQIE3ocmA/gt6gCB881hAN6LvPzu/Yr2M0yd2YFBYc9ga/NgyVvc73OmLcwf3Iyg=='; style-src-elem 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-LTwPqNYz0ct//TUWCLaNyO91SWuHlzzKmIhImS5I6dIADXMgcmuukXLgd3QDOano4PEu3G2VCVua6kZzVCEoSg==' 'sha512-RByjnmcR2aYT0aPXmaCDvp2QcX01dau95aKm45EtmUdCVVC/MK44Ua1TuyKp7Lg1iijGHkQEbTUSGxgcuSB4IQ==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-WS/mJK7LJFBo/ZCgKdZ6jukQIE3ocmA/gt6gCB881hAN6LvPzu/Yr2M0yd2YFBYc9ga/NgyVvc73OmLcwf3Iyg=='; style-src-attr 'none'; img-src 'self' data:; font-src 'self'; media-src 'none'; connect-src 'self' "+apiOrigin+" "+logoOrigin+" https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; child-src https://challenges.cloudflare.com; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types dirac-chat";
+var policy="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com 'sha512-tVkhnUfdo6ODYrqpufmrloHZiBdmDCeQfVClH9klU8CUmztSHnIzP4wJqGrA1jWuxeyLwB6EocRCn4d/2wv9Tw==' 'sha512-JGZePcczvzoqbPRVOmmWWdtcukjE+leZrO0/DJA2o8p5ON/o1Z+uLWQJtT/PXNBn9tk44647Id5JDViQs48xLg==' 'sha512-Uw2SBX0vZTT22TeqFBEOmKT10hcwvqfgQ1GLVAwT26awA/sGKdROQaxfRvqep4vML80zpc8tBh35oI07hDKgTg==' 'sha512-TnxWnXVKcw3zc7Hdd7XxE0qLJ/nJXm3MdiKhW9u7Hf7khXyP6IKHzjvOuDJFmjoNVenL2D/aFAKhYFXf+EnweQ==' 'sha512-r1txH+/F2Z2G0r2TW3a/W4leGGxbKfbQ9ap/ocP9JEBAUeub5fCEe+5/pGZ+xHeo0KhgfLdja6BS6wrWgmCspw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-elem 'self' https://challenges.cloudflare.com 'sha512-tVkhnUfdo6ODYrqpufmrloHZiBdmDCeQfVClH9klU8CUmztSHnIzP4wJqGrA1jWuxeyLwB6EocRCn4d/2wv9Tw==' 'sha512-JGZePcczvzoqbPRVOmmWWdtcukjE+leZrO0/DJA2o8p5ON/o1Z+uLWQJtT/PXNBn9tk44647Id5JDViQs48xLg==' 'sha512-Uw2SBX0vZTT22TeqFBEOmKT10hcwvqfgQ1GLVAwT26awA/sGKdROQaxfRvqep4vML80zpc8tBh35oI07hDKgTg==' 'sha512-TnxWnXVKcw3zc7Hdd7XxE0qLJ/nJXm3MdiKhW9u7Hf7khXyP6IKHzjvOuDJFmjoNVenL2D/aFAKhYFXf+EnweQ==' 'sha512-r1txH+/F2Z2G0r2TW3a/W4leGGxbKfbQ9ap/ocP9JEBAUeub5fCEe+5/pGZ+xHeo0KhgfLdja6BS6wrWgmCspw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-attr 'none'; style-src 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-LTwPqNYz0ct//TUWCLaNyO91SWuHlzzKmIhImS5I6dIADXMgcmuukXLgd3QDOano4PEu3G2VCVua6kZzVCEoSg==' 'sha512-RByjnmcR2aYT0aPXmaCDvp2QcX01dau95aKm45EtmUdCVVC/MK44Ua1TuyKp7Lg1iijGHkQEbTUSGxgcuSB4IQ==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-WS/mJK7LJFBo/ZCgKdZ6jukQIE3ocmA/gt6gCB881hAN6LvPzu/Yr2M0yd2YFBYc9ga/NgyVvc73OmLcwf3Iyg=='; style-src-elem 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-LTwPqNYz0ct//TUWCLaNyO91SWuHlzzKmIhImS5I6dIADXMgcmuukXLgd3QDOano4PEu3G2VCVua6kZzVCEoSg==' 'sha512-RByjnmcR2aYT0aPXmaCDvp2QcX01dau95aKm45EtmUdCVVC/MK44Ua1TuyKp7Lg1iijGHkQEbTUSGxgcuSB4IQ==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-WS/mJK7LJFBo/ZCgKdZ6jukQIE3ocmA/gt6gCB881hAN6LvPzu/Yr2M0yd2YFBYc9ga/NgyVvc73OmLcwf3Iyg=='; style-src-attr 'none'; img-src 'self' data:; font-src 'self'; media-src 'none'; connect-src 'self' "+apiOrigin+" "+logoOrigin+" https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; child-src https://challenges.cloudflare.com; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types dirac-chat";
 install(policy);
 })();</script><script id="dirac-security-boundary-20260905" data-page="chat.html">
 (function(){
@@ -1940,9 +1940,37 @@ function load(name){
     .then(asData);
   return cache[name];
 }
+function renderLoaderWordmark(picture){
+  if(!picture||picture.naturalWidth!==500||picture.naturalHeight!==500)return '';
+  var surface=document.createElement('canvas');surface.width=500;surface.height=500;
+  var context=surface.getContext('2d');if(!context)return '';
+  try{
+    context.drawImage(picture,0,0);
+    var region=context.getImageData(0,350,500,36),pixels=region.data;
+    for(var i=0;i<pixels.length;i+=4){if(pixels[i+3]>0&&pixels[i+2]>=pixels[i]+24&&pixels[i+2]>=pixels[i+1]+12)pixels[i]=pixels[i+1]=pixels[i+2]=255;}
+    context.putImageData(region,0,350);return surface.toDataURL('image/png');
+  }catch(_){return '';}
+  finally{surface.width=surface.height=0;}
+}
+var loaderWordmarkPromise=null;
+function loaderWordmark(data){
+  if(loaderWordmarkPromise)return loaderWordmarkPromise;
+  loaderWordmarkPromise=new Promise(function(resolve){
+    if(typeof data!=='string'||data.length>7340032||!/^data:image\/webp;base64,/i.test(data)){resolve(data);return;}
+    var picture=new Image();
+    function finish(value){picture.onload=picture.onerror=null;resolve(value);}
+    picture.onload=function(){finish(renderLoaderWordmark(picture)||data);};
+    picture.onerror=function(){finish(data);};
+    picture.src=data;
+  });
+  return loaderWordmarkPromise;
+}
 function apply(name,node){
   if(!node||String(node.tagName||'').toUpperCase()!=='IMG')return Promise.resolve(false);
-  return load(name).then(function(data){node.src=data;return true;},function(){try{node.removeAttribute('src');node.dispatchEvent(new Event('error'));}catch(_){}return false;});
+  return load(name).then(function(data){
+    if(name==='logo3.webp'&&node.classList&&node.classList.contains('dirac-final-logo-img'))return loaderWordmark(data).then(function(result){node.src=result;return true;});
+    node.src=data;return true;
+  },function(){try{node.removeAttribute('src');node.dispatchEvent(new Event('error'));}catch(_){}return false;});
 }
 window.DiracCentralLogo=Object.freeze({origin:orderOrigin,load:load,apply:apply});
 load('logo1.webp');
