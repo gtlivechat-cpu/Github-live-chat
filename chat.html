@@ -24,7 +24,7 @@ window.__DIRAC_BASE_DOMAIN__=base;
 window.DiracRuntimeDomain=Object.freeze({baseDomain:base,origin:origin});
 var apiOrigin=origin('api');
 var logoOrigin=origin('order');
-var policy="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com 'sha512-tVkhnUfdo6ODYrqpufmrloHZiBdmDCeQfVClH9klU8CUmztSHnIzP4wJqGrA1jWuxeyLwB6EocRCn4d/2wv9Tw==' 'sha512-JGZePcczvzoqbPRVOmmWWdtcukjE+leZrO0/DJA2o8p5ON/o1Z+uLWQJtT/PXNBn9tk44647Id5JDViQs48xLg==' 'sha512-Uw2SBX0vZTT22TeqFBEOmKT10hcwvqfgQ1GLVAwT26awA/sGKdROQaxfRvqep4vML80zpc8tBh35oI07hDKgTg==' 'sha512-TnxWnXVKcw3zc7Hdd7XxE0qLJ/nJXm3MdiKhW9u7Hf7khXyP6IKHzjvOuDJFmjoNVenL2D/aFAKhYFXf+EnweQ==' 'sha512-r1txH+/F2Z2G0r2TW3a/W4leGGxbKfbQ9ap/ocP9JEBAUeub5fCEe+5/pGZ+xHeo0KhgfLdja6BS6wrWgmCspw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-elem 'self' https://challenges.cloudflare.com 'sha512-tVkhnUfdo6ODYrqpufmrloHZiBdmDCeQfVClH9klU8CUmztSHnIzP4wJqGrA1jWuxeyLwB6EocRCn4d/2wv9Tw==' 'sha512-JGZePcczvzoqbPRVOmmWWdtcukjE+leZrO0/DJA2o8p5ON/o1Z+uLWQJtT/PXNBn9tk44647Id5JDViQs48xLg==' 'sha512-Uw2SBX0vZTT22TeqFBEOmKT10hcwvqfgQ1GLVAwT26awA/sGKdROQaxfRvqep4vML80zpc8tBh35oI07hDKgTg==' 'sha512-TnxWnXVKcw3zc7Hdd7XxE0qLJ/nJXm3MdiKhW9u7Hf7khXyP6IKHzjvOuDJFmjoNVenL2D/aFAKhYFXf+EnweQ==' 'sha512-r1txH+/F2Z2G0r2TW3a/W4leGGxbKfbQ9ap/ocP9JEBAUeub5fCEe+5/pGZ+xHeo0KhgfLdja6BS6wrWgmCspw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-attr 'none'; style-src 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-LTwPqNYz0ct//TUWCLaNyO91SWuHlzzKmIhImS5I6dIADXMgcmuukXLgd3QDOano4PEu3G2VCVua6kZzVCEoSg==' 'sha512-RByjnmcR2aYT0aPXmaCDvp2QcX01dau95aKm45EtmUdCVVC/MK44Ua1TuyKp7Lg1iijGHkQEbTUSGxgcuSB4IQ==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-WS/mJK7LJFBo/ZCgKdZ6jukQIE3ocmA/gt6gCB881hAN6LvPzu/Yr2M0yd2YFBYc9ga/NgyVvc73OmLcwf3Iyg=='; style-src-elem 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-LTwPqNYz0ct//TUWCLaNyO91SWuHlzzKmIhImS5I6dIADXMgcmuukXLgd3QDOano4PEu3G2VCVua6kZzVCEoSg==' 'sha512-RByjnmcR2aYT0aPXmaCDvp2QcX01dau95aKm45EtmUdCVVC/MK44Ua1TuyKp7Lg1iijGHkQEbTUSGxgcuSB4IQ==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-WS/mJK7LJFBo/ZCgKdZ6jukQIE3ocmA/gt6gCB881hAN6LvPzu/Yr2M0yd2YFBYc9ga/NgyVvc73OmLcwf3Iyg=='; style-src-attr 'none'; img-src 'self' data:; font-src 'self'; media-src 'none'; connect-src 'self' "+apiOrigin+" "+logoOrigin+" https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; child-src https://challenges.cloudflare.com; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types dirac-chat";
+var policy="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com 'sha512-BICE0dflUxps8aX33Fk02V0mETvPSSHgDebrtSvMoc1YhFCiU4pRjyz411EARQ0mBMx/y3eyBdBnV5MsVe1ZEg==' 'sha512-JGZePcczvzoqbPRVOmmWWdtcukjE+leZrO0/DJA2o8p5ON/o1Z+uLWQJtT/PXNBn9tk44647Id5JDViQs48xLg==' 'sha512-Uw2SBX0vZTT22TeqFBEOmKT10hcwvqfgQ1GLVAwT26awA/sGKdROQaxfRvqep4vML80zpc8tBh35oI07hDKgTg==' 'sha512-TnxWnXVKcw3zc7Hdd7XxE0qLJ/nJXm3MdiKhW9u7Hf7khXyP6IKHzjvOuDJFmjoNVenL2D/aFAKhYFXf+EnweQ==' 'sha512-r1txH+/F2Z2G0r2TW3a/W4leGGxbKfbQ9ap/ocP9JEBAUeub5fCEe+5/pGZ+xHeo0KhgfLdja6BS6wrWgmCspw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-elem 'self' https://challenges.cloudflare.com 'sha512-BICE0dflUxps8aX33Fk02V0mETvPSSHgDebrtSvMoc1YhFCiU4pRjyz411EARQ0mBMx/y3eyBdBnV5MsVe1ZEg==' 'sha512-JGZePcczvzoqbPRVOmmWWdtcukjE+leZrO0/DJA2o8p5ON/o1Z+uLWQJtT/PXNBn9tk44647Id5JDViQs48xLg==' 'sha512-Uw2SBX0vZTT22TeqFBEOmKT10hcwvqfgQ1GLVAwT26awA/sGKdROQaxfRvqep4vML80zpc8tBh35oI07hDKgTg==' 'sha512-TnxWnXVKcw3zc7Hdd7XxE0qLJ/nJXm3MdiKhW9u7Hf7khXyP6IKHzjvOuDJFmjoNVenL2D/aFAKhYFXf+EnweQ==' 'sha512-r1txH+/F2Z2G0r2TW3a/W4leGGxbKfbQ9ap/ocP9JEBAUeub5fCEe+5/pGZ+xHeo0KhgfLdja6BS6wrWgmCspw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-attr 'none'; style-src 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-LTwPqNYz0ct//TUWCLaNyO91SWuHlzzKmIhImS5I6dIADXMgcmuukXLgd3QDOano4PEu3G2VCVua6kZzVCEoSg==' 'sha512-RByjnmcR2aYT0aPXmaCDvp2QcX01dau95aKm45EtmUdCVVC/MK44Ua1TuyKp7Lg1iijGHkQEbTUSGxgcuSB4IQ==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-WS/mJK7LJFBo/ZCgKdZ6jukQIE3ocmA/gt6gCB881hAN6LvPzu/Yr2M0yd2YFBYc9ga/NgyVvc73OmLcwf3Iyg=='; style-src-elem 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-LTwPqNYz0ct//TUWCLaNyO91SWuHlzzKmIhImS5I6dIADXMgcmuukXLgd3QDOano4PEu3G2VCVua6kZzVCEoSg==' 'sha512-RByjnmcR2aYT0aPXmaCDvp2QcX01dau95aKm45EtmUdCVVC/MK44Ua1TuyKp7Lg1iijGHkQEbTUSGxgcuSB4IQ==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-WS/mJK7LJFBo/ZCgKdZ6jukQIE3ocmA/gt6gCB881hAN6LvPzu/Yr2M0yd2YFBYc9ga/NgyVvc73OmLcwf3Iyg=='; style-src-attr 'none'; img-src 'self' data:; font-src 'self'; media-src 'none'; connect-src 'self' "+apiOrigin+" "+logoOrigin+" https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; child-src https://challenges.cloudflare.com; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types dirac-chat";
 install(policy);
 })();</script><script id="dirac-security-boundary-20260905" data-page="chat.html">
 (function(){
@@ -122,16 +122,26 @@ install(policy);
     var text = normalize(value);
     var samples = Array.from(new Set([text, text.replace(/\/\*[\s\S]{0,256}?\*\//g,''), text.replace(/\/\*[\s\S]{0,256}?\*\//g,' ')]));
     if(ssrfUrl(text)) return {detected:true,family:'ssrf',normalized:text};
-    for(var i=0;i<RULES.length;i++) for(var s=0;s<samples.length;s++) if(RULES[i][1].test(samples[s])) return {detected:true,family:RULES[i][0],normalized:text};
+    var restricted = null;
+    for(var i=0;i<RULES.length;i++) for(var s=0;s<samples.length;s++){
+      var match = RULES[i][1].exec(samples[s]);
+      if(!match) continue;
+      var result = {detected:true,family:RULES[i][0],normalized:text,sample:match[0].slice(0,768)};
+      if(RULES[i][0] === 'restricted_keyword'){ restricted=result; continue; }
+      return result;
+    }
+    if(restricted) return restricted;
     if(context && context.ai === true && PROMPT_RULE.test(text)) return {detected:true,family:'prompt_injection',normalized:text};
     return {detected:false,family:'',normalized:text};
   }
   // Browser validation is an additional boundary. Identity and bans remain server-owned.
   var page = document.currentScript.getAttribute('data-page');
-  var incident = null, running = false, finished = false;
+  var incident = null, running = false, finished = false, attempts = 0;
+  var reportProof = null, proofPending = null, resumePending = false, resumeRunning = false, resumeAttempts = 0;
+  var pendingCookie = '__Host-dirac_boundary_pending_v431';
   var nativeFetch = window.fetch.bind(window);
   var restoreLocation = history.replaceState.bind(history);
-  var noticeText = '';
+  var noticeText = '', noticeDismissible = false;
   function canonicalPath(){
     var path=String(location.pathname || ''), at=path.toLowerCase().lastIndexOf('/'+page);
     return at >= 0 ? path.slice(0,at+page.length+1) : '/'+page;
@@ -158,12 +168,17 @@ install(policy);
   function rejectResponse(response){
     return response.clone().json().catch(function(){ return null; }).then(function(data){ throw serverError(response,data); });
   }
-  function notice(message){
-    noticeText = message;
+  function notice(message, canDismiss){
+    noticeText = message; noticeDismissible = canDismiss === true;
     if(!document.body) return;
     var node = document.getElementById('diracBoundaryNotice');
     if(!node){ node = document.createElement('dialog'); node.id = 'diracBoundaryNotice'; node.setAttribute('aria-label','Pemeriksaan keamanan'); document.body.appendChild(node); }
     node.textContent = message;
+    if(noticeDismissible){
+      var close = document.createElement('button'); close.type='button'; close.textContent='Perbaiki input';
+      close.addEventListener('click',function(event){event.preventDefault();event.stopPropagation();if(typeof node.close==='function')node.close();});
+      node.appendChild(close);
+    }
     if(!node.open && typeof node.showModal === 'function') node.showModal();
   }
   function healthPath(){
@@ -177,47 +192,99 @@ install(policy);
     return 'https://api.'+parts.join('.')+'/api/health';
   }
   function signed(value){ return /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(text(value)) && value.length >= 48 && value.length <= 4096; }
+  // This host-only flag contains no account, payload, credential, CSRF or nonce.
+  // It is a local checkpoint hint, never evidence that authorizes a server ban.
+  function markPending(value){
+    try{ document.cookie=pendingCookie+'='+(value?'1':'')+'; Path=/; Secure; SameSite=Strict; Max-Age='+(value?'86400':'0'); }catch(_){}
+  }
+  function hasPending(){
+    try{return String(document.cookie || '').split(';').some(function(part){return part.trim()===pendingCookie+'=1';});}catch(_){return false;}
+  }
+  function payload(token){
+    if(!signed(token)) return null;
+    try{var encoded=token.split('.')[0].replace(/-/g,'+').replace(/_/g,'/');return JSON.parse(atob(encoded+'='.repeat((4-encoded.length%4)%4)));}catch(_){return null;}
+  }
+  function cachedProof(){
+    return reportProof && reportProof.until > Date.now()+5000 ? reportProof : null;
+  }
+  function observeProof(response){
+    if(!response || !response.ok) return;
+    if(response.headers.get('X-Domain-Token-Refreshed')){reportProof=null;return;}
+    var ordinary=payload(text(response.headers.get('X-Dirac-Page-Nonce')));
+    if(reportProof && ordinary && ordinary.sid !== reportProof.sid) reportProof=null;
+    var csrf=text(response.headers.get('X-Dirac-CSRF-Token') || response.headers.get('X-CSRF-Token'));
+    var nonce=text(response.headers.get('X-Dirac-Security-Report-Nonce') || (ordinary && ordinary.act==='security_report'?response.headers.get('X-Dirac-Page-Nonce'):''));
+    var n=payload(nonce), c=payload(csrf), now=Math.floor(Date.now()/1000);
+    if(!n || !c || n.typ!=='dirac-page-nonce-v1' || n.act!=='security_report' || n.mth!=='POST'
+      || !Number.isSafeInteger(n.iat) || !Number.isSafeInteger(n.exp) || n.iat>now+30 || n.exp<=now+5 || n.exp>n.iat+600
+      || !Number.isSafeInteger(c.exp) || c.exp<=now+5 || !/^[a-f0-9]{64}$/.test(text(n.sid)) || !/^[a-f0-9]{64}$/.test(text(n.oh))) return;
+    reportProof={csrf:csrf,nonce:nonce,sid:n.sid,until:Math.min(n.exp,c.exp)*1000};
+  }
+  async function prepareProof(){
+    var ready=cachedProof(); if(ready) return ready;
+    if(proofPending) return proofPending;
+    proofPending=(async function(){
+      var response=await reportRequest(healthPath()+'?action=domain_health&_dirac_page_nonce_for=security_report&_t='+Date.now(),{method:'GET',headers:{Accept:'application/json'}});
+      if(!response.ok) return rejectResponse(response);
+      observeProof(response);
+      var ready=cachedProof(); if(!ready) throw new Error('DIRAC_CSRF_BOOTSTRAP_REQUIRED');
+      return ready;
+    })();
+    try{return await proofPending;}finally{proofPending=null;}
+  }
+  async function resumeCheckpoint(){
+    if(!resumePending || resumeRunning || resumeAttempts>=2 || incident) return;
+    resumeRunning=true;resumeAttempts+=1;
+    document.documentElement.setAttribute('data-dirac-security-incident','checkpoint');
+    try{
+      await prepareProof();
+      if(!incident){resumePending=false;markPending(false);document.documentElement.removeAttribute('data-dirac-security-incident');}
+    }catch(error){
+      notice('Pemeriksaan keamanan belum selesai. Akses tetap ditahan. '+(error.diracPublicMessage || codeMessage(error) || 'Sambungkan jaringan lalu muat ulang halaman.'));
+    }finally{resumeRunning=false;}
+  }
   async function reportRequest(url, options){
     var controller=new AbortController(), timer=setTimeout(function(){controller.abort();},12000);
-    var next=Object.assign({},options,{mode:'cors',credentials:'include',cache:'no-store',redirect:'error',
+    var next=Object.assign({},options,{mode:'cors',credentials:'include',cache:'no-store',redirect:'error',keepalive:true,
       referrer:location.origin+canonicalPath(),referrerPolicy:'no-referrer-when-downgrade',signal:controller.signal});
     // Use the captured transport once. CSRF and action-bound nonce still come from Central Guard.
     try{ return await nativeFetch(url,next); }finally{ clearTimeout(timer); }
   }
   async function guardedPost(action, body){
-    var base=healthPath();
-    var proof=await reportRequest(base+'?action=domain_health&_dirac_page_nonce_for='+encodeURIComponent(action)+'&_t='+Date.now(),
-      {method:'GET',headers:{Accept:'application/json'}});
-    if(!proof.ok) return rejectResponse(proof);
-    var csrf=text(proof.headers.get('X-Dirac-CSRF-Token') || proof.headers.get('X-CSRF-Token'));
-    var nonce=text(proof.headers.get('X-Dirac-Page-Nonce'));
-    if(!signed(csrf) || !signed(nonce)) throw new Error('DIRAC_CSRF_BOOTSTRAP_REQUIRED');
-    return reportRequest(base+'?action='+encodeURIComponent(action),{method:'POST',keepalive:true,
-      headers:{Accept:'application/json','Content-Type':'application/json','X-CSRF-Token':csrf,'X-Dirac-CSRF-Token':csrf,'X-Dirac-Page-Nonce':nonce},
+    if(action!=='security_report') throw new Error('DIRAC_REPORT_ACTION_INVALID');
+    var proof=cachedProof() || await prepareProof();
+    if(incident && incident.sid && incident.sid!==proof.sid) throw new Error('DIRAC_REPORT_SESSION_CHANGED');
+    if(incident && !incident.sid) incident.sid=proof.sid;
+    reportProof=null;
+    return reportRequest(healthPath()+'?action=security_report',{method:'POST',keepalive:true,
+      headers:{Accept:'application/json','Content-Type':'application/json','X-CSRF-Token':proof.csrf,'X-Dirac-CSRF-Token':proof.csrf,'X-Dirac-Page-Nonce':proof.nonce},
       body:JSON.stringify(body)});
   }
   function reportBody(){
     var url = incident.family === 'forbidden_html_suffix';
     var field = text(incident.field).replace(/[^a-z0-9_-]/gi,'').slice(0,64) || 'input';
     var family = text(incident.family).replace(/[^a-z0-9_-]/gi,'').slice(0,64);
-    // Keep the existing server's exact legacy event label; no warning count is fabricated.
-    var legacy = page === 'parfum.html' && (url || /^(?:name|detail|note|phone|menu|search|promo)$/.test(field));
+    // Legacy protocol label only: the server recognizes this name; it does not count attempts.
+    var legacy = page === 'parfum.html' && (url || !incident.sample && /^(?:name|detail|note|phone|menu|search|promo)$/.test(field));
     return {action:'security_report',reason:'html_detected_attack',type:url?'url_guard':'input_guard',page:page,
       event:url?'forbidden_html_url_suffix':legacy?'fourth_high_confidence_input_violation':'high_confidence_input_violation',
-      evidence:legacy?'family='+(url?'forbidden_html_suffix':'frontend_threat')+';field='+field+';source=parfum_checkout_security':'family='+family+';field='+field+';source=html_boundary',version:'dirac-html-shell-v1'};
+      evidence:legacy?'family='+(url?'forbidden_html_suffix':'frontend_threat')+';field='+field+';source=parfum_checkout_security':'family='+family+';field='+field+';source=html_boundary'+(incident.sample?';sample='+incident.sample:''),version:'dirac-html-shell-v1'};
   }
   async function respond(){
-    if(!incident || running || finished) return;
-    running=true;
+    if(!incident || running || finished || attempts>=2) return;
+    running=true; attempts+=1; markPending(true);
     document.documentElement.setAttribute('data-dirac-security-incident','pending');
+    var delivery=guardedPost('security_report',reportBody());
     notice('Permintaan dihentikan. Laporan keamanan sedang dikirim.');
     try{
-      var response=await guardedPost('security_report',reportBody());
+      var response=await delivery;
       var data=await response.clone().json().catch(function(){return null;});
       if(response.status===403 && data && data.code==='CENTRAL_SECURITY_BLOCKED'){
+        finished=true; markPending(false);
         document.documentElement.setAttribute('data-dirac-security-incident','blocked');
         notice('Akses diblokir oleh server. Hubungi admin untuk pemeriksaan status pemblokiran.');
       }else if(response.ok){
+        finished=true; markPending(false);
         document.documentElement.setAttribute('data-dirac-security-incident','reported');
         notice('Laporan keamanan diterima server. Akses halaman tetap dihentikan.');
       }else throw serverError(response,data);
@@ -225,13 +292,19 @@ install(policy);
       document.documentElement.setAttribute('data-dirac-security-incident','unconfirmed');
       notice('Akses halaman dihentikan. Ban persistent belum terkonfirmasi. '+(error.diracPublicMessage || codeMessage(error) || 'Pengiriman laporan keamanan gagal.'));
     }finally{
-      finished=true; running=false;
+      running=false;
       window.__DIRAC_BACKEND_AUTH_CONTEXT__=null;
     }
   }
-  function signal(field, family){
+  function signal(field, family, sample){
     if(incident) return;
-    incident={field:field,family:family};
+    if(family==='restricted_keyword'){
+      notice('Teks tersebut dibatasi untuk kolom ini. Perbaiki input sebelum melanjutkan.',true);
+      return;
+    }
+    var proof=cachedProof();
+    incident={field:field,family:family,sample:!opaqueKey.test(text(field)) && typeof sample==='string'?sample.slice(0,768):'',sid:proof?proof.sid:''};
+    markPending(true);
     void respond();
   }
   function suffix(){
@@ -269,7 +342,7 @@ install(policy);
     if(typeof value === 'string'){
       if(!fieldKey.test(key)) return null;
       var result = check(value);
-      if(result.detected) return {field:fieldAlias(key),family:result.family};
+      if(result.detected) return {field:fieldAlias(key),family:result.family,sample:result.sample || ''};
       return null;
     }
     if(!value || typeof value !== 'object') return null;
@@ -285,10 +358,10 @@ install(policy);
     var url = new URL(typeof input === 'string' || input instanceof URL ? String(input) : input.url,location.href);
     if(!isApi(url)) return nativeFetch(input,init);
     inspectLocation();
-    if(incident) throw new Error('DIRAC_SECURITY_INCIDENT_PENDING');
+    if(incident || resumePending) throw new Error('DIRAC_SECURITY_INCIDENT_PENDING');
     if(!incidentAction(url)){
       var found = null;
-      url.searchParams.forEach(function(value,key){ if(!found && fieldKey.test(key)){ var result=check(value); if(result.detected) found={field:fieldAlias(key),family:result.family}; } });
+      url.searchParams.forEach(function(value,key){ if(!found && fieldKey.test(key)){ var result=check(value); if(result.detected) found={field:fieldAlias(key),family:result.family,sample:result.sample || ''}; } });
       var body = init && init.body;
       if(body === undefined && typeof Request !== 'undefined' && input instanceof Request && !/^(GET|HEAD)$/.test(input.method)) body = await input.clone().text();
       if(typeof body === 'string'){
@@ -297,7 +370,7 @@ install(policy);
       }else if(typeof FormData !== 'undefined' && body instanceof FormData || typeof URLSearchParams !== 'undefined' && body instanceof URLSearchParams){
         body.forEach(function(value,key){ if(!found && typeof value === 'string') found=inspectBody(value,key,0); });
       }
-      if(found){ signal(found.field,found.family); throw new Error('DIRAC_INPUT_REJECTED'); }
+      if(found){ signal(found.field,found.family,found.sample); throw new Error('DIRAC_INPUT_REJECTED'); }
     }
     if(incidentAction(url)){
       var controller = new AbortController();
@@ -311,7 +384,10 @@ install(policy);
       var timer = setTimeout(function(){controller.abort();},12000);
       try{return await nativeFetch(input,next);}finally{clearTimeout(timer);}
     }
-    return nativeFetch(input,init);
+    if(/(?:login|register|logout|refresh|handoff|password|recovery|(?:passkey|mfa).*verify)/i.test(url.searchParams.get('action') || '')) reportProof=null;
+    var response=await nativeFetch(input,init);
+    observeProof(response);
+    return response;
   }
   window.fetch = outgoing;
   function eligible(el){
@@ -338,16 +414,16 @@ install(policy);
     if(event.cancelable) event.preventDefault();
     event.stopImmediatePropagation();
     if(el.isContentEditable) el.textContent=''; else el.value='';
-    signal(fieldAlias(el.id || el.name || 'input'),result.family);
+    signal(fieldAlias(el.id || el.name || 'input'),result.family,result.sample);
   }
   ['beforeinput','paste','drop','input','compositionend','change'].forEach(function(type){ document.addEventListener(type,inputEvent,true); });
   document.addEventListener('submit',function(event){
     var fields=event.target.querySelectorAll('input,textarea,[contenteditable]:not([contenteditable="false"])');
-    for(var i=0;i<fields.length;i++) if(eligible(fields[i])){ var result=check(text(fields[i].isContentEditable?fields[i].textContent:fields[i].value)); if(result.detected){signal(fieldAlias(fields[i].id||fields[i].name||'input'),result.family);break;} }
-    if(incident){event.preventDefault();event.stopImmediatePropagation();}
+    for(var i=0;i<fields.length;i++) if(eligible(fields[i])){ var result=check(text(fields[i].isContentEditable?fields[i].textContent:fields[i].value)); if(result.detected){event.preventDefault();event.stopImmediatePropagation();signal(fieldAlias(fields[i].id||fields[i].name||'input'),result.family,result.sample);break;} }
+    if(incident || resumePending){event.preventDefault();event.stopImmediatePropagation();}
   },true);
   document.addEventListener('click',function(event){
-    if(incident){event.preventDefault();event.stopImmediatePropagation();return;}
+    if(incident || resumePending){event.preventDefault();event.stopImmediatePropagation();return;}
     var anchor=event.target.closest && event.target.closest('a[href]');
     if(!anchor || anchor.hasAttribute('download')) return;
     var target=new URL(anchor.href,location.href);
@@ -358,14 +434,20 @@ install(policy);
   },true);
   window.addEventListener('hashchange',inspectLocation);
   window.addEventListener('popstate',inspectLocation);
-  window.addEventListener('pageshow',inspectLocation);
-  document.addEventListener('DOMContentLoaded',function(){inspectLocation();if(noticeText)notice(noticeText);void respond();},{once:true});
-  window.DiracSecurityBoundary=Object.freeze({check:check,signal:signal,pending:function(){return !!incident;},rejectResponse:rejectResponse,message:function(value){return value && value.diracPublicMessage || codeMessage(value);}});
+  function lifecycle(){inspectLocation();if(incident)void respond();else if(resumePending)void resumeCheckpoint();}
+  window.addEventListener('pageshow',lifecycle);
+  window.addEventListener('online',lifecycle);
+  window.addEventListener('pagehide',function(){if(incident && !finished || resumePending)markPending(true);});
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden' && (incident && !finished || resumePending))markPending(true);});
+  document.addEventListener('DOMContentLoaded',function(){inspectLocation();if(noticeText)notice(noticeText,noticeDismissible);void respond();},{once:true});
+  window.DiracSecurityBoundary=Object.freeze({check:check,signal:signal,pending:function(){return !!incident || resumePending;},rejectResponse:rejectResponse,message:function(value){return value && value.diracPublicMessage || codeMessage(value);}});
   ['pushState','replaceState'].forEach(function(method){
     var original = history[method];
     history[method] = function(){var result=original.apply(history,arguments);inspectLocation();return result;};
   });
+  resumePending=hasPending();
   inspectLocation();
+  if(resumePending && !incident)void resumeCheckpoint();
 })();
 </script>
 <style id="dirac-chat-style-v1">html[data-effective-theme="light"] body .site-header .hamburger span{background:#172334!important;}
