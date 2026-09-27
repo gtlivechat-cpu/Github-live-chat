@@ -1,0 +1,173 @@
+{
+  "name": "PT DIRAC INOVASI NUSANTARA",
+  "brand": "PT DIRAC INOVASI NUSANTARA",
+  "language": "id-ID",
+  "description": "PT DIRAC INOVASI NUSANTARA: reseller parfum serta layanan website, domain, dan top up game.",
+  "entityType": "Company website",
+  "searchIntents": [
+    "reseller parfum",
+    "jual parfum",
+    "reseller parfum designer",
+    "reseller parfum lokal",
+    "reseller parfum niche",
+    "reseller parfum Timur Tengah",
+    "YSL Y EDP",
+    "Yves Saint Laurent Y EDP 100 ml",
+    "JPG Le Male Parfum",
+    "Jean Paul Gaultier Le Male Parfum 125 ml",
+    "Dior Sauvage 100 ml",
+    "Afnan 9PM",
+    "Rasasi Hawas",
+    "Xerjoff Torino 21",
+    "Nishane Hacivat",
+    "jasa pembuatan website",
+    "jasa pengembangan web",
+    "jasa pengembangan website",
+    "jual domain",
+    "beli domain",
+    "jual beli domain",
+    "transfer domain",
+    "top up game"
+  ],
+  "services": [
+    {
+      "name": "Reseller parfum lokal Indonesia",
+      "category": "Parfum",
+      "url": "parfum-lokal.html",
+      "count": 67,
+      "examples": [
+        "SAFF & Co. OSTARA",
+        "HMNS Farhampton",
+        "Mykonos Cafe Drops",
+        "Fordive Shelby"
+      ]
+    },
+    {
+      "name": "Reseller parfum designer",
+      "category": "Parfum",
+      "url": "parfum-designer.html",
+      "count": 169,
+      "examples": [
+        "Yves Saint Laurent Y EDP 100 ml",
+        "Jean Paul Gaultier Le Male Parfum 125 ml",
+        "Dior Sauvage 100 ml",
+        "Bleu de Chanel EDP 100 ml",
+        "Versace Eros 100 ml"
+      ]
+    },
+    {
+      "name": "Reseller parfum niche",
+      "category": "Parfum",
+      "url": "parfum-niche.html",
+      "count": 35,
+      "examples": [
+        "Xerjoff Torino 21 100 ml",
+        "Xerjoff Erba Pura 100 ml",
+        "Nishane Hacivat",
+        "Nishane Wulong Cha 100 ml",
+        "Louis Vuitton Imagination 100 ml"
+      ]
+    },
+    {
+      "name": "Reseller parfum Timur Tengah",
+      "category": "Parfum",
+      "url": "parfum-timur-tengah.html",
+      "count": 69,
+      "examples": [
+        "Afnan 9PM EDP 100 ml",
+        "Rasasi Hawas Black 100 ml",
+        "Rasasi Hawas For Him 100 ml",
+        "Afnan 9AM Dive EDP 100 ml"
+      ]
+    },
+    {
+      "name": "Jasa pembuatan dan pengembangan website",
+      "category": "Website",
+      "url": "jasa-pembuatan-website.html",
+      "aliases": [
+        "jasa pembuatan website",
+        "jasa bikin website",
+        "jasa pengembangan web",
+        "web development"
+      ]
+    },
+    {
+      "name": "Jual beli dan konsultasi nama domain",
+      "category": "Domain",
+      "url": "jual-beli-domain.html",
+      "aliases": [
+        "jual domain",
+        "beli domain",
+        "jual beli domain",
+        "transfer domain",
+        "konsultasi nama domain"
+      ]
+    },
+    {
+      "name": "Top up game",
+      "category": "Digital",
+      "url": "top-up-game.html"
+    }
+  ],
+  "catalogue": "reseller-parfum.html",
+  "leadership": {
+    "name": "Achmad Zaenuddin",
+    "roles": [
+      "Founder",
+      "Direktur Utama"
+    ],
+    "profile": "direktur-founder.html"
+  },
+  "companyPages": {
+    "about": "tentang-kami.html",
+    "partners": "partner.html",
+    "leadership": "direktur-founder.html"
+  },
+  "knowledge": {
+    "news": "berita.html",
+    "knowledge": "pengetahuan.html",
+    "sitemap": "sitemap.html",
+    "guides": [
+      {
+        "title": "Parfum Murah Berkualitas: Cara Membandingkan Harga, Ukuran dan Kebutuhan",
+        "url": "parfum-murah-berkualitas.html"
+      },
+      {
+        "title": "Panduan Reseller Parfum: Memilih Pemasok, Menghitung Margin dan Mengelola Stok",
+        "url": "panduan-reseller-parfum.html"
+      },
+      {
+        "title": "Cara Memilih Parfum: Aroma, Ukuran dan Cara Mencoba Sebelum Membeli",
+        "url": "cara-memilih-parfum.html"
+      },
+      {
+        "title": "Biaya Beli Domain: Hitung Harga Awal, Perpanjangan, dan Layanan Tambahan",
+        "url": "biaya-beli-domain.html"
+      },
+      {
+        "title": "Cara Transfer Domain: Langkah Awal, Kode Otorisasi, dan Pemeriksaan Akhir",
+        "url": "transfer-domain.html"
+      },
+      {
+        "title": "Contoh Brief Website Usaha: Format Siap Diisi dan Checklist Serah Terima",
+        "url": "brief-website.html"
+      }
+    ],
+    "editorialPolicy": "kebijakan-editorial.html",
+    "articleCounts": {
+      "total": 1551,
+      "knowledge": 1480,
+      "news": 71
+    },
+    "articleDirectory": "berita-detail.html?id="
+  },
+  "address": "JI. AMD Manunggal III, RT 04/RW 01, Desa Gelang, Kecamatan Tulangan, Kabupaten Sidoarjo, Jawa Timur 61273",
+  "contact": {
+    "email": "company\u0064\u0069\u0072\u0061\u0063@gmail.com",
+    "telephone": "+62-878-9252-3968"
+  },
+  "trademarkNotice": "Merek pihak ketiga adalah milik pemegang hak masing-masing; penyebutan katalog tidak menyatakan afiliasi atau dukungan.",
+  "updated": "2026-09-25",
+  "urlPolicy": "All first-party URLs are relative to the active deployment origin; no deployment domain is hardcoded.",
+  "release": "2026.09.26-pt4-r4"
+}
