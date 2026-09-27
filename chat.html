@@ -24,7 +24,7 @@ window.__DIRAC_BASE_DOMAIN__=base;
 window.DiracRuntimeDomain=Object.freeze({baseDomain:base,origin:origin});
 var apiOrigin=origin('api');
 var logoOrigin=origin('order');
-var policy="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com 'sha512-BICE0dflUxps8aX33Fk02V0mETvPSSHgDebrtSvMoc1YhFCiU4pRjyz411EARQ0mBMx/y3eyBdBnV5MsVe1ZEg=='  'sha512-Uw2SBX0vZTT22TeqFBEOmKT10hcwvqfgQ1GLVAwT26awA/sGKdROQaxfRvqep4vML80zpc8tBh35oI07hDKgTg==' 'sha512-tbzIQ51U2wxxCJHkmD0g/yAMUUpMWQF3KQaHp6RgDNpnrIcXBYXEZDwEIhG7gxuT6+55mooKgwO2HhFsYGNpiA==' 'sha512-KhSegFVvjfqmqwSznevUwgnBWSY1s6S1umAQvDVPwl6iuYk/vwjnMJfwYWU7f5eb80OSLlA3YGL/TkpHomcAUw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-elem 'self' https://challenges.cloudflare.com 'sha512-BICE0dflUxps8aX33Fk02V0mETvPSSHgDebrtSvMoc1YhFCiU4pRjyz411EARQ0mBMx/y3eyBdBnV5MsVe1ZEg=='  'sha512-Uw2SBX0vZTT22TeqFBEOmKT10hcwvqfgQ1GLVAwT26awA/sGKdROQaxfRvqep4vML80zpc8tBh35oI07hDKgTg==' 'sha512-tbzIQ51U2wxxCJHkmD0g/yAMUUpMWQF3KQaHp6RgDNpnrIcXBYXEZDwEIhG7gxuT6+55mooKgwO2HhFsYGNpiA==' 'sha512-KhSegFVvjfqmqwSznevUwgnBWSY1s6S1umAQvDVPwl6iuYk/vwjnMJfwYWU7f5eb80OSLlA3YGL/TkpHomcAUw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-attr 'none'; style-src 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-k0C8hfkGmfFF2QF4BGmyg4eZk7HunYS1ZayInQEnjOzqx+2aLoh3g4BBHkbs+ZuQyxkNdBJvgIg1+U6kWYufOg==' 'sha512-bmj9yDqsT5fm8XaS680/WBOz6c/F4G6xkSOW32LMcu9RoCpTbVQsV7rJkZ4rlV7xLuwGdiQ9LsdTpN2NEV4s8g==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-ZX1YC3z2ujDUvN16MiDOBam5YrwADHof+izrNyreYS9HaBS0zpNGXyik67KnJGUhzSmv+cgKgIQczVmN0MU+KA=='; style-src-elem 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-k0C8hfkGmfFF2QF4BGmyg4eZk7HunYS1ZayInQEnjOzqx+2aLoh3g4BBHkbs+ZuQyxkNdBJvgIg1+U6kWYufOg==' 'sha512-bmj9yDqsT5fm8XaS680/WBOz6c/F4G6xkSOW32LMcu9RoCpTbVQsV7rJkZ4rlV7xLuwGdiQ9LsdTpN2NEV4s8g==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-ZX1YC3z2ujDUvN16MiDOBam5YrwADHof+izrNyreYS9HaBS0zpNGXyik67KnJGUhzSmv+cgKgIQczVmN0MU+KA=='; style-src-attr 'none'; img-src 'self' data:; font-src 'self'; media-src 'none'; connect-src 'self' "+apiOrigin+" "+logoOrigin+" https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; child-src https://challenges.cloudflare.com; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types dirac-chat";
+var policy="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com 'sha512-2nxcAQRELjoUk9K+kiLe+E76PGmQLQbiD1Hf/yYJ8eAjBVrFyBn8XXnxZzIJOn/TREeoASYnFe4nGjdWTEx7+g=='  'sha512-Uw2SBX0vZTT22TeqFBEOmKT10hcwvqfgQ1GLVAwT26awA/sGKdROQaxfRvqep4vML80zpc8tBh35oI07hDKgTg==' 'sha512-H3IFXXNu0wtBrDHH8XtsHko1JhGZMeVr04k1pAog1DxdRsy6drU9iYTkAN2dNMPkPDtBufZ7P93+tN4dmSgh7g==' 'sha512-KhSegFVvjfqmqwSznevUwgnBWSY1s6S1umAQvDVPwl6iuYk/vwjnMJfwYWU7f5eb80OSLlA3YGL/TkpHomcAUw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-elem 'self' https://challenges.cloudflare.com 'sha512-2nxcAQRELjoUk9K+kiLe+E76PGmQLQbiD1Hf/yYJ8eAjBVrFyBn8XXnxZzIJOn/TREeoASYnFe4nGjdWTEx7+g=='  'sha512-Uw2SBX0vZTT22TeqFBEOmKT10hcwvqfgQ1GLVAwT26awA/sGKdROQaxfRvqep4vML80zpc8tBh35oI07hDKgTg==' 'sha512-H3IFXXNu0wtBrDHH8XtsHko1JhGZMeVr04k1pAog1DxdRsy6drU9iYTkAN2dNMPkPDtBufZ7P93+tN4dmSgh7g==' 'sha512-KhSegFVvjfqmqwSznevUwgnBWSY1s6S1umAQvDVPwl6iuYk/vwjnMJfwYWU7f5eb80OSLlA3YGL/TkpHomcAUw==' 'sha512-BDEVV0V0fLB5Ey5KaNua570Ort6pBm8uOSAlYCyggn1t6NUmNjkGWs2f8fAcXcBp7SXkUZ6JJKNcrEAvJPwSgQ=='; script-src-attr 'none'; style-src 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-k0C8hfkGmfFF2QF4BGmyg4eZk7HunYS1ZayInQEnjOzqx+2aLoh3g4BBHkbs+ZuQyxkNdBJvgIg1+U6kWYufOg==' 'sha512-bmj9yDqsT5fm8XaS680/WBOz6c/F4G6xkSOW32LMcu9RoCpTbVQsV7rJkZ4rlV7xLuwGdiQ9LsdTpN2NEV4s8g==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-ZX1YC3z2ujDUvN16MiDOBam5YrwADHof+izrNyreYS9HaBS0zpNGXyik67KnJGUhzSmv+cgKgIQczVmN0MU+KA=='; style-src-elem 'self' 'sha512-pMf/zvNINbX397TLOx6JuLhGXfEAS9eGupp38XZAylrvfX4Lsw6q/8bn46TWKLSwsbC4+u0pF+obxGgOvZP46g==' 'sha512-4liJPB0+WSvwZ/D+/ZnplVIQxqmB846fD7KE0wz2P30FqrXc1e88gXIf9HueROqGd9FWEtKDLZuNaGbBQWXUrQ==' 'sha512-k0C8hfkGmfFF2QF4BGmyg4eZk7HunYS1ZayInQEnjOzqx+2aLoh3g4BBHkbs+ZuQyxkNdBJvgIg1+U6kWYufOg==' 'sha512-bmj9yDqsT5fm8XaS680/WBOz6c/F4G6xkSOW32LMcu9RoCpTbVQsV7rJkZ4rlV7xLuwGdiQ9LsdTpN2NEV4s8g==' 'sha512-MyZ9NoEjFiqKEeHtOE0bkpYxA1FnA+3CfmRF7IrFojZS5t5Imktkh5hyB2pErOEz2cqOBQHgxXBu2v9OQ9VRjQ==' 'sha512-ZX1YC3z2ujDUvN16MiDOBam5YrwADHof+izrNyreYS9HaBS0zpNGXyik67KnJGUhzSmv+cgKgIQczVmN0MU+KA=='; style-src-attr 'none'; img-src 'self' data:; font-src 'self'; media-src 'none'; connect-src 'self' "+apiOrigin+" "+logoOrigin+" https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; child-src https://challenges.cloudflare.com; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types dirac-chat";
 install(policy);
 })();</script><script id="dirac-security-boundary-20260905" data-page="chat.html">
 (function(){
@@ -61,13 +61,14 @@ install(policy);
   }
   var RULES = [
     // Explicit site policy requested for user-entered text; these words alone are not proof of an exploit.
-    ['restricted_keyword',/\b(?:admin|union)\b/i],
+    ['restricted_keyword',/\b(?:admin|union)\b|^\s*(?:j\s*a\s*v\s*a\s*s\s*c\s*r\s*i\s*p\s*t|v\s*b\s*s\s*c\s*r\s*i\s*p\s*t|o\s*n\s*(?:error|load|click|focus|blur|mouseover|animationstart)|one\s+error)\s*$/i],
     ['sql_quote_comment',/["'`]\s*(?:--|#)|["'`]\s*(?:or|and)\s*["'`][^"'`]{1,40}["'`]\s*=\s*["'`]/i],
     ['webshell',/<\?php|\b(?:eval|shell_exec|passthru|proc_open|system)\s*\(/i],
     ['secret_probe',/(?:^|[/\\])\.(?:env|git|svn|hg)(?:[/\\]|$)|\.aws[/\\]credentials|\bid_rsa\b/i],
     ['sql_boolean',/(?:^|[\s('"`])(?:or|and)\s+\d+\s*=\s*\d+(?:$|[\s)'"`])|^\s*\(?\s*1\s*=\s*1\s*\)?\s*$/i],
     ['scanner_command',/\b(?:sqlmap|nuclei|nikto|nmap|gobuster|ffuf|dalfox)\s+(?:--[a-z][a-z-]*|-[a-zA-Z])(?:\s|=)/i],
-    ['script_scheme_obfuscated',/\bj\s*a\s*v\s*a\s*s\s*c\s*r\s*i\s*p\s*t\s*:/i],
+    ['script_scheme_obfuscated',/\b(?:j\s*a\s*v\s*a|v\s*b)\s*s\s*c\s*r\s*i\s*p\s*t\s*:/i],
+    ['xss_event_obfuscated',/\bo\s*n\s*(?:e\s*r\s*r\s*o\s*r|l\s*o\s*a\s*d|c\s*l\s*i\s*c\s*k|f\s*o\s*c\s*u\s*s|m\s*o\s*u\s*s\s*e\s*o\s*v\s*e\s*r)\s*=\s*(?:[\"']|[^\s>])/i],
     ['xss_html',/<\s*\/?\s*(?:script|iframe|object|embed|svg|math|meta|link|base|template)\b/i],
     ['xss_media_event',/<\s*(?:img|image|video|audio|body|details|form|input|button|textarea)\b[\s\S]{0,240}(?:\bon[a-z]{3,32}\s*=|(?:javascript|vbscript|data\s*:\s*(?:text\/html|image\/svg\+xml))\s*:)/i],
     ['xss_event',/\bon[a-z]{3,32}\s*=\s*(?:["']|[^\s>])/i],
@@ -137,7 +138,7 @@ install(policy);
   // Browser validation is an additional boundary. Identity and bans remain server-owned.
   var page = document.currentScript.getAttribute('data-page');
   var incident = null, running = false, finished = false, attempts = 0;
-  var reportProof = null, proofPending = null, resumePending = false, resumeRunning = false, resumeAttempts = 0;
+  var reportProof = null, proofPending = null, proofEpoch = 0, resumePending = false, resumeRunning = false, resumeAttempts = 0;
   var pendingCookie = '__Host-dirac_boundary_pending_v431';
   var nativeFetch = window.fetch.bind(window);
   var restoreLocation = history.replaceState.bind(history);
@@ -192,13 +193,48 @@ install(policy);
     return 'https://api.'+parts.join('.')+'/api/health';
   }
   function signed(value){ return /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(text(value)) && value.length >= 48 && value.length <= 4096; }
-  // This host-only flag contains no account, payload, credential, CSRF or nonce.
-  // It is a local checkpoint hint, never evidence that authorizes a server ban.
-  function markPending(value){
-    try{ document.cookie=pendingCookie+'='+(value?'1':'')+'; Path=/; Secure; SameSite=Strict; Max-Age='+(value?'86400':'0'); }catch(_){}
+  // Host-only, bounded incident evidence; no account ID, credential, CSRF or nonce.
+  // This unsigned record is never authority for a ban. Revalidate its syntax and
+  // current signed proof binding before the existing server guard sees a report.
+  function pendingValue(){
+    try{
+      var entry=String(document.cookie || '').split(';').find(function(part){return part.trim().indexOf(pendingCookie+'=')===0;});
+      return entry?entry.trim().slice(pendingCookie.length+1):'';
+    }catch(_){return '';}
   }
-  function hasPending(){
-    try{return String(document.cookie || '').split(';').some(function(part){return part.trim()===pendingCookie+'=1';});}catch(_){return false;}
+  function markPending(value){
+    try{
+      var encoded='';
+      if(value){
+        encoded=pendingValue() || '1';
+        if(incident){
+          var saved={v:2,at:incident.at || Date.now(),field:text(incident.field).replace(/[^a-z0-9_-]/gi,'').slice(0,64),family:text(incident.family).replace(/[^a-z0-9_-]/gi,'').slice(0,64),sample:text(incident.sample).slice(0,768),sid:text(incident.sid),attempts:attempts};
+          encoded=btoa(unescape(encodeURIComponent(JSON.stringify(saved)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+          if(encoded.length>3800) encoded='1';
+        }
+      }
+      document.cookie=pendingCookie+'='+encoded+'; Path=/; Secure; SameSite=Strict; Max-Age='+(value?'86400':'0');
+    }catch(_){}
+  }
+  function hasPending(){return !!pendingValue();}
+  function readPending(){
+    try{
+      var raw=pendingValue();
+      if(!/^[A-Za-z0-9_-]{16,3800}$/.test(raw)) return null;
+      var encoded=raw.replace(/-/g,'+').replace(/_/g,'/');
+      var saved=JSON.parse(decodeURIComponent(escape(atob(encoded+'='.repeat((4-encoded.length%4)%4)))));
+      if(page==='admin.html' || !saved || typeof saved!=='object' || Array.isArray(saved) || Object.keys(saved).sort().join('|')!=='at|attempts|family|field|sample|sid|v'
+        || saved.v!==2 || !Number.isSafeInteger(saved.at) || Date.now()-saved.at<0 || Date.now()-saved.at>86400000
+        || typeof saved.field!=='string' || !/^[a-z0-9_-]{1,64}$/i.test(saved.field)
+        || typeof saved.family!=='string' || !/^[a-z0-9_-]{1,64}$/i.test(saved.family)
+        || typeof saved.sample!=='string' || saved.sample.length>768 || opaqueKey.test(saved.field)
+        || typeof saved.sid!=='string' || !/^[a-f0-9]{64}$/.test(saved.sid) || saved.sid==='e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+        || !Number.isSafeInteger(saved.attempts) || saved.attempts<1 || saved.attempts>2) return null;
+      if(saved.field==='url' && saved.family==='forbidden_html_suffix' && saved.sample==='') return saved;
+      var checked=check(saved.sample);
+      if(!checked.detected || checked.family==='restricted_keyword' || checked.family!==saved.family) return null;
+      return saved;
+    }catch(_){return null;}
   }
   function payload(token){
     if(!signed(token)) return null;
@@ -209,7 +245,7 @@ install(policy);
   }
   function observeProof(response){
     if(!response || !response.ok) return;
-    if(response.headers.get('X-Domain-Token-Refreshed')){reportProof=null;return;}
+    if(response.headers.get('X-Domain-Token-Refreshed')){reportProof=null;proofEpoch+=1;return;}
     var ordinary=payload(text(response.headers.get('X-Dirac-Page-Nonce')));
     if(reportProof && ordinary && ordinary.sid !== reportProof.sid) reportProof=null;
     var csrf=text(response.headers.get('X-Dirac-CSRF-Token') || response.headers.get('X-CSRF-Token'));
@@ -223,8 +259,10 @@ install(policy);
   async function prepareProof(){
     var ready=cachedProof(); if(ready) return ready;
     if(proofPending) return proofPending;
+    var epoch=proofEpoch;
     proofPending=(async function(){
       var response=await reportRequest(healthPath()+'?action=domain_health&_dirac_page_nonce_for=security_report&_t='+Date.now(),{method:'GET',headers:{Accept:'application/json'}});
+      if(epoch!==proofEpoch) throw new Error('DIRAC_REPORT_SESSION_CHANGED');
       if(!response.ok) return rejectResponse(response);
       observeProof(response);
       var ready=cachedProof(); if(!ready) throw new Error('DIRAC_CSRF_BOOTSTRAP_REQUIRED');
@@ -233,12 +271,26 @@ install(policy);
     try{return await proofPending;}finally{proofPending=null;}
   }
   async function resumeCheckpoint(){
-    if(!resumePending || resumeRunning || resumeAttempts>=2 || incident) return;
+    if(!resumePending || resumeRunning || resumeAttempts>=1 || incident) return;
     resumeRunning=true;resumeAttempts+=1;
     document.documentElement.setAttribute('data-dirac-security-incident','checkpoint');
     try{
-      await prepareProof();
-      if(!incident){resumePending=false;markPending(false);document.documentElement.removeAttribute('data-dirac-security-incident');}
+      var saved=readPending(), proof=await prepareProof();
+      if(incident) return;
+      if(saved && saved.sid===proof.sid){
+        if(saved.attempts>=2){
+          notice('Pengiriman laporan keamanan belum terkonfirmasi. Akses tetap ditahan; hubungi admin untuk pemeriksaan.');
+          return;
+        }
+        incident={field:saved.field,family:saved.family,sample:saved.sample,sid:saved.sid,at:saved.at};
+        attempts=saved.attempts;resumePending=false;
+        await respond();
+      }else{
+        // Unsigned/stale metadata cannot accuse a different session. A fresh
+        // guarded server check, never this cookie, establishes the current state.
+        resumePending=false;markPending(false);
+        document.documentElement.removeAttribute('data-dirac-security-incident');
+      }
     }catch(error){
       notice('Pemeriksaan keamanan belum selesai. Akses tetap ditahan. '+(error.diracPublicMessage || codeMessage(error) || 'Sambungkan jaringan lalu muat ulang halaman.'));
     }finally{resumeRunning=false;}
@@ -255,6 +307,7 @@ install(policy);
     var proof=cachedProof() || await prepareProof();
     if(incident && incident.sid && incident.sid!==proof.sid) throw new Error('DIRAC_REPORT_SESSION_CHANGED');
     if(incident && !incident.sid) incident.sid=proof.sid;
+    if(incident) markPending(true);
     reportProof=null;
     return reportRequest(healthPath()+'?action=security_report',{method:'POST',keepalive:true,
       headers:{Accept:'application/json','Content-Type':'application/json','X-CSRF-Token':proof.csrf,'X-Dirac-CSRF-Token':proof.csrf,'X-Dirac-Page-Nonce':proof.nonce},
@@ -287,6 +340,10 @@ install(policy);
         finished=true; markPending(false);
         document.documentElement.setAttribute('data-dirac-security-incident','reported');
         notice('Laporan keamanan diterima server. Akses halaman tetap dihentikan.');
+      }else if(response.status===403 && data && data.code==='SECURITY_REPORT_EVIDENCE_REJECTED'){
+        finished=true;markPending(false);
+        document.documentElement.setAttribute('data-dirac-security-incident','rejected');
+        notice('Input ditolak. Server tidak mengonfirmasi bukti serangan; tidak ada konfirmasi ban dari laporan ini.');
       }else throw serverError(response,data);
     }catch(error){
       document.documentElement.setAttribute('data-dirac-security-incident','unconfirmed');
@@ -303,7 +360,7 @@ install(policy);
       return;
     }
     var proof=cachedProof();
-    incident={field:field,family:family,sample:!opaqueKey.test(text(field)) && typeof sample==='string'?sample.slice(0,768):'',sid:proof?proof.sid:''};
+    incident={field:field,family:family,sample:!opaqueKey.test(text(field)) && typeof sample==='string'?sample.slice(0,768):'',sid:proof?proof.sid:'',at:Date.now()};
     markPending(true);
     void respond();
   }
@@ -384,15 +441,22 @@ install(policy);
       var timer = setTimeout(function(){controller.abort();},12000);
       try{return await nativeFetch(input,next);}finally{clearTimeout(timer);}
     }
-    if(/(?:login|register|logout|refresh|handoff|password|recovery|(?:passkey|mfa).*verify)/i.test(url.searchParams.get('action') || '')) reportProof=null;
+    if(/(?:login|register|logout|refresh|handoff|password|recovery|(?:passkey|mfa).*verify)/i.test(url.searchParams.get('action') || '')){reportProof=null;proofEpoch+=1;}
+    var epoch=proofEpoch;
     var response=await nativeFetch(input,init);
-    observeProof(response);
+    if(epoch===proofEpoch) observeProof(response);
     return response;
   }
   window.fetch = outgoing;
   function eligible(el){
     return el && el.matches && el.matches('input,textarea,[contenteditable]:not([contenteditable="false"])') && !el.matches('[disabled],[readonly],input[type="hidden"],input[type="file"],input[type="checkbox"],input[type="radio"]') && !opaqueKey.test(text(el.id)+' '+text(el.name)+' '+text(el.type)+' '+text(el.autocomplete)) && !/one-time-code/.test(text(el.autocomplete));
   }
+  function warmReportProof(event){
+    if(!eligible(event.target) || incident || resumePending) return;
+    document.removeEventListener('focusin',warmReportProof,true);
+    void prepareProof().catch(function(){});
+  }
+  document.addEventListener('focusin',warmReportProof,true);
   function candidate(el, insertion){
     var current = text(el.isContentEditable?el.textContent:el.value);
     return typeof el.selectionStart === 'number' ? current.slice(0,el.selectionStart)+insertion+current.slice(el.selectionEnd) : current+insertion;
@@ -2344,7 +2408,18 @@ backLink.href=panelHref;
 el('loginLink').href=authHref;
 function setBanner(message,stateName){sessionBanner.textContent='';if(!message){sessionBanner.hidden=true;sessionBanner.removeAttribute('data-state');return;}sessionBanner.hidden=false;if(stateName)sessionBanner.dataset.state=stateName;else sessionBanner.removeAttribute('data-state');var span=document.createElement('span');span.textContent=String(message);sessionBanner.appendChild(span);if(stateName==='auth'){var sep=document.createTextNode(' ');var link=document.createElement('a');link.href=authHref;link.textContent='Masuk ke akun';sessionBanner.append(sep,link);}}
 function setStatus(text){statusText.textContent=String(text||'');}
+var chatSessionDenied=false,chatSessionGeneration=0;
+function expireChatSession(data){
+  if(chatSessionDenied)return;
+  chatSessionDenied=true;chatSessionGeneration+=1;state.identity=null;state.csrf='';state.pendingSend=null;disconnectRealtime();state.messages.clear();messageList.replaceChildren();setConversation(null);
+  ['localStorage','sessionStorage'].forEach(function(name){var store;try{store=window[name];}catch(_){return;}if(!store)return;['dirac_auth_session_v1','dirac_auth_a2f_v1','dirac_auth_a2f_dashboard_ready_v1','dirac_dashboard_gate_v1','dirac_domain_session','dirac_domain_refresh','dirac_customer_mfa_session','sb-auth-token','supabase.auth.token'].forEach(function(key){try{store.removeItem(key);}catch(_){}});});
+  document.body.classList.add('dirac-protected-checking');
+  var code=String(data&&(data.code||data.error_code||data.error)||'');
+  if(/^(?:CENTRAL_SECURITY_BLOCKED|SECURITY_BLOCKED|(?:PERSISTENT|MEMORY|GLOBAL)_BAN_ACTIVE|ACCOUNT_(?:BANNED|BLOCKED)|USER_BANNED)$/.test(code)){setBanner(window.DiracSecurityBoundary.message(data)||'Akses diblokir oleh server.','error');return;}
+  if(!window.DiracSecurityBoundary.pending())location.replace(authHref);
+}
 function request(action,options){
+var requestGeneration=chatSessionGeneration;if(chatSessionDenied)return Promise.reject(Object.assign(new Error('SESSION_NOT_VERIFIED'),{status:401}));
 var config=options||{},method=String(config.method||'GET').toUpperCase();
 if(!API)return Promise.reject(Object.assign(new Error('Konfigurasi layanan bantuan tidak tersedia.'),{status:503,code:'API_CONFIG_MISSING'}));
 var url=new URL(API);url.searchParams.set('action',action);
@@ -2355,7 +2430,7 @@ if(state.csrf&&method!=='GET'&&method!=='HEAD')headers['X-Dirac-CSRF']=state.csr
 if(config.idempotencyKey)headers['Idempotency-Key']=config.idempotencyKey;
 var controller=new AbortController(),timer=setTimeout(function(){controller.abort();},30000);
 return fetch(url.toString(),{method:method,credentials:'include',cache:'no-store',redirect:'error',headers:headers,signal:controller.signal,body:config.body===undefined?undefined:JSON.stringify(config.body)})
-.then(function(response){return response.json().catch(function(){return null;}).then(function(data){if(data&&typeof data.csrfToken==='string')state.csrf=data.csrfToken;if(!response.ok||!data||data.ok!==true){var error=new Error(data&&data.message?data.message:'Permintaan belum dapat diproses.');error.status=response.status;error.code=data&&data.code?data.code:'REQUEST_FAILED';throw error;}return data;});})
+.then(function(response){return response.json().catch(function(){return null;}).then(function(data){if(requestGeneration!==chatSessionGeneration||chatSessionDenied)throw Object.assign(new Error('PAGE_SUSPENDED'),{code:'PAGE_SUSPENDED'});if(data&&typeof data.csrfToken==='string')state.csrf=data.csrfToken;if(!response.ok||!data||data.ok!==true){var error=new Error(data&&data.message?data.message:'Permintaan belum dapat diproses.');error.status=response.status;error.code=data&&data.code?data.code:'REQUEST_FAILED';throw error;}return data;});})
 .catch(function(error){if(error.name==='AbortError')throw Object.assign(new Error('Layanan belum merespons. Pesan Anda tetap tersimpan di kotak tulis; periksa percakapan sebelum mencoba kembali.'),{code:'REQUEST_TIMEOUT'});throw error;}).finally(function(){clearTimeout(timer);});
 }
 function setNavigationBusy(on,label){var overlay=el('diracNavigationBusy');if(!overlay)return;var copy=overlay.querySelector('.dirac-navigation-label');if(copy)copy.textContent=String(label||'Membuka halaman…');overlay.hidden=!on;overlay.setAttribute('aria-busy',on?'true':'false');document.body.classList.toggle('dirac-navigation-busy',!!on);}
@@ -2377,21 +2452,21 @@ function wsUrl(httpUrl,key){var url=new URL(String(httpUrl||''));if(url.protocol
 function wsPush(topic,event,payload,joinRef){if(!state.socket||state.socket.readyState!==1)return'';state.socketRef=(state.socketRef+1)%1000000000;var ref=String(state.socketRef);state.socket.send(JSON.stringify({topic:topic,event:event,payload:payload||{},ref:ref,join_ref:joinRef||null}));return ref;}
 function connectRealtime(config){if(!config||!config.url||!config.key||!config.topic||!state.conversation||config.topic!=='support:chat:'+state.conversation.id)return;if(state.socket&&state.socket.readyState<=1&&state.realtime&&['url','key','topic','token'].every(function(key){return state.realtime[key]===config[key];}))return;disconnectRealtime();state.realtime=config;var socket;try{socket=new WebSocket(wsUrl(config.url,config.key));}catch(_){setStatus('Chat aktif · tekan refresh untuk balasan terbaru');return;}state.socket=socket;socket.addEventListener('open',function(){if(socket!==state.socket)return;state.socketJoinRef=wsPush('realtime:'+config.topic,'phx_join',{config:{broadcast:{ack:false,self:false},presence:{enabled:false},private:true},access_token:config.token||undefined},null);});socket.addEventListener('message',function(event){if(socket!==state.socket)return;var message;try{message=JSON.parse(String(event.data||''));}catch(_){return;}if(!message||typeof message!=='object')return;if(message.event==='phx_reply'&&String(message.ref||'')===state.socketJoinRef){if(message.payload&&message.payload.status==='ok'){setStatus('Pembaruan langsung tersambung');}else setStatus('Chat aktif · tekan refresh untuk pembaruan');return;}if(message.event!=='broadcast'||!message.payload)return;var eventName=String(message.payload.event||'');var payload=message.payload.payload===undefined?message.payload:message.payload.payload;if(eventName==='message_created'){upsertMessage(payload&&payload.message||payload,true);if(payload&&payload.conversation)setConversation(payload.conversation);}else if(eventName==='session_changed'&&payload&&payload.conversation){setConversation(payload.conversation);}else if(eventName==='message_redacted'&&payload){var target=messageList.querySelector('[data-message-id="'+CSS.escape(String(payload.message_id||''))+'"] .message-bubble');var redacted=state.messages.get(String(payload.message_id||''));if(redacted)upsertMessage(Object.assign({},redacted,{body:'Pesan telah disunting oleh petugas sesuai kebijakan keamanan.'}),false);}});socket.addEventListener('close',function(){if(socket!==state.socket)return;state.socket=null;if(state.conversation)setStatus('Chat aktif · tekan refresh untuk balasan terbaru');});socket.addEventListener('error',function(){if(socket===state.socket)setStatus('Chat aktif · tekan refresh untuk balasan terbaru');});}
 function syncThread(){if(state.syncing)return state.syncing;if(!state.conversation)return Promise.resolve();refreshButton.disabled=true;refreshButton.setAttribute('aria-busy','true');state.syncing=request('chat_bootstrap',{query:{after_sequence:lastSequence()}}).then(function(data){renderConversation(data);setBanner('');}).catch(function(error){handleRequestError(error,'Balasan terbaru belum dapat diperiksa.');}).finally(function(){refreshButton.disabled=false;refreshButton.removeAttribute('aria-busy');state.syncing=null;});return state.syncing;}
-function handleRequestError(error,fallback){if(error.status===401){state.identity=null;disconnectRealtime();setConversation(state.conversation);setBanner(error.message||'Sesi akun telah berakhir. Masuk kembali untuk melanjutkan.','auth');}else if(error.code==='CONVERSATION_BLOCKED'){setConversation(Object.assign({},state.conversation,{status:'blocked'}));setBanner(error.message||'Percakapan diblokir.','error');}else setBanner(error.message||fallback,'error');}
+function handleRequestError(error,fallback){if(error.code==='PAGE_SUSPENDED')return;if(error.status===401||error.code==='REQUEST_TIMEOUT'||/^(?:CENTRAL_SECURITY_BLOCKED|SECURITY_BLOCKED|(?:PERSISTENT|MEMORY|GLOBAL)_BAN_ACTIVE|ACCOUNT_(?:BANNED|BLOCKED)|USER_BANNED)$/.test(String(error.code||''))){expireChatSession(error);}else if(error.code==='CONVERSATION_BLOCKED'){setConversation(Object.assign({},state.conversation,{status:'blocked'}));setBanner(error.message||'Percakapan diblokir.','error');}else setBanner(error.message||fallback,'error');}
 function trustedPolicy(){if(!window.trustedTypes)return null;try{return window.trustedTypes.createPolicy('dirac-chat',{createScriptURL:function(value){var url=new URL(String(value));if(url.origin==='https://challenges.cloudflare.com'&&url.pathname==='/turnstile/v0/api.js')return url.href;throw new TypeError('SCRIPT_URL_REJECTED');}});}catch(_){return null;}}
 function renderTurnstile(){if(!state.turnstileRequired||!state.turnstileSiteKey||!window.turnstile||state.turnstileId!==null)return;state.turnstileId=window.turnstile.render('#turnstileWidget',{sitekey:state.turnstileSiteKey,theme:'auto',callback:function(token){state.turnstileToken=String(token||'');setBanner('');},'expired-callback':function(){state.turnstileToken='';setBanner('Verifikasi keamanan kedaluwarsa. Silakan verifikasi kembali.','error');},'error-callback':function(){state.turnstileToken='';setBanner('Verifikasi keamanan belum dapat dimuat.','error');}});}
 function loadTurnstile(){if(!state.turnstileRequired||!state.turnstileSiteKey)return;turnstileRow.hidden=false;if(window.turnstile){renderTurnstile();return;}var script=document.createElement('script');script.async=true;script.defer=true;var src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';var policy=trustedPolicy();script.src=policy?policy.createScriptURL(src):src;script.addEventListener('load',renderTurnstile,{once:true});script.addEventListener('error',function(){setBanner('Verifikasi keamanan belum dapat dimuat.','error');},{once:true});document.head.appendChild(script);}
 function firstMessageSubject(){return {other:'Pertanyaan pelanggan',account:'Bantuan akun dan keamanan',billing:'Bantuan pesanan dan pembayaran',domain:'Bantuan layanan domain',technical:'Kendala teknis pelanggan'}[category.value]||'Pertanyaan pelanggan';}
 function sendCurrentMessage(){var body=String(input.value||'').trim();if(!body||state.sending||!state.identity||input.disabled)return;if(body.length>2000){setBanner('Pesan maksimal 2000 karakter.','error');return;}if(!state.conversation&&state.turnstileRequired&&!state.turnstileToken){setBanner('Selesaikan verifikasi keamanan sebelum mengirim pesan pertama.','error');return;}var action=state.conversation?'chat_send':'chat_start',conversationId=String(state.conversation&&state.conversation.id||''),draft=input.value,signature=JSON.stringify([action,conversationId,body,category.value]);if(!state.pendingSend||state.pendingSend.signature!==signature)state.pendingSend={signature:signature,id:crypto.randomUUID()};var clientId=state.pendingSend.id;state.sending=true;updateComposer();category.disabled=true;setBanner('');var operation=state.conversation?request(action,{method:'POST',idempotencyKey:clientId,body:{conversationId:conversationId,clientMessageId:clientId,body:body}}):request(action,{method:'POST',idempotencyKey:clientId,body:{category:category.value,subject:firstMessageSubject(),message:body,website:'',consent:true,turnstileToken:state.turnstileToken}});operation.then(function(data){var confirmed=action==='chat_send'||Array.isArray(data.messages)&&data.messages.some(function(raw){var message=normalizeMessage(raw);return message.sender==='customer'&&message.body===body;});if(confirmed){if(input.value===draft){input.value='';input.style.height='50px';}state.pendingSend=null;}if(data.conversation&&data.messages)renderConversation(data);else{if(data.conversation)setConversation(data.conversation);if(data.message)upsertMessage(data.message,true);if(data.realtime)connectRealtime(data.realtime);}if(confirmed){setStatus('Pesan terkirim');scrollLatest();}else setBanner('Percakapan yang sudah ada dibuka. Pesan Anda masih di kotak tulis; tekan Kirim untuk mengirimkannya.');if(state.conversation)turnstileRow.hidden=true;}).catch(function(error){handleRequestError(error,'Pesan belum dapat dikirim. Draf tetap tersedia.');}).finally(function(){state.sending=false;category.disabled=false;updateComposer();});}
-function initialize(){if(state.initializing)return state.initializing;if(!API){setBanner('Konfigurasi layanan bantuan tidak tersedia.','error');document.body.classList.remove('dirac-protected-checking');input.disabled=true;sendButton.disabled=true;return Promise.resolve();}refreshButton.disabled=true;setStatus('Memeriksa sesi akun…');state.initializing=request('chat_public_config').then(function(data){state.identity=data.authenticated&&data.user?data.user:null;state.turnstileRequired=data.turnstileRequired===true;state.turnstileSiteKey=String(data.turnstileSiteKey||'');if(!state.identity){setBanner('Masuk ke akun pelanggan untuk mengirim pesan dan melihat percakapan Anda.','auth');setConversation(null);return;}setBanner('');setConversation(null);if(state.turnstileRequired)loadTurnstile();if(data.hasSession===true)return request('chat_bootstrap').then(function(bootstrap){renderConversation(bootstrap);});return null;}).catch(function(error){handleRequestError(error,'Sesi akun belum dapat diperiksa.');setStatus('Layanan chat belum tersedia');input.disabled=true;sendButton.disabled=true;}).finally(function(){document.body.classList.remove('dirac-protected-checking');refreshButton.disabled=false;state.initializing=null;});return state.initializing;}
+function initialize(){if(state.initializing)return state.initializing;var initializeGeneration=chatSessionGeneration;if(!API){setBanner('Konfigurasi layanan bantuan tidak tersedia.','error');document.body.classList.remove('dirac-protected-checking');input.disabled=true;sendButton.disabled=true;return Promise.resolve();}refreshButton.disabled=true;setStatus('Memeriksa sesi akun…');state.initializing=request('chat_public_config').then(function(data){state.identity=data.authenticated&&data.user?data.user:null;state.turnstileRequired=data.turnstileRequired===true;state.turnstileSiteKey=String(data.turnstileSiteKey||'');if(!state.identity){setBanner('Masuk ke akun pelanggan untuk mengirim pesan dan melihat percakapan Anda.','auth');setConversation(null);return;}setBanner('');setConversation(null);if(state.turnstileRequired)loadTurnstile();if(data.hasSession===true)return request('chat_bootstrap').then(function(bootstrap){renderConversation(bootstrap);});return null;}).catch(function(error){if(initializeGeneration!==chatSessionGeneration)return;handleRequestError(error,'Sesi akun belum dapat diperiksa.');setStatus('Layanan chat belum tersedia');input.disabled=true;sendButton.disabled=true;}).finally(function(){if(initializeGeneration!==chatSessionGeneration)return;if(!chatSessionDenied)document.body.classList.remove('dirac-protected-checking');refreshButton.disabled=false;state.initializing=null;});return state.initializing;}
 composer.addEventListener('submit',function(event){event.preventDefault();sendCurrentMessage();});
 input.addEventListener('input',function(){this.style.height='50px';this.style.height=Math.min(this.scrollHeight,160)+'px';updateComposer();});
 input.addEventListener('keydown',function(event){if(event.key==='Enter'&&!event.shiftKey&&!event.isComposing&&event.keyCode!==229&&!matchMedia('(pointer: coarse)').matches){event.preventDefault();composer.requestSubmit();}});
 refreshButton.addEventListener('click',function(){if(state.conversation)syncThread();else initialize();});
 threadSearch.addEventListener('input',applyThreadSearch);latestButton.addEventListener('click',function(){threadSearch.value='';applyThreadSearch();scrollLatest();});
 messageList.addEventListener('scroll',function(){if(messageList.scrollHeight-messageList.scrollTop-messageList.clientHeight<90){state.unseen=0;latestButton.hidden=true;}},{passive:true});
-window.addEventListener('pagehide',disconnectRealtime);
-window.addEventListener('pageshow',function(event){if(event.persisted){state.handoffBusy=false;setNavigationBusy(false);if(state.identity&&state.conversation)syncThread();}});
+window.addEventListener('pagehide',function(){chatSessionGeneration+=1;state.identity=null;state.initializing=null;disconnectRealtime();state.messages.clear();messageList.replaceChildren();setConversation(null);document.body.classList.add('dirac-protected-checking');});
+window.addEventListener('pageshow',function(event){if(event.persisted){state.handoffBusy=false;setNavigationBusy(false);if(!chatSessionDenied)initialize();}});
 var shellRolePaths={'/dashboard.html':['panel','panel'],'/parfum.html':['base','parfum'],'/laboratorium.html':['pt','laboratorium'],'/website.html':['base','website'],'/pesanan.html':['order','pesanan'],'/keamanan.html':['security','security'],'/chat.html':['cs','cs'],'/domain.html':['pt','domain'],'/topup.html':['pt','topup'],'/profil.html':['pt','domain'],'/notifikasi.html':['pt','domain'],'/invoice.html':['pt','domain'],'/cekresi.html':['pt','domain'],'/detail-domain.html':['pt','domain'],'/detail-parfum.html':['pt','domain'],'/detail-project.html':['pt','domain'],'/detail-tiket.html':['pt','domain'],'/tiket-bantuan.html':['pt','domain']};
 function chatTarget(path){var rule=shellRolePaths[path];return runtime.origin(rule?rule[0]:'base')+path;}
 function navigateShell(event,path){event.preventDefault();var rule=shellRolePaths[path];if(!rule){closeChatMenu();setNavigationBusy(true);setTimeout(function(){location.assign(runtime.origin('base')+path);},45);return;}if(rule[0]==='cs'){closeChatMenu();messageList.focus();return;}returnToPanel(event,rule[1],chatTarget(path));}
