@@ -6420,6 +6420,8 @@ a:is([data-customer-portal],[data-detail-website]):focus-visible{outline:3px sol
 @keyframes dx-auth-press{0%{transform:translate3d(-40%,0,0);opacity:1}100%{transform:translate3d(65%,0,0);opacity:0}}
 @media(prefers-reduced-motion:reduce){a:is([data-customer-portal],[data-detail-website]),a:is([data-customer-portal],[data-detail-website])>svg,a.button[data-customer-portal]::before,a.footer-contact-channel[data-customer-portal]::before,a.ptd-market-button[data-detail-website]::before{animation:none!important;transition:none!important;transform:none!important;translate:none!important}a.button[data-customer-portal]::before,a.footer-contact-channel[data-customer-portal]::before,a.ptd-market-button[data-detail-website]::before{opacity:0!important}}
 </style>
+<script src="assets/dirac-preferences-init.js" integrity="sha512-h/GSljEwpkOVS9ocJjX7SRD8hiBef4AiPj9RzHGepBTX0mlJ+jM4qCdE7RapHRjTK9DYPByk5uwmcALU6XifoQ=="></script>
+<link rel="stylesheet" href="assets/dirac-preferences.css" integrity="sha512-OC8lvxBJPqJcuBwsHmoVfUtukMLFLMuML5PeS0aP2TCKnHJ7M5giMLFXZXL09q8NaNym0CwXv8ZvRBHg83cc9w=="/>
 </head>
 <body data-page-style="corporate" id="top">
 <svg aria-hidden="true" class="icon-sprite" focusable="false">
@@ -6736,7 +6738,15 @@ a:is([data-customer-portal],[data-detail-website]):focus-visible{outline:3px sol
 <strong>Kepercayaan dibangun melalui layanan yang jelas, komunikasi yang bertanggung jawab, dan pengalaman yang konsisten.</strong>
 </div>
 <div class="shell footer-bottom"><span>© 2026 PT Dirac Inovasi Nusantara.</span><nav aria-label="Dokumen legal" class="footer-legal-links"><a href="kebijakan-privasi.html">Privasi</a><a href="syarat-ketentuan.html">Syarat</a><a href="kebijakan-transaksi.html">Transaksi</a><a href="#top">Kembali ke atas</a></nav><span>Gunakan kanal resmi situs ini untuk komunikasi layanan.</span></div>
-<div class="shell"><p><a href="pengetahuan.html#panduan-pilihan">Panduan sebelum memesan</a> · <a href="kebijakan-editorial.html">Kebijakan editorial</a> · <a href="sitemap.html">Peta situs</a></p></div></footer>
+<div class="shell"><p><a href="pengetahuan.html#panduan-pilihan">Panduan sebelum memesan</a> · <a href="kebijakan-editorial.html">Kebijakan editorial</a> · <a href="sitemap.html">Peta situs</a></p></div>
+<div class="dirac-preferences" role="group" aria-label="Pengaturan tampilan" id="dirac-preferences">
+  <div class="dirac-preferences__copy"><p class="dirac-preferences__heading">Pengaturan tampilan</p><p class="dirac-preferences__description" id="dirac-pref-disclaimer">Terjemahan antarmuka tersedia. Artikel lengkap tetap dalam bahasa Indonesia.</p></div>
+  <div class="dirac-preferences__actions">
+    <div class="dirac-preferences__unit"><span class="dirac-preferences__label">Tampilan</span><button class="dirac-preferences__switch" id="dirac-pref-theme" type="button" role="switch" aria-checked="false" aria-label="Mode gelap"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.3 14.2A8.5 8.5 0 0 1 9.8 3.7 8.5 8.5 0 1 0 20.3 14.2Z"/></svg><span id="dirac-pref-theme-label">Mode gelap</span></button></div>
+    <div class="dirac-preferences__unit"><label class="dirac-preferences__label" for="dirac-pref-language">Bahasa</label><select class="dirac-preferences__select" id="dirac-pref-language" aria-label="Pilih bahasa"><option value="id">Indonesia</option><option value="en">English</option><option value="ms">Melayu</option><option value="fr">Français</option><option value="es">Español</option></select></div>
+  </div>
+</div>
+</footer>
 <dialog aria-labelledby="inquiry-title" class="ui-dialog" data-inquiry-dialog="" id="inquiry-dialog">
 <div class="dialog-head"><div><p class="kicker">Formulir konsultasi</p><h2 id="inquiry-title">Ceritakan kebutuhan Anda.</h2></div><button aria-label="Tutup formulir" class="icon-button" data-close-dialog="" data-close-inquiry="" type="button"><svg aria-hidden="true" class="icon-svg" focusable="false" height="24" viewbox="0 0 24 24" width="24"><use href="#icon-close"></use></svg></button></div>
 <div class="dialog-body">
@@ -10675,5 +10685,6 @@ window.addEventListener("pageshow",()=>document.documentElement.classList.remove
  else updateContacts();
 })();
 </script>
+<script src="assets/dirac-preferences.js" integrity="sha512-ejq1m/PSMouvo8B8u02lORMwsr9KUYMCJrPvGwzTxRgJk9KWJcwTrcsRcJfkuEBr1MeUvV4Ex+KPpUYWHmlkrQ=="></script>
 </body>
 </html>
