@@ -1,7 +1,8 @@
 ---
 layout: null
 ---
-{%- assign configured_origin = site.url | append: site.baseurl -%}{%- assign o = configured_origin | default: site.github.url | replace_first: 'http://', 'https://' -%}<?xml version="1.0" encoding="UTF-8"?>
+{%- assign configured_origin = site.url | append: site.baseurl -%}{%- assign o = configured_origin | default: site.github.url | replace_first: 'http://', 'https://' -%}
+<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap><loc>{{o}}/sitemap-id.xml</loc></sitemap>
   <sitemap><loc>{{o}}/sitemap-id-02.xml</loc></sitemap>
@@ -87,4 +88,65 @@ layout: null
   <sitemap><loc>{{o}}/sitemap-es-15.xml</loc></sitemap>
   <sitemap><loc>{{o}}/sitemap-es-16.xml</loc></sitemap>
   <sitemap><loc>{{o}}/sitemap-es-17.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-laboratorium.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-01.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-02.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-bayulab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-bayulab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-langitlab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-langitlab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-hutanlab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-hutanlab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-kapaslab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-kapaslab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-daunalab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-daunalab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-awanlab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-awanlab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-parfum.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-parfum-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-mentarilab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-mentarilab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-jamlab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-jamlab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-bumilab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-bumilab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-kayulab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-kayulab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-batulab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-batulab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-ularlab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-ularlab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-jendelalab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-jendelalab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-cahayalab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-cahayalab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-wifilab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-wifilab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-embunlab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-embunlab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-rantalab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-rantalab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-ombaklab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-jam.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-jam-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-arunalab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-arunalab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-pijarlab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-pijarlab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-kursilab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-kursilab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-tubelab.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-tubelab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-katalog-ombaklab-2.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-03.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-04.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-05.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-06.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-07.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-08.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-09.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-10.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-11.xml</loc></sitemap>
+  <sitemap><loc>{{o}}/sitemap-laboratorium-12.xml</loc></sitemap>
 </sitemapindex>
